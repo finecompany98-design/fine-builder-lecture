@@ -1,1 +1,314 @@
-/* Add styles here */
+/* 월렛 바이올렛 컬러 팔레트 */
+:root {
+  --violet-50: #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-400: #a78bfa;
+  --violet-600: #7c3aed;
+  --violet-700: #6d28d9;
+  --violet-900: #4c1d95;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-900: #111827;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: var(--white);
+  color: var(--gray-900);
+  line-height: 1.6;
+}
+
+/* ── 헤더 ── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--violet-100);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── 로고 (좌측 상단) ── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo-icon {
+  font-size: 20px;
+  color: var(--violet-600);
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--violet-700);
+  letter-spacing: -0.5px;
+}
+
+/* ── 네비게이션 ── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--gray-600);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--violet-700);
+  background: var(--violet-50);
+}
+
+.nav-cta {
+  font-weight: 600;
+  color: var(--white) !important;
+  background: var(--violet-600);
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--violet-700) !important;
+}
+
+/* ── 히어로 섹션 ── */
+.hero {
+  min-height: 100vh;
+  padding: 64px 32px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 560px;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--violet-600);
+  background: var(--violet-50);
+  border: 1px solid var(--violet-100);
+  padding: 4px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -2px;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+}
+
+.hero-title .highlight {
+  color: var(--violet-600);
+}
+
+.hero-desc {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: var(--violet-600);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: var(--violet-700);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: var(--violet-50);
+  color: var(--violet-700);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  border: 1px solid var(--violet-100);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-secondary:hover {
+  background: var(--violet-100);
+  transform: translateY(-1px);
+}
+
+/* ── 히어로 비주얼 카드 ── */
+.hero-visual {
+  flex: 1;
+  max-width: 480px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.visual-card {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.visual-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.12);
+}
+
+.card1 { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: var(--violet-100); }
+.card2 { background: linear-gradient(135deg, #fef9ee, #fef3c7); border-color: #fde68a; }
+.card3 { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; }
+.card4 { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3; }
+
+.card-emoji {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.visual-card p {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+/* ── 특징 섹션 ── */
+.features {
+  background: var(--violet-50);
+  border-top: 1px solid var(--violet-100);
+  padding: 80px 32px;
+}
+
+.features-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--violet-100);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(124, 58, 237, 0.1);
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.feature-item h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--violet-700);
+  margin-bottom: 12px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding-top: 100px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 42px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    max-width: 100%;
+  }
+
+  .features-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-link:not(.nav-cta) {
+    display: none;
+  }
+}
