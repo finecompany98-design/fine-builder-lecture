@@ -13,11 +13,11 @@ const FEATURES = [
   },
   {
     label: '02',
-    title: 'AI 맞춤 추천',
-    desc: '분야·경력·유형을 선택하면 나에게 맞는 지원사업과 공모전을 AI가 골라드립니다.',
+    title: 'fine:D 맞춤 추천',
+    desc: '분야·경력·유형을 선택하면 나에게 맞는 지원사업과 공모전을 fine:D가 골라드립니다.',
     to: '/ai-recommend',
-    cta: 'AI 추천 받기',
-    tag: 'AI',
+    cta: '맞춤 추천 받기',
+    tag: 'PICK',
   },
   {
     label: '03',
@@ -78,7 +78,7 @@ export default function Home() {
 
             <p className="fade-up-3" style={s.heroDesc}>
               공공기관·재단의 공모전과 지원사업 정보를 한데 모아<br />
-              AI가 내 분야에 꼭 맞게 추천해드립니다
+              fine:D가 내 분야에 꼭 맞는 기회를 찾아드립니다
             </p>
 
             <div className="fade-up-4" style={s.ctaRow}>
@@ -89,7 +89,7 @@ export default function Home() {
                 </svg>
               </Link>
               <Link to="/ai-recommend" style={s.ctaSecondary}>
-                ✦ AI 맞춤 추천
+                ✦ fine:D 맞춤 추천
               </Link>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function Home() {
             <span style={s.ctaAccent}>시작하세요</span>
           </h2>
           <p style={s.ctaDesc}>
-            내 분야에 맞는 공모와 지원사업을<br />AI가 추천해드립니다
+            내 분야에 맞는 공모와 지원사업을<br />fine:D가 전부 찾아드립니다
           </p>
           <div style={s.ctaBtnRow}>
             <Link to="/auth" style={s.ctaBtnPrimary}>시작하기 →</Link>

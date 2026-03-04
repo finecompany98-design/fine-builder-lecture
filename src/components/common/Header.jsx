@@ -16,7 +16,7 @@ export default function Header() {
 
   const navLinks = [
     { to: '/competitions', label: '공모·지원사업', icon: '🏆' },
-    { to: '/ai-recommend', label: 'AI 추천', icon: '✨' },
+    { to: '/ai-recommend', label: '맞춤 추천', icon: '✦' },
   ]
 
   return (

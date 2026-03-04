@@ -95,10 +95,10 @@ export default function AIRecommend() {
     return (
       <main id="main" style={s.page}>
         <div style={s.introCard}>
-          <span style={s.introEmoji}>✨</span>
-          <h1 style={s.introTitle}>AI 맞춤 추천</h1>
+          <span style={s.introEmoji}>✦</span>
+          <h1 style={s.introTitle}>fine:D 맞춤 추천</h1>
           <p style={s.introDesc}>
-            3가지 질문에 답하면<br />나에게 맞는 공모·지원사업을 추려드립니다.
+            3가지 질문에 답하면<br />fine:D가 딱 맞는 공모·지원사업을 찾아드립니다.
           </p>
           <div style={s.introList}>
             {STEPS.map((st, i) => (

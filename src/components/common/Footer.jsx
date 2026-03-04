@@ -14,7 +14,7 @@ export default function Footer() {
           <nav style={s.links} aria-label="서비스 메뉴">
             <strong style={s.colTitle}>서비스</strong>
             <Link to="/competitions" style={s.link}>공모·지원사업</Link>
-            <Link to="/ai-recommend" style={s.link}>AI 맞춤 추천</Link>
+            <Link to="/ai-recommend" style={s.link}>맞춤 추천</Link>
           </nav>
           <nav style={s.links} aria-label="정보 메뉴">
             <strong style={s.colTitle}>정보</strong>
