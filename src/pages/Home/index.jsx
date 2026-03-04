@@ -45,8 +45,8 @@ export default function Home() {
         <div style={s.heroInner}>
           <span style={s.heroTag}>문화예술 플랫폼 · fine:D</span>
           <h1 id="hero-title" style={s.heroTitle}>
-            열심히 하고 있는데,<br />
-            <span style={s.highlight}>기회를 놓치고 있진 않나요?</span>
+            당신의 예술은 'Fine'하게,<br />
+            <span style={s.highlight}>당신의 무대는 우리가 'Find'하게</span>
           </h1>
           <p style={s.heroDesc}>
             공공기관·재단의 공모전과 지원사업 정보를 모아,<br />
@@ -126,51 +126,51 @@ const s = {
   /* 히어로 */
   hero: {
     padding: '100px 24px 80px',
-    background: 'linear-gradient(160deg, #EDE8FF 0%, #F8F7FF 55%, #FFF9ED 100%)',
+    background: 'linear-gradient(160deg, #F0F0F0 0%, #F8F8F8 55%, #FFFFFF 100%)',
     textAlign: 'center',
   },
   heroInner: { maxWidth: 720, margin: '0 auto' },
   heroTag: {
     display: 'inline-block',
-    background: '#EDE8FF', color: '#6C3CE1',
+    background: '#EBEBEB', color: '#111111',
     padding: '6px 18px', borderRadius: 20,
     fontSize: '0.82rem', fontWeight: 700,
-    border: '1px solid rgba(108,60,225,0.2)',
+    border: '1px solid rgba(0,0,0,0.2)',
     marginBottom: 28,
   },
   heroTitle: {
     fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
     fontWeight: 900, lineHeight: 1.2,
-    color: '#1A1027', marginBottom: 20,
+    color: '#111111', marginBottom: 20,
   },
   highlight: {
-    background: 'linear-gradient(135deg, #6C3CE1, #A855F7)',
+    background: 'linear-gradient(135deg, #111111, #555555)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
   },
   heroDesc: {
-    fontSize: '1.1rem', color: '#6B6585',
+    fontSize: '1.1rem', color: '#888888',
     lineHeight: 1.9, marginBottom: 44,
   },
   ctaRow: { display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' },
   ctaPrimary: {
     padding: '14px 34px', borderRadius: 50,
-    background: '#6C3CE1', color: '#fff',
+    background: '#111111', color: '#fff',
     fontWeight: 700, fontSize: '1rem',
-    boxShadow: '0 4px 20px rgba(108,60,225,0.3)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
   },
   ctaSecondary: {
     padding: '14px 34px', borderRadius: 50,
-    background: '#fff', color: '#6C3CE1',
+    background: '#fff', color: '#111111',
     fontWeight: 700, fontSize: '1rem',
-    border: '2px solid #6C3CE1',
+    border: '2px solid #111111',
   },
 
   /* 통계 */
   statsSection: {
     background: '#fff',
-    borderBottom: '1px solid rgba(108,60,225,0.08)',
+    borderBottom: '1px solid rgba(0,0,0,0.08)',
     padding: '36px 24px',
   },
   statsInner: {
@@ -179,19 +179,19 @@ const s = {
     gap: 64, flexWrap: 'wrap',
   },
   statItem: { textAlign: 'center' },
-  statNum: { display: 'block', fontSize: '2.4rem', fontWeight: 900, color: '#6C3CE1' },
-  statLabel: { display: 'block', fontSize: '0.85rem', color: '#6B6585', marginTop: 6 },
+  statNum: { display: 'block', fontSize: '2.4rem', fontWeight: 900, color: '#111111' },
+  statLabel: { display: 'block', fontSize: '0.85rem', color: '#888888', marginTop: 6 },
 
   /* 공통 섹션 */
-  section: { padding: '80px 24px', background: '#F8F7FF' },
-  stepsSection: { padding: '80px 24px', background: '#F3F0FF' },
+  section: { padding: '80px 24px', background: '#F8F8F8' },
+  stepsSection: { padding: '80px 24px', background: '#F5F5F5' },
   sectionInner: { maxWidth: 1100, margin: '0 auto' },
   sectionTitle: {
     fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
     fontWeight: 900, textAlign: 'center',
-    color: '#1A1027', marginBottom: 12,
+    color: '#111111', marginBottom: 12,
   },
-  sectionSub: { textAlign: 'center', color: '#6B6585', marginBottom: 48, fontSize: '1rem' },
+  sectionSub: { textAlign: 'center', color: '#888888', marginBottom: 48, fontSize: '1rem' },
 
   /* 기능 카드 */
   featureGrid: {
@@ -202,13 +202,13 @@ const s = {
   featureCard: {
     background: '#fff', borderRadius: 20,
     padding: '36px 28px',
-    boxShadow: '0 4px 24px rgba(108,60,225,0.08)',
-    border: '1px solid rgba(108,60,225,0.08)',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    border: '1px solid rgba(0,0,0,0.08)',
   },
   featureIcon: { fontSize: '2.4rem', display: 'block', marginBottom: 16 },
-  featureTitle: { fontSize: '1.1rem', fontWeight: 800, color: '#1A1027', marginBottom: 10 },
-  featureDesc: { fontSize: '0.9rem', color: '#6B6585', lineHeight: 1.75, marginBottom: 20 },
-  featureLink: { color: '#6C3CE1', fontWeight: 700, fontSize: '0.9rem' },
+  featureTitle: { fontSize: '1.1rem', fontWeight: 800, color: '#111111', marginBottom: 10 },
+  featureDesc: { fontSize: '0.9rem', color: '#888888', lineHeight: 1.75, marginBottom: 20 },
+  featureLink: { color: '#111111', fontWeight: 700, fontSize: '0.9rem' },
 
   /* 단계 */
   stepsGrid: {
@@ -219,21 +219,21 @@ const s = {
   step: {
     background: '#fff', borderRadius: 20,
     padding: '32px 24px', textAlign: 'center',
-    boxShadow: '0 2px 16px rgba(108,60,225,0.07)',
+    boxShadow: '0 2px 16px rgba(0,0,0,0.07)',
   },
   stepNum: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
     width: 48, height: 48, borderRadius: '50%',
-    background: '#6C3CE1', color: '#fff',
+    background: '#111111', color: '#fff',
     fontWeight: 900, fontSize: '1.2rem', marginBottom: 18,
   },
-  stepTitle: { display: 'block', fontSize: '1.05rem', fontWeight: 800, color: '#1A1027', marginBottom: 10 },
-  stepDesc: { fontSize: '0.88rem', color: '#6B6585', lineHeight: 1.75 },
+  stepTitle: { display: 'block', fontSize: '1.05rem', fontWeight: 800, color: '#111111', marginBottom: 10 },
+  stepDesc: { fontSize: '0.88rem', color: '#888888', lineHeight: 1.75 },
 
   /* 하단 CTA */
   bottomCta: {
     padding: '80px 24px',
-    background: 'linear-gradient(135deg, #6C3CE1 0%, #8B5CF6 100%)',
+    background: '#111111',
     textAlign: 'center',
   },
   ctaTitle: {
@@ -244,7 +244,7 @@ const s = {
   ctaBtnRow: { display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' },
   ctaBtnWhite: {
     padding: '14px 34px', borderRadius: 50,
-    background: '#fff', color: '#6C3CE1',
+    background: '#fff', color: '#111111',
     fontWeight: 700, fontSize: '1rem',
     boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
   },

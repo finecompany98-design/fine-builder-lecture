@@ -6,7 +6,7 @@ export default function Footer() {
       <div style={s.inner}>
         <div style={s.top}>
           <div>
-            <p style={s.logo}>Fine<span style={{color:'#8B5CF6'}}>:D</span></p>
+            <p style={s.logo}>Fine<span style={{color:'#555555'}}>:D</span></p>
             <p style={s.tagline}>예술인의 기회를 fine:D에서 찾아요</p>
           </div>
           <nav style={s.links} aria-label="하단 메뉴">
@@ -29,7 +29,7 @@ export default function Footer() {
 
 const s = {
   footer: {
-    background: '#1A1027',
+    background: '#1A1A1A',
     padding: '48px 24px 32px',
     marginTop: 0,
   },
@@ -39,7 +39,7 @@ const s = {
     paddingBottom: 32, borderBottom: '1px solid rgba(255,255,255,0.08)',
     marginBottom: 24,
   },
-  logo: { fontWeight: 900, fontSize: '1.2rem', color: '#8B5CF6', marginBottom: 8 },
+  logo: { fontWeight: 900, fontSize: '1.2rem', color: '#555555', marginBottom: 8 },
   tagline: { color: 'rgba(240,235,248,0.5)', fontSize: '0.85rem' },
   links: { display: 'flex', flexDirection: 'column', gap: 10 },
   colTitle: { color: 'rgba(240,235,248,0.35)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', marginBottom: 4 },

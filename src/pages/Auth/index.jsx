@@ -58,7 +58,7 @@ const styles = {
     justifyContent: 'center', alignItems: 'center', minHeight: '70vh',
   },
   card: {
-    background: 'rgba(26,16,48,0.9)',
+    background: 'rgba(26,26,26,0.95)',
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: 24, padding: '48px 40px',
     maxWidth: 440, width: '100%',

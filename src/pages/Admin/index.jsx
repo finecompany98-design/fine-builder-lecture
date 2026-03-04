@@ -198,13 +198,13 @@ function Row({ children }) {
   return <div style={s.row}>{children}</div>
 }
 function Spinner() {
-  return <div style={{ color: '#C4B5FD', padding: 80, textAlign: 'center' }}>확인 중...</div>
+  return <div style={{ color: '#AAAAAA', padding: 80, textAlign: 'center' }}>확인 중...</div>
 }
 function NotLoggedIn() {
   return (
     <div style={{ padding: 80, textAlign: 'center' }}>
       <p style={{ color: '#fff', fontSize: '1.2rem' }}>로그인이 필요합니다.</p>
-      <Link to="/auth" style={{ color: '#8B5CF6', marginTop: 16, display: 'inline-block' }}>로그인하러 가기 →</Link>
+      <Link to="/auth" style={{ color: '#555555', marginTop: 16, display: 'inline-block' }}>로그인하러 가기 →</Link>
     </div>
   )
 }
@@ -217,7 +217,7 @@ const s = {
   main: { padding: '60px 24px 80px', minHeight: '80vh' },
   inner: { maxWidth: 780, margin: '0 auto' },
   header: { marginBottom: 40 },
-  back: { color: '#8B5CF6', fontSize: '0.9rem', display: 'inline-block', marginBottom: 16 },
+  back: { color: '#555555', fontSize: '0.9rem', display: 'inline-block', marginBottom: 16 },
   title: { fontSize: '1.8rem', fontWeight: 900, color: '#fff', marginBottom: 8 },
   sub: { color: 'rgba(240,235,248,0.55)', fontSize: '0.9rem' },
   success: {
@@ -232,7 +232,7 @@ const s = {
     background: 'rgba(26,16,48,0.85)', border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: 20, padding: '28px 28px 24px',
   },
-  sectionTitle: { fontSize: '1rem', fontWeight: 800, color: '#C4B5FD', marginBottom: 20, paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.08)' },
+  sectionTitle: { fontSize: '1rem', fontWeight: 800, color: '#AAAAAA', marginBottom: 20, paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.08)' },
   field: { display: 'flex', flexDirection: 'column', gap: 8, flex: 1 },
   label: { fontSize: '0.85rem', fontWeight: 700, color: 'rgba(240,235,248,0.65)' },
   input: {
@@ -252,11 +252,11 @@ const s = {
   row: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 },
   checkGrid: { display: 'flex', flexWrap: 'wrap', gap: 10 },
   checkLabel: { display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(240,235,248,0.75)', fontSize: '0.88rem', cursor: 'pointer' },
-  checkbox: { accentColor: '#8B5CF6', width: 16, height: 16 },
+  checkbox: { accentColor: '#555555', width: 16, height: 16 },
   error: { color: '#F87171', fontSize: '0.9rem', padding: '12px 16px', background: 'rgba(248,113,113,0.1)', borderRadius: 10 },
   submitBtn: {
     padding: '16px', borderRadius: 14,
-    background: 'linear-gradient(135deg,#6C3CE1,#8B5CF6)',
+    background: 'linear-gradient(135deg,#111111,#555555)',
     color: '#fff', fontSize: '1.05rem', fontWeight: 800,
     fontFamily: 'inherit', cursor: 'pointer', border: 'none',
     transition: 'opacity 0.2s',

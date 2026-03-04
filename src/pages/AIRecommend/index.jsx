@@ -134,7 +134,7 @@ export default function AIRecommend() {
           {results.length === 0 ? (
             <div style={s.emptyBox}>
               <span style={{ fontSize: '3rem', display: 'block', marginBottom: 16 }}>🔎</span>
-              <p style={{ color: '#6B6585' }}>다른 조건으로 시도해보세요.</p>
+              <p style={{ color: '#888888' }}>다른 조건으로 시도해보세요.</p>
             </div>
           ) : (
             <div style={s.resultGrid}>
@@ -144,7 +144,7 @@ export default function AIRecommend() {
                   ? { bg: '#F3F4F6', text: '#9CA3AF' }
                   : ddayLabel === 'D-DAY'
                   ? { bg: '#FEE2E2', text: '#EF4444' }
-                  : { bg: '#EDE8FF', text: '#6C3CE1' }
+                  : { bg: '#EBEBEB', text: '#111111' }
                 return (
                   <a key={i} href={item.orgUrl} target="_blank" rel="noopener noreferrer" style={s.resultCard}>
                     <div style={s.rcTop}>
@@ -216,7 +216,7 @@ export default function AIRecommend() {
 
 const s = {
   page: {
-    minHeight: '80vh', background: '#F8F7FF',
+    minHeight: '80vh', background: '#F8F8F8',
     padding: '60px 24px 80px',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
   },
@@ -224,52 +224,52 @@ const s = {
   introCard: {
     background: '#fff', borderRadius: 24,
     padding: '48px 40px', maxWidth: 480, width: '100%',
-    boxShadow: '0 8px 40px rgba(108,60,225,0.12)',
-    border: '1px solid rgba(108,60,225,0.08)',
+    boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
+    border: '1px solid rgba(0,0,0,0.08)',
     textAlign: 'center',
   },
   introEmoji: { fontSize: '3rem', display: 'block', marginBottom: 16 },
-  introTitle: { fontSize: '1.8rem', fontWeight: 900, color: '#1A1027', marginBottom: 12 },
-  introDesc: { color: '#6B6585', lineHeight: 1.8, marginBottom: 32, fontSize: '1rem' },
+  introTitle: { fontSize: '1.8rem', fontWeight: 900, color: '#111111', marginBottom: 12 },
+  introDesc: { color: '#888888', lineHeight: 1.8, marginBottom: 32, fontSize: '1rem' },
   introList: { display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 36, textAlign: 'left' },
   introStep: {
     display: 'flex', alignItems: 'center', gap: 14,
     padding: '12px 16px', borderRadius: 12,
-    background: '#F8F7FF', border: '1px solid rgba(108,60,225,0.08)',
+    background: '#F8F8F8', border: '1px solid rgba(0,0,0,0.08)',
   },
   introStepNum: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
     width: 28, height: 28, borderRadius: '50%',
-    background: '#6C3CE1', color: '#fff',
+    background: '#111111', color: '#fff',
     fontSize: '0.85rem', fontWeight: 900, flexShrink: 0,
   },
-  introStepLabel: { color: '#1A1027', fontSize: '0.9rem', fontWeight: 600 },
+  introStepLabel: { color: '#111111', fontSize: '0.9rem', fontWeight: 600 },
   startBtn: {
     width: '100%', padding: '14px',
-    background: '#6C3CE1', color: '#fff',
+    background: '#111111', color: '#fff',
     borderRadius: 14, fontWeight: 700, fontSize: '1rem',
     fontFamily: 'inherit',
-    boxShadow: '0 4px 20px rgba(108,60,225,0.3)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
   },
 
   surveyWrap: { maxWidth: 600, width: '100%' },
   progressArea: { marginBottom: 40 },
   progressMeta: { display: 'flex', justifyContent: 'space-between', marginBottom: 10 },
-  stepLabel: { fontSize: '0.85rem', color: '#6B6585', fontWeight: 600 },
-  progressPct: { fontSize: '0.85rem', color: '#6C3CE1', fontWeight: 700 },
+  stepLabel: { fontSize: '0.85rem', color: '#888888', fontWeight: 600 },
+  progressPct: { fontSize: '0.85rem', color: '#111111', fontWeight: 700 },
   progressBar: {
     height: 6, borderRadius: 6,
-    background: 'rgba(108,60,225,0.12)', overflow: 'hidden',
+    background: 'rgba(0,0,0,0.12)', overflow: 'hidden',
   },
   progressFill: {
     height: '100%', borderRadius: 6,
-    background: 'linear-gradient(90deg, #6C3CE1, #8B5CF6)',
+    background: 'linear-gradient(90deg, #111111, #555555',
     transition: 'width 0.4s ease',
   },
 
   questionBox: { marginBottom: 28 },
-  question: { fontSize: 'clamp(1.3rem, 3vw, 1.7rem)', fontWeight: 900, color: '#1A1027', marginBottom: 8 },
-  questionSub: { color: '#6B6585', fontSize: '0.95rem' },
+  question: { fontSize: 'clamp(1.3rem, 3vw, 1.7rem)', fontWeight: 900, color: '#111111', marginBottom: 8 },
+  questionSub: { color: '#888888', fontSize: '0.95rem' },
 
   optionGrid: {
     display: 'grid',
@@ -280,26 +280,26 @@ const s = {
   optionBtn: {
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     padding: '20px 16px', borderRadius: 16,
-    background: '#fff', border: '1.5px solid rgba(108,60,225,0.15)',
+    background: '#fff', border: '1.5px solid rgba(0,0,0,0.15)',
     cursor: 'pointer', transition: 'all 0.15s',
     fontFamily: 'inherit', textAlign: 'center',
-    boxShadow: '0 2px 12px rgba(108,60,225,0.06)',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
   },
   optionEmoji: { fontSize: '1.8rem', display: 'block', marginBottom: 8 },
-  optionLabel: { fontWeight: 700, color: '#1A1027', fontSize: '0.95rem', marginBottom: 4 },
-  optionDesc: { fontSize: '0.78rem', color: '#6B6585' },
+  optionLabel: { fontWeight: 700, color: '#111111', fontSize: '0.95rem', marginBottom: 4 },
+  optionDesc: { fontSize: '0.78rem', color: '#888888' },
   backBtn: {
-    color: '#6B6585', fontSize: '0.9rem',
+    color: '#888888', fontSize: '0.9rem',
     fontFamily: 'inherit', padding: '8px 0', cursor: 'pointer',
   },
 
   resultHeader: { textAlign: 'center', marginBottom: 36 },
-  resultTitle: { fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 900, color: '#1A1027', marginBottom: 10 },
-  resultSub: { color: '#6B6585', marginBottom: 20 },
+  resultTitle: { fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 900, color: '#111111', marginBottom: 10 },
+  resultSub: { color: '#888888', marginBottom: 20 },
   retryBtn: {
     padding: '10px 24px', borderRadius: 20,
-    background: '#EDE8FF', color: '#6C3CE1',
-    border: '1px solid rgba(108,60,225,0.3)',
+    background: '#EBEBEB', color: '#111111',
+    border: '1px solid rgba(0,0,0,0.3)',
     fontWeight: 700, fontSize: '0.9rem', fontFamily: 'inherit', cursor: 'pointer',
   },
   emptyBox: { textAlign: 'center', padding: '80px 0' },
@@ -311,9 +311,9 @@ const s = {
   },
   resultCard: {
     display: 'block', background: '#fff',
-    border: '1.5px solid rgba(108,60,225,0.08)',
+    border: '1.5px solid rgba(0,0,0,0.08)',
     borderRadius: 20, padding: '24px',
-    boxShadow: '0 2px 16px rgba(108,60,225,0.07)',
+    boxShadow: '0 2px 16px rgba(0,0,0,0.07)',
     textDecoration: 'none',
   },
   rcTop: { display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap', alignItems: 'center' },
@@ -327,15 +327,15 @@ const s = {
   },
   bgPurple: {
     padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: '#EDE8FF', color: '#6C3CE1', border: '1px solid #DDD6FE',
+    background: '#EBEBEB', color: '#111111', border: '1px solid #DDDDDD',
   },
   ddayBadge: {
     marginLeft: 'auto', padding: '3px 10px',
     borderRadius: 20, fontSize: '0.8rem', fontWeight: 900,
   },
-  rcTitle: { fontSize: '1rem', fontWeight: 800, color: '#1A1027', marginBottom: 6, lineHeight: 1.4 },
-  rcOrg: { color: '#6C3CE1', fontSize: '0.85rem', marginBottom: 6, fontWeight: 600 },
+  rcTitle: { fontSize: '1rem', fontWeight: 800, color: '#111111', marginBottom: 6, lineHeight: 1.4 },
+  rcOrg: { color: '#111111', fontSize: '0.85rem', marginBottom: 6, fontWeight: 600 },
   rcAmount: { color: '#D97706', fontWeight: 700, fontSize: '0.88rem', marginBottom: 10 },
-  rcDesc: { color: '#6B6585', fontSize: '0.84rem', lineHeight: 1.7, marginBottom: 14 },
-  rcLink: { color: '#6C3CE1', fontSize: '0.85rem', fontWeight: 700 },
+  rcDesc: { color: '#888888', fontSize: '0.84rem', lineHeight: 1.7, marginBottom: 14 },
+  rcLink: { color: '#111111', fontSize: '0.85rem', fontWeight: 700 },
 }

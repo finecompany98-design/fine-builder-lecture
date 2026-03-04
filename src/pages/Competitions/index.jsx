@@ -23,7 +23,7 @@ function ddayColor(label) {
   if (label === 'D-DAY') return { bg: '#FEE2E2', text: '#EF4444' }
   const n = parseInt(label.replace('D-', ''))
   if (n <= 7) return { bg: '#FEF3C7', text: '#D97706' }
-  return { bg: '#EDE8FF', text: '#6C3CE1' }
+  return { bg: '#EBEBEB', text: '#111111' }
 }
 
 export default function Competitions() {
@@ -122,9 +122,9 @@ export default function Competitions() {
                   onClick={() => setActiveCategory(cat)}
                   style={{
                     ...s.filterBtn,
-                    background: activeCategory === cat ? '#6C3CE1' : '#fff',
-                    color: activeCategory === cat ? '#fff' : '#3D3458',
-                    border: activeCategory === cat ? '1px solid #6C3CE1' : '1px solid rgba(108,60,225,0.2)',
+                    background: activeCategory === cat ? '#111111' : '#fff',
+                    color: activeCategory === cat ? '#fff' : '#444444',
+                    border: activeCategory === cat ? '1px solid #111111' : '1px solid rgba(0,0,0,0.2)',
                     fontWeight: activeCategory === cat ? 700 : 500,
                   }}
                 >{cat}</button>
@@ -141,8 +141,8 @@ export default function Competitions() {
                   style={{
                     ...s.filterBtn,
                     background: activeType === tp ? '#F59E0B' : '#fff',
-                    color: activeType === tp ? '#fff' : '#3D3458',
-                    border: activeType === tp ? '1px solid #F59E0B' : '1px solid rgba(108,60,225,0.2)',
+                    color: activeType === tp ? '#fff' : '#444444',
+                    border: activeType === tp ? '1px solid #F59E0B' : '1px solid rgba(0,0,0,0.2)',
                     fontWeight: activeType === tp ? 700 : 500,
                   }}
                 >{tp}</button>
@@ -153,7 +153,7 @@ export default function Competitions() {
 
         {/* 결과 수 */}
         {!loading && (
-          <p style={s.count}>총 <strong style={{ color: '#6C3CE1' }}>{filtered.length}</strong>건</p>
+          <p style={s.count}>총 <strong style={{ color: '#111111' }}>{filtered.length}</strong>건</p>
         )}
 
         {/* 카드 목록 */}
@@ -225,19 +225,19 @@ export default function Competitions() {
 }
 
 const s = {
-  main: { padding: '48px 24px 80px', background: '#F8F7FF', minHeight: '80vh' },
+  main: { padding: '48px 24px 80px', background: '#F8F8F8', minHeight: '80vh' },
   inner: { maxWidth: 1100, margin: '0 auto' },
 
   pageHeader: { marginBottom: 36 },
   title: {
     fontSize: 'clamp(1.7rem, 3vw, 2.4rem)',
-    fontWeight: 900, color: '#1A1027', marginBottom: 10,
+    fontWeight: 900, color: '#111111', marginBottom: 10,
   },
-  subtitle: { color: '#6B6585', lineHeight: 1.8, fontSize: '1rem' },
+  subtitle: { color: '#888888', lineHeight: 1.8, fontSize: '1rem' },
   seedBtn: {
     marginTop: 20, padding: '11px 22px',
-    background: '#EDE8FF', border: '1px solid #6C3CE1',
-    color: '#6C3CE1', borderRadius: 12, fontSize: '0.9rem',
+    background: '#EBEBEB', border: '1px solid #111111',
+    color: '#111111', borderRadius: 12, fontSize: '0.9rem',
     fontWeight: 700, cursor: 'pointer',
   },
 
@@ -251,22 +251,22 @@ const s = {
   searchInput: {
     width: '100%', padding: '13px 20px 13px 44px',
     background: '#fff',
-    border: '1.5px solid rgba(108,60,225,0.2)',
-    borderRadius: 12, color: '#1A1027', fontSize: '1rem',
+    border: '1.5px solid rgba(0,0,0,0.2)',
+    borderRadius: 12, color: '#111111', fontSize: '1rem',
     fontFamily: 'inherit', outline: 'none',
-    boxShadow: '0 2px 12px rgba(108,60,225,0.06)',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
   },
 
   filterPanel: {
     background: '#fff', borderRadius: 16,
     padding: '20px 24px', marginBottom: 24,
-    border: '1px solid rgba(108,60,225,0.1)',
-    boxShadow: '0 2px 12px rgba(108,60,225,0.06)',
+    border: '1px solid rgba(0,0,0,0.1)',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
     display: 'flex', flexDirection: 'column', gap: 16,
   },
   filterGroup: { display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' },
   filterLabel: {
-    fontSize: '0.78rem', fontWeight: 700, color: '#6B6585',
+    fontSize: '0.78rem', fontWeight: 700, color: '#888888',
     letterSpacing: '0.06em', paddingTop: 6, whiteSpace: 'nowrap',
   },
   filterRow: { display: 'flex', flexWrap: 'wrap', gap: 8 },
@@ -277,11 +277,11 @@ const s = {
     boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
   },
 
-  count: { color: '#6B6585', fontSize: '0.88rem', marginBottom: 20 },
+  count: { color: '#888888', fontSize: '0.88rem', marginBottom: 20 },
 
   stateBox: { textAlign: 'center', padding: '80px 0' },
   stateIcon: { fontSize: '2.5rem', display: 'block', marginBottom: 16 },
-  stateText: { color: '#6B6585', fontSize: '1rem' },
+  stateText: { color: '#888888', fontSize: '1rem' },
 
   grid: {
     display: 'grid',
@@ -291,11 +291,11 @@ const s = {
   card: {
     display: 'block',
     background: '#fff',
-    border: '1.5px solid rgba(108,60,225,0.08)',
+    border: '1.5px solid rgba(0,0,0,0.08)',
     borderRadius: 20, padding: '24px',
     transition: 'box-shadow 0.2s, transform 0.2s',
     cursor: 'pointer', textDecoration: 'none',
-    boxShadow: '0 2px 16px rgba(108,60,225,0.06)',
+    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
   },
 
   cardTop: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' },
@@ -309,24 +309,24 @@ const s = {
   },
   badgePurple: {
     padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: '#EDE8FF', color: '#6C3CE1', border: '1px solid #DDD6FE',
+    background: '#EBEBEB', color: '#111111', border: '1px solid #DDDDDD',
   },
   ddayBadge: {
     marginLeft: 'auto', padding: '3px 10px',
     borderRadius: 20, fontSize: '0.8rem', fontWeight: 900,
   },
 
-  cardTitle: { fontSize: '1.05rem', fontWeight: 800, color: '#1A1027', marginBottom: 6, lineHeight: 1.4 },
-  cardOrg: { color: '#6C3CE1', fontSize: '0.85rem', marginBottom: 14, fontWeight: 600 },
+  cardTitle: { fontSize: '1.05rem', fontWeight: 800, color: '#111111', marginBottom: 6, lineHeight: 1.4 },
+  cardOrg: { color: '#111111', fontSize: '0.85rem', marginBottom: 14, fontWeight: 600 },
   tagRow: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 },
   tag: {
     padding: '3px 10px', borderRadius: 20,
-    background: '#F3F0FF', color: '#6B6585', fontSize: '0.78rem',
-    border: '1px solid rgba(108,60,225,0.1)',
+    background: '#F5F5F5', color: '#888888', fontSize: '0.78rem',
+    border: '1px solid rgba(0,0,0,0.1)',
   },
   cardMeta: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
   amount: { color: '#D97706', fontWeight: 700, fontSize: '0.9rem' },
   deadline: { color: '#9CA3AF', fontSize: '0.8rem' },
-  desc: { color: '#6B6585', fontSize: '0.85rem', lineHeight: 1.7, marginBottom: 16 },
-  link: { color: '#6C3CE1', fontSize: '0.85rem', fontWeight: 700 },
+  desc: { color: '#888888', fontSize: '0.85rem', lineHeight: 1.7, marginBottom: 16 },
+  link: { color: '#111111', fontSize: '0.85rem', fontWeight: 700 },
 }

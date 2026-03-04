@@ -37,8 +37,8 @@ export default function Header() {
               style={{
                 ...s.fontBtn,
                 fontSize: [13, 16, 20][i],
-                background: fontSize === size ? '#EDE8FF' : 'transparent',
-                color: fontSize === size ? '#6C3CE1' : '#6B6585',
+                background: fontSize === size ? '#EBEBEB' : 'transparent',
+                color: fontSize === size ? '#111111' : '#6B6585',
               }}
             >가</button>
           ))}
@@ -50,9 +50,9 @@ export default function Header() {
             return (
               <Link key={to} to={to} style={{
                 ...s.navLink,
-                color: active ? '#6C3CE1' : '#3D3458',
+                color: active ? '#111111' : '#444444',
                 fontWeight: active ? 700 : 500,
-                background: active ? '#EDE8FF' : 'transparent',
+                background: active ? '#EBEBEB' : 'transparent',
               }}>
                 <span aria-hidden="true">{icon}</span> {label}
               </Link>
@@ -75,8 +75,8 @@ const s = {
     position: 'sticky', top: 0, zIndex: 100,
     background: 'rgba(255,255,255,0.92)',
     backdropFilter: 'blur(12px)',
-    borderBottom: '1px solid rgba(108,60,225,0.1)',
-    boxShadow: '0 2px 16px rgba(108,60,225,0.06)',
+    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
     padding: '0 24px',
   },
   inner: {
@@ -90,7 +90,7 @@ const s = {
     marginRight: 'auto',
   },
   logoText: { color: '#1A1027' },
-  logoAccent: { color: '#6C3CE1' },
+  logoAccent: { color: '#111111' },
   fontControls: { display: 'flex', gap: 4 },
   fontBtn: {
     padding: '4px 8px', borderRadius: 8,
@@ -108,10 +108,10 @@ const s = {
     color: '#D97706', fontSize: '0.85rem', fontWeight: 700,
   },
   navCta: {
-    background: '#6C3CE1',
+    background: '#111111',
     color: '#fff', padding: '8px 18px',
     borderRadius: 20, fontWeight: 700,
     fontSize: '0.9rem', marginLeft: 8,
-    boxShadow: '0 2px 12px rgba(108,60,225,0.25)',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
   },
 }
