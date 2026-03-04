@@ -1,0 +1,21 @@
+# 의존성
+node_modules/
+
+# 빌드 결과물
+dist/
+
+# 환경변수 (Firebase 키 등 - 절대 git에 올리면 안 됨!)
+.env.local
+.env*.local
+
+# 에디터
+.vscode/settings.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Firebase
+firebase-debug.log
+.firebase/
