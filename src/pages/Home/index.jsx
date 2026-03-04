@@ -60,8 +60,8 @@ export default function Home() {
 
           {/* 제목 */}
           <h1 id="hero-title" style={s.heroTitle}>
-            예술가의 다음 무대,<br />
-            <span style={s.highlight}>fine:D</span>에서 찾으세요
+            당신의 예술은 'Fine'하게,<br />
+            <span style={s.highlight}>당신의 내일은 우리가 'Find'하게.</span>
           </h1>
 
           {/* 설명 */}
