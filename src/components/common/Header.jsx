@@ -64,7 +64,7 @@ export default function Header() {
             <Link to="/admin" style={s.adminBtn}>＋ 등록</Link>
           )}
 
-          <Link to="/auth" style={s.navCta}>시작하기 →</Link>
+          <Link to="/auth" style={s.navCta}>로그인</Link>
         </nav>
       </div>
     </header>
