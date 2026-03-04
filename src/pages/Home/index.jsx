@@ -117,17 +117,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 마퀴 티커 ── */}
-      <div className="ticker-wrap" aria-hidden="true">
-        <div className="ticker-track">
-          {tickerContent.map((item, i) => (
-            <span key={i} className="ticker-item">
-              {item}
-              <span className="ticker-sep">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* ── 기능 소개 (에디토리얼 리스트) ── */}
       <section style={s.featSection} aria-labelledby="features-title">
