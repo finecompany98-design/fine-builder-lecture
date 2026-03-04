@@ -83,7 +83,7 @@ export default function Home() {
 
             <div className="fade-up-4" style={s.ctaRow}>
               <Link to="/auth" style={s.ctaPrimary}>
-                시작하기
+                로그인
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 7 }} aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
