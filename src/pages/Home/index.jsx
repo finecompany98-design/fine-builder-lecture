@@ -32,7 +32,7 @@ const FEATURES = [
 const STATS = [
   { num: '14+', label: '등록된 공모·지원사업', sub: 'Registered' },
   { num: '8', label: '지원 예술 분야', sub: 'Categories' },
-  { num: '6', label: '파트너 공공기관', sub: 'Partners' },
+  { num: '6', label: '함께 살펴보는 기관', sub: 'Institutions' },
 ]
 
 const STEPS = [
