@@ -4,8 +4,8 @@
 :root {
   --color-primary:    #0D0D0D;
   --color-primary-bg: #ECECEA;
-  --color-accent:     #FF4D1C;
-  --color-accent-hover: #E03D10;
+  --color-accent:     #3747FF;
+  --color-accent-hover: #2535E8;
   --color-accent-tint: rgba(255, 77, 28, 0.07);
   --color-bg:         #FAFAF9;
   --color-surface:    #FFFFFF;

@@ -97,7 +97,7 @@ const s = {
   },
   logoAccent: {
     fontWeight: 900, fontSize: '1.2rem',
-    color: '#FF4D1C',
+    color: '#3747FF',
   },
   fontControls: {
     display: 'flex', gap: 2,
@@ -122,17 +122,17 @@ const s = {
   },
   adminBtn: {
     padding: '6px 12px', borderRadius: 8,
-    border: '1px solid rgba(255,77,28,0.3)',
-    color: '#FF4D1C', fontSize: '0.82rem', fontWeight: 700,
-    background: 'rgba(255,77,28,0.06)',
+    border: '1px solid rgba(55,71,255,0.3)',
+    color: '#3747FF', fontSize: '0.82rem', fontWeight: 700,
+    background: 'rgba(55,71,255,0.06)',
   },
   navCta: {
-    background: '#FF4D1C',
+    background: '#3747FF',
     color: '#fff', padding: '8px 18px',
     borderRadius: 40, fontWeight: 700,
     fontSize: '0.875rem', marginLeft: 6,
     letterSpacing: '-0.2px',
     transition: 'background 0.15s, transform 0.1s',
-    boxShadow: '0 2px 12px rgba(255,77,28,0.28)',
+    boxShadow: '0 2px 12px rgba(55,71,255,0.28)',
   },
 }

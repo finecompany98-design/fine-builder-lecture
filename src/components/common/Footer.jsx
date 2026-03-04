@@ -48,7 +48,7 @@ const s = {
     color: '#fff', marginBottom: 8,
     letterSpacing: '-0.5px',
   },
-  logoAccent: { color: '#FF4D1C' },
+  logoAccent: { color: '#3747FF' },
   tagline: { color: 'rgba(255,255,255,0.3)', fontSize: '12px', lineHeight: 1.6 },
   links: { display: 'flex', flexDirection: 'column', gap: 10 },
   colTitle: {
@@ -69,7 +69,7 @@ const s = {
   accentDot: {
     display: 'inline-block',
     width: 6, height: 6, borderRadius: '50%',
-    background: '#FF4D1C',
-    boxShadow: '0 0 8px rgba(255,77,28,0.6)',
+    background: '#3747FF',
+    boxShadow: '0 0 8px rgba(55,71,255,0.6)',
   },
 }

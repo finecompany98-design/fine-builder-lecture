@@ -72,8 +72,8 @@ export default function Home() {
 
           {/* CTA 버튼 */}
           <div style={s.ctaRow}>
-            <Link to="/competitions" style={s.ctaPrimary}>
-              공모·지원사업 찾기
+            <Link to="/auth" style={s.ctaPrimary}>
+              시작하기
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 6 }} aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -167,8 +167,8 @@ export default function Home() {
   )
 }
 
-const ACCENT = '#FF4D1C'
-const ACCENT_HOVER = '#E03D10'
+const ACCENT = '#3747FF'
+const ACCENT_HOVER = '#2535E8'
 
 const s = {
   /* ── 히어로 ── */
@@ -181,7 +181,7 @@ const s = {
   heroBgCircle1: {
     position: 'absolute', top: '-10%', right: '-8%',
     width: 560, height: 560, borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255,77,28,0.07) 0%, transparent 68%)',
+    background: 'radial-gradient(circle, rgba(55,71,255,0.07) 0%, transparent 68%)',
     pointerEvents: 'none',
   },
   heroBgCircle2: {
@@ -194,8 +194,8 @@ const s = {
   heroTagRow: { marginBottom: 28 },
   heroTag: {
     display: 'inline-flex', alignItems: 'center', gap: 7,
-    background: 'rgba(255,77,28,0.07)',
-    border: '1px solid rgba(255,77,28,0.18)',
+    background: 'rgba(55,71,255,0.07)',
+    border: '1px solid rgba(55,71,255,0.18)',
     color: ACCENT,
     padding: '5px 14px', borderRadius: 40,
     fontSize: '11px', fontWeight: 700,
@@ -228,7 +228,7 @@ const s = {
     padding: '13px 28px', borderRadius: 40,
     background: ACCENT, color: '#fff',
     fontWeight: 700, fontSize: '0.95rem',
-    boxShadow: '0 4px 20px rgba(255,77,28,0.32)',
+    boxShadow: '0 4px 20px rgba(55,71,255,0.28)',
     letterSpacing: '-0.2px',
     transition: 'background 0.15s, transform 0.1s',
   },
@@ -372,8 +372,8 @@ const s = {
   bottomCtaInner: { maxWidth: 600, margin: '0 auto', position: 'relative' },
   ctaBadge: {
     display: 'inline-flex', alignItems: 'center',
-    background: 'rgba(255,77,28,0.15)',
-    border: '1px solid rgba(255,77,28,0.3)',
+    background: 'rgba(55,71,255,0.15)',
+    border: '1px solid rgba(55,71,255,0.3)',
     color: ACCENT, padding: '5px 14px',
     borderRadius: 40, fontSize: '11px',
     fontWeight: 700, letterSpacing: '0.06em',
@@ -404,7 +404,7 @@ const s = {
     padding: '13px 30px', borderRadius: 40,
     background: ACCENT, color: '#fff',
     fontWeight: 700, fontSize: '0.95rem',
-    boxShadow: '0 4px 24px rgba(255,77,28,0.35)',
+    boxShadow: '0 4px 24px rgba(55,71,255,0.28)',
     letterSpacing: '-0.2px',
   },
   ctaBtnGhost: {
