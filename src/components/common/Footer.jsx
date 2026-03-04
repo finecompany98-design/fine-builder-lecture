@@ -6,8 +6,8 @@ export default function Footer() {
       <div style={s.inner}>
         <div style={s.top}>
           <div>
-            <p style={s.logo}>✦ 모두의 예술</p>
-            <p style={s.tagline}>문화예술인의 기회를 한 곳에서</p>
+            <p style={s.logo}>fine<span style={{color:'#8B5CF6'}}>:D</span></p>
+            <p style={s.tagline}>예술인의 기회를 fine:D에서 찾아요</p>
           </div>
           <nav style={s.links} aria-label="하단 메뉴">
             <strong style={s.colTitle}>서비스</strong>
@@ -20,7 +20,7 @@ export default function Footer() {
           </nav>
         </div>
         <div style={s.bottom}>
-          <p style={s.copy}>© 2025 모두의 예술 · 문화예술을 모두에게</p>
+          <p style={s.copy}>© 2025 fine:D · 예술인의 기회를 한 곳에서</p>
         </div>
       </div>
     </footer>

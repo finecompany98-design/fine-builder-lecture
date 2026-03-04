@@ -39,7 +39,7 @@ export default function Auth() {
         ) : (
           <>
             <p style={styles.emoji}>✦</p>
-            <h1 style={styles.title}>모두의 예술에 오신 것을 환영합니다</h1>
+            <h1 style={styles.title}>fine:D에 오신 것을 환영합니다</h1>
             <p style={styles.sub}>로그인하면 AI 맞춤 추천과 북마크 기능을 사용할 수 있어요.</p>
             {error && <p style={styles.error}>{error}</p>}
             <button onClick={handleGoogleLogin} disabled={loading} style={styles.btnGoogle}>

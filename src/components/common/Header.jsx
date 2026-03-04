@@ -23,9 +23,8 @@ export default function Header() {
     <header style={s.header} role="banner">
       <div style={s.inner}>
 
-        <Link to="/" style={s.logo} aria-label="모두의 예술 홈으로 이동">
-          <span style={s.logoIcon} aria-hidden="true">✦</span>
-          <span style={s.logoText}>모두의 예술</span>
+        <Link to="/" style={s.logo} aria-label="fine:D 홈으로 이동">
+          <span style={s.logoText}>fine</span><span style={s.logoAccent}>:D</span>
         </Link>
 
         <div role="group" aria-label="글자 크기 조절" style={s.fontControls}>
@@ -90,8 +89,8 @@ const s = {
     fontWeight: 900, fontSize: '1.25rem',
     marginRight: 'auto',
   },
-  logoIcon: { color: '#6C3CE1', fontSize: '1.4rem' },
   logoText: { color: '#1A1027' },
+  logoAccent: { color: '#6C3CE1' },
   fontControls: { display: 'flex', gap: 4 },
   fontBtn: {
     padding: '4px 8px', borderRadius: 8,

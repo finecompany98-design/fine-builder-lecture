@@ -43,7 +43,7 @@ export default function Home() {
       {/* 히어로 */}
       <section style={s.hero} aria-labelledby="hero-title">
         <div style={s.heroInner}>
-          <span style={s.heroTag}>문화예술 플랫폼 · 모두의 예술</span>
+          <span style={s.heroTag}>문화예술 플랫폼 · fine:D</span>
           <h1 id="hero-title" style={s.heroTitle}>
             예술인의 기회,<br />
             <span style={s.highlight}>한 곳에서 찾으세요</span>
@@ -74,7 +74,7 @@ export default function Home() {
       {/* 기능 소개 */}
       <section style={s.section} aria-labelledby="features-title">
         <div style={s.sectionInner}>
-          <h2 id="features-title" style={s.sectionTitle}>모두의 예술이 하는 일</h2>
+          <h2 id="features-title" style={s.sectionTitle}>fine:D가 하는 일</h2>
           <p style={s.sectionSub}>복잡한 지원 정보를 쉽고 빠르게</p>
           <div style={s.featureGrid}>
             {FEATURES.map(({ icon, title, desc, to, cta }) => (
