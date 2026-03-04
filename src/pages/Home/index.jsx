@@ -1,36 +1,38 @@
 import { Link } from 'react-router-dom'
 
+const ACCENT = '#3747FF'
+
 const FEATURES = [
   {
-    icon: '🏆',
     label: '01',
     title: '공모·지원사업 탐색',
     desc: '한국문화예술위원회, 서울문화재단 등 공공기관의 실제 공모전과 지원사업을 한눈에 확인하세요.',
     to: '/competitions',
     cta: '공모 찾아보기',
+    tag: 'SEARCH',
   },
   {
-    icon: '✨',
     label: '02',
     title: 'AI 맞춤 추천',
     desc: '분야·경력·유형을 선택하면 나에게 맞는 지원사업과 공모전을 AI가 골라드립니다.',
     to: '/ai-recommend',
     cta: 'AI 추천 받기',
+    tag: 'AI',
   },
   {
-    icon: '📅',
     label: '03',
     title: '마감 D-Day 관리',
     desc: '관심 공모의 마감일을 D-Day 배지로 한눈에 파악하고, 지원 기회를 놓치지 마세요.',
     to: '/competitions',
     cta: '지금 확인하기',
+    tag: 'D-DAY',
   },
 ]
 
 const STATS = [
-  { num: '14+', label: '등록된 공모·지원사업' },
-  { num: '8', label: '지원 예술 분야' },
-  { num: '6', label: '파트너 공공기관·재단' },
+  { num: '14+', label: '등록된 공모·지원사업', sub: 'Registered' },
+  { num: '8', label: '지원 예술 분야', sub: 'Categories' },
+  { num: '6', label: '파트너 공공기관', sub: 'Partners' },
 ]
 
 const STEPS = [
@@ -39,104 +41,144 @@ const STEPS = [
   { n: '03', title: '지원 신청', desc: '공식 사이트로 바로 이동해 지원하세요.' },
 ]
 
+const TICKER_ITEMS = [
+  '시각예술', '공연예술', '문학', '음악', '무용', '미술', '사진', '영화·영상',
+  '공공기관 공모', 'AI 추천', '지원사업', 'D-Day 알림',
+]
+
 export default function Home() {
+  const tickerContent = [...TICKER_ITEMS, ...TICKER_ITEMS]
+
   return (
     <main id="main">
 
-      {/* 히어로 */}
+      {/* ── 히어로 ── */}
       <section style={s.hero} aria-labelledby="hero-title">
-        {/* 배경 장식 */}
-        <div style={s.heroBgCircle1} aria-hidden="true" />
-        <div style={s.heroBgCircle2} aria-hidden="true" />
+        {/* 배경 그리드 패턴 */}
+        <div style={s.bgGrid} aria-hidden="true" />
+        {/* 인디고 글로우 */}
+        <div style={s.bgGlow} aria-hidden="true" />
 
-        <div style={s.heroInner}>
-          {/* 상단 태그 */}
-          <div style={s.heroTagRow}>
-            <span style={s.heroTag}>
-              <span style={s.heroDot} />
-              문화예술 플랫폼
+        <div style={s.heroGrid}>
+
+          {/* 왼쪽: 텍스트 */}
+          <div style={s.heroLeft}>
+            <span className="fade-up-1" style={s.heroEyebrow}>
+              <span className="glow-dot" style={s.heroDot} />
+              문화예술 플랫폼 · fine:D
             </span>
+
+            <h1 id="hero-title" className="fade-up-2" style={s.heroTitle}>
+              당신의 예술은{' '}
+              <span style={s.accentWord}>'Fine'</span>하게,
+              <br />
+              당신의 내일은 우리가{' '}
+              <span style={s.accentWord}>'Find'</span>하게.
+            </h1>
+
+            <p className="fade-up-3" style={s.heroDesc}>
+              공공기관·재단의 공모전과 지원사업 정보를 한데 모아<br />
+              AI가 내 분야에 꼭 맞게 추천해드립니다
+            </p>
+
+            <div className="fade-up-4" style={s.ctaRow}>
+              <Link to="/auth" style={s.ctaPrimary}>
+                시작하기
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 7 }} aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+              <Link to="/ai-recommend" style={s.ctaSecondary}>
+                ✦ AI 맞춤 추천
+              </Link>
+            </div>
           </div>
 
-          {/* 제목 */}
-          <h1 id="hero-title" style={s.heroTitle}>
-            당신의 예술은 'Fine'하게,<br />
-            <span style={s.highlight}>당신의 내일은 우리가 'Find'하게.</span>
-          </h1>
-
-          {/* 설명 */}
-          <p style={s.heroDesc}>
-            공공기관·재단의 공모전과 지원사업 정보를 한데 모아<br />
-            AI가 내 분야에 꼭 맞게 추천해드립니다
-          </p>
-
-          {/* CTA 버튼 */}
-          <div style={s.ctaRow}>
-            <Link to="/auth" style={s.ctaPrimary}>
-              시작하기
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 6 }} aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-            <Link to="/ai-recommend" style={s.ctaSecondary}>
-              ✨ AI 맞춤 추천
-            </Link>
-          </div>
-
-          {/* 통계 인라인 */}
-          <div style={s.heroStats}>
-            {STATS.map(({ num, label }, i) => (
-              <div key={label} style={s.heroStatItem}>
-                <strong style={s.heroStatNum}>{num}</strong>
-                <span style={s.heroStatLabel}>{label}</span>
-                {i < STATS.length - 1 && <span style={s.statDivider} aria-hidden="true" />}
+          {/* 오른쪽: 스탯 카드 */}
+          <div className="fade-up-3" style={s.heroRight} aria-label="서비스 현황">
+            {STATS.map(({ num, label, sub }, i) => (
+              <div
+                key={label}
+                className="home-card"
+                style={{
+                  ...s.statCard,
+                  marginTop: i === 1 ? 20 : i === 2 ? -10 : 0,
+                  background: i === 0 ? ACCENT : '#fff',
+                  color: i === 0 ? '#fff' : '#0D0D0D',
+                }}
+              >
+                <span style={{ ...s.statNum, color: i === 0 ? '#fff' : ACCENT }}>{num}</span>
+                <span style={{ ...s.statLabel, color: i === 0 ? 'rgba(255,255,255,0.75)' : '#6A6A6A' }}>{label}</span>
+                <span style={{ ...s.statSub, color: i === 0 ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.2)' }}>{sub}</span>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* 기능 소개 */}
-      <section style={s.section} aria-labelledby="features-title">
+      {/* ── 마퀴 티커 ── */}
+      <div className="ticker-wrap" aria-hidden="true">
+        <div className="ticker-track">
+          {tickerContent.map((item, i) => (
+            <span key={i} className="ticker-item">
+              {item}
+              <span className="ticker-sep">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 기능 소개 (에디토리얼 리스트) ── */}
+      <section style={s.featSection} aria-labelledby="features-title">
         <div style={s.sectionInner}>
-          <div style={s.sectionHeader}>
-            <span style={s.sectionEyebrow}>Features</span>
-            <h2 id="features-title" style={s.sectionTitle}>fine:D가 하는 일</h2>
-            <p style={s.sectionSub}>복잡한 지원 정보를 쉽고 빠르게</p>
+
+          <div style={s.featHeader}>
+            <div>
+              <p style={s.eyebrow}>Features</p>
+              <h2 id="features-title" style={s.sectionTitle}>fine:D가 하는 일</h2>
+            </div>
+            <p style={s.featHeaderDesc}>복잡한 지원 정보를<br />쉽고 빠르게</p>
           </div>
-          <div style={s.featureGrid}>
-            {FEATURES.map(({ icon, label, title, desc, to, cta }) => (
-              <div key={title} style={s.featureCard}>
-                <div style={s.featureCardTop}>
-                  <span style={s.featureLabel}>{label}</span>
-                  <span style={s.featureIcon} aria-hidden="true">{icon}</span>
+
+          <div style={s.featList}>
+            {FEATURES.map(({ label, title, desc, to, cta, tag }) => (
+              <div key={label} className="feat-row" style={s.featRow}>
+                <span style={s.featNum}>{label}</span>
+                <div style={s.featContent}>
+                  <div style={s.featTitleRow}>
+                    <h3 style={s.featTitle}>{title}</h3>
+                    <span style={s.featTag}>{tag}</span>
+                  </div>
+                  <p style={s.featDesc}>{desc}</p>
                 </div>
-                <h3 style={s.featureTitle}>{title}</h3>
-                <p style={s.featureDesc}>{desc}</p>
-                <Link to={to} style={s.featureLink}>
-                  {cta}
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 4 }} aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                <Link to={to} style={s.featCta}>
+                  <span>{cta}</span>
+                  <span className="feat-arrow" style={s.featArrow}>→</span>
                 </Link>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* 이용 흐름 */}
+      {/* ── 이용 흐름 ── */}
       <section style={s.stepsSection} aria-labelledby="steps-title">
         <div style={s.sectionInner}>
-          <div style={s.sectionHeader}>
-            <span style={s.sectionEyebrow}>How it works</span>
-            <h2 id="steps-title" style={s.sectionTitle}>이렇게 사용하세요</h2>
-            <p style={s.sectionSub}>3단계로 간편하게</p>
+          <div style={s.stepsHeader}>
+            <p style={{ ...s.eyebrow, color: 'rgba(255,255,255,0.4)' }}>How it works</p>
+            <h2 id="steps-title" style={{ ...s.sectionTitle, color: '#fff' }}>3단계로 간편하게</h2>
           </div>
           <div style={s.stepsGrid}>
-            {STEPS.map(({ n, title, desc }) => (
-              <div key={n} style={s.step}>
-                <span style={s.stepNum} aria-hidden="true">{n}</span>
+            {STEPS.map(({ n, title, desc }, i) => (
+              <div key={n} className="home-card" style={s.stepCard}>
+                <div style={s.stepTop}>
+                  <span style={s.stepNum}>{n}</span>
+                  {i < STEPS.length - 1 && (
+                    <span style={s.stepConnector} aria-hidden="true">───</span>
+                  )}
+                </div>
                 <strong style={s.stepTitle}>{title}</strong>
                 <p style={s.stepDesc}>{desc}</p>
               </div>
@@ -145,20 +187,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 하단 CTA */}
+      {/* ── 하단 CTA ── */}
       <section style={s.bottomCta} aria-labelledby="cta-title">
         <div style={s.bottomCtaInner}>
-          <div style={s.ctaBadge}>지금 바로 시작</div>
+          {/* 장식 텍스트 */}
+          <p style={s.ctaDecor} aria-hidden="true">fine:D</p>
           <h2 id="cta-title" style={s.ctaTitle}>
-            당신의 예술을<br />
-            <em style={s.ctaTitleEmphasis}>Fine하게</em> 빛내세요
+            지금 바로<br />
+            <span style={s.ctaAccent}>시작하세요</span>
           </h2>
           <p style={s.ctaDesc}>
-            내 분야에 맞는 공모와 지원사업을 AI가 추천해드립니다
+            내 분야에 맞는 공모와 지원사업을<br />AI가 추천해드립니다
           </p>
           <div style={s.ctaBtnRow}>
-            <Link to="/competitions" style={s.ctaBtnAccent}>공모·지원사업 보기</Link>
-            <Link to="/ai-recommend" style={s.ctaBtnGhost}>AI 추천 받기 →</Link>
+            <Link to="/auth" style={s.ctaBtnPrimary}>시작하기 →</Link>
+            <Link to="/competitions" style={s.ctaBtnGhost}>공모 둘러보기</Link>
           </div>
         </div>
       </section>
@@ -167,253 +210,236 @@ export default function Home() {
   )
 }
 
-const ACCENT = '#3747FF'
-const ACCENT_HOVER = '#2535E8'
-
 const s = {
   /* ── 히어로 ── */
   hero: {
-    padding: '116px 28px 80px',
+    padding: '118px 40px 80px',
     background: '#FAFAF9',
     position: 'relative',
     overflow: 'hidden',
+    minHeight: '92vh',
+    display: 'flex',
+    alignItems: 'center',
   },
-  heroBgCircle1: {
-    position: 'absolute', top: '-10%', right: '-8%',
-    width: 560, height: 560, borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(55,71,255,0.07) 0%, transparent 68%)',
+  bgGrid: {
+    position: 'absolute', inset: 0,
+    backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px)',
+    backgroundSize: '28px 28px',
     pointerEvents: 'none',
   },
-  heroBgCircle2: {
-    position: 'absolute', bottom: '-15%', left: '-5%',
-    width: 360, height: 360, borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%)',
+  bgGlow: {
+    position: 'absolute', top: '5%', right: '8%',
+    width: 480, height: 480, borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(55,71,255,0.10) 0%, transparent 70%)',
     pointerEvents: 'none',
+    filter: 'blur(40px)',
   },
-  heroInner: { maxWidth: 780, margin: '0 auto', textAlign: 'center', position: 'relative' },
-  heroTagRow: { marginBottom: 28 },
-  heroTag: {
-    display: 'inline-flex', alignItems: 'center', gap: 7,
+  heroGrid: {
+    maxWidth: 1100, margin: '0 auto',
+    display: 'grid',
+    gridTemplateColumns: '1fr 320px',
+    gap: 60,
+    alignItems: 'center',
+    width: '100%',
+    position: 'relative',
+  },
+  heroLeft: { display: 'flex', flexDirection: 'column', gap: 0 },
+  heroEyebrow: {
+    display: 'inline-flex', alignItems: 'center', gap: 8,
     background: 'rgba(55,71,255,0.07)',
-    border: '1px solid rgba(55,71,255,0.18)',
+    border: '1px solid rgba(55,71,255,0.16)',
     color: ACCENT,
     padding: '5px 14px', borderRadius: 40,
     fontSize: '11px', fontWeight: 700,
-    letterSpacing: '0.06em', textTransform: 'uppercase',
+    letterSpacing: '0.07em', textTransform: 'uppercase',
+    alignSelf: 'flex-start', marginBottom: 28,
   },
   heroDot: {
     width: 6, height: 6, borderRadius: '50%',
     background: ACCENT, flexShrink: 0,
-    boxShadow: `0 0 6px ${ACCENT}`,
   },
   heroTitle: {
-    fontSize: 'clamp(2.6rem, 5.5vw, 4rem)',
-    fontWeight: 900, lineHeight: 1.14,
-    letterSpacing: '-2px',
-    color: '#0D0D0D', marginBottom: 22,
+    fontSize: 'clamp(2.8rem, 5vw, 4.2rem)',
+    fontWeight: 900, lineHeight: 1.13,
+    letterSpacing: '-2.5px',
+    color: '#0D0D0D', marginBottom: 26,
   },
-  highlight: { color: ACCENT },
+  accentWord: {
+    color: ACCENT,
+    fontStyle: 'normal',
+  },
   heroDesc: {
-    fontSize: 'clamp(15px, 1.8vw, 17px)',
-    color: '#8A8A8A', lineHeight: 1.9,
-    marginBottom: 40, fontWeight: 400,
+    fontSize: '16px', color: '#8A8A8A',
+    lineHeight: 1.9, marginBottom: 36,
+    fontWeight: 400,
   },
-  ctaRow: {
-    display: 'flex', gap: 12,
-    justifyContent: 'center', flexWrap: 'wrap',
-    marginBottom: 52,
-  },
+  ctaRow: { display: 'flex', gap: 12, flexWrap: 'wrap' },
   ctaPrimary: {
     display: 'inline-flex', alignItems: 'center',
-    padding: '13px 28px', borderRadius: 40,
+    padding: '13px 26px', borderRadius: 40,
     background: ACCENT, color: '#fff',
-    fontWeight: 700, fontSize: '0.95rem',
-    boxShadow: '0 4px 20px rgba(55,71,255,0.28)',
+    fontWeight: 700, fontSize: '0.9rem',
+    boxShadow: '0 4px 22px rgba(55,71,255,0.3)',
     letterSpacing: '-0.2px',
-    transition: 'background 0.15s, transform 0.1s',
   },
   ctaSecondary: {
     display: 'inline-flex', alignItems: 'center',
-    padding: '13px 28px', borderRadius: 40,
+    padding: '13px 26px', borderRadius: 40,
     background: '#fff', color: '#0D0D0D',
-    fontWeight: 700, fontSize: '0.95rem',
-    border: '1.5px solid rgba(0,0,0,0.15)',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+    fontWeight: 700, fontSize: '0.9rem',
+    border: '1.5px solid rgba(0,0,0,0.12)',
     letterSpacing: '-0.2px',
   },
 
-  /* 히어로 통계 */
-  heroStats: {
-    display: 'flex', justifyContent: 'center',
-    alignItems: 'center', gap: 0,
-    background: '#fff',
-    border: '1px solid rgba(0,0,0,0.09)',
-    borderRadius: 18, padding: '20px 36px',
-    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
-    flexWrap: 'wrap',
-    maxWidth: 520, margin: '0 auto',
+  /* 스탯 카드 (오른쪽) */
+  heroRight: {
+    display: 'flex', flexDirection: 'column', gap: 14,
+    alignSelf: 'center',
   },
-  heroStatItem: {
-    display: 'flex', flexDirection: 'column',
-    alignItems: 'center', padding: '0 28px',
-    position: 'relative',
+  statCard: {
+    borderRadius: 20, padding: '24px 26px',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    border: '1px solid rgba(0,0,0,0.06)',
+    display: 'flex', flexDirection: 'column', gap: 4,
   },
-  heroStatNum: {
-    display: 'block',
-    fontSize: '1.9rem', fontWeight: 900,
-    color: '#0D0D0D', letterSpacing: '-1px',
-  },
-  heroStatLabel: {
-    display: 'block',
-    fontSize: '11px', color: '#8A8A8A',
-    marginTop: 3, fontWeight: 500,
-  },
-  statDivider: {
-    position: 'absolute', right: 0, top: '15%',
-    width: 1, height: '70%',
-    background: 'rgba(0,0,0,0.1)',
-  },
+  statNum: { fontSize: '2.2rem', fontWeight: 900, letterSpacing: '-1px', lineHeight: 1 },
+  statLabel: { fontSize: '13px', fontWeight: 600, marginTop: 6 },
+  statSub: { fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 2 },
 
-  /* ── 공통 섹션 ── */
-  section: { padding: '88px 28px', background: '#fff' },
-  stepsSection: { padding: '88px 28px', background: '#F4F4F2' },
+  /* ── Features ── */
+  featSection: { padding: '96px 40px', background: '#fff' },
   sectionInner: { maxWidth: 1100, margin: '0 auto' },
-  sectionHeader: { textAlign: 'center', marginBottom: 52 },
-  sectionEyebrow: {
-    display: 'inline-block',
-    fontSize: '11px', fontWeight: 700,
-    color: ACCENT, letterSpacing: '0.1em',
-    textTransform: 'uppercase', marginBottom: 12,
+  eyebrow: {
+    fontSize: '11px', fontWeight: 700, color: ACCENT,
+    letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10,
   },
   sectionTitle: {
-    fontSize: 'clamp(1.7rem, 3vw, 2.2rem)',
+    fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
     fontWeight: 900, color: '#0D0D0D',
-    letterSpacing: '-1px', marginBottom: 8,
+    letterSpacing: '-1px', lineHeight: 1.2,
   },
-  sectionSub: { fontSize: '14px', color: '#8A8A8A' },
-
-  /* ── 기능 카드 ── */
-  featureGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: 20,
-  },
-  featureCard: {
-    background: '#FAFAF9',
-    borderRadius: 20,
-    padding: '32px 28px',
-    border: '1px solid rgba(0,0,0,0.08)',
-    borderTop: `3px solid ${ACCENT}`,
-    display: 'flex', flexDirection: 'column',
-    transition: 'box-shadow 0.2s, transform 0.2s',
-  },
-  featureCardTop: {
+  featHeader: {
     display: 'flex', justifyContent: 'space-between',
-    alignItems: 'flex-start', marginBottom: 20,
+    alignItems: 'flex-end', marginBottom: 52,
+    flexWrap: 'wrap', gap: 20,
   },
-  featureLabel: {
-    fontSize: '11px', fontWeight: 700,
-    color: '#B0B0B0', letterSpacing: '0.05em',
+  featHeaderDesc: { fontSize: '14px', color: '#9A9A9A', lineHeight: 1.7, textAlign: 'right' },
+  featList: {
+    display: 'flex', flexDirection: 'column',
+    borderTop: '1px solid rgba(0,0,0,0.08)',
   },
-  featureIcon: { fontSize: '2rem', lineHeight: 1 },
-  featureTitle: {
-    fontSize: '1.05rem', fontWeight: 800,
-    color: '#0D0D0D', marginBottom: 10,
+  featRow: {
+    display: 'flex', alignItems: 'center', gap: 32,
+    padding: '28px 16px',
+    borderBottom: '1px solid rgba(0,0,0,0.08)',
+    borderRadius: 12,
+  },
+  featNum: {
+    fontSize: '11px', fontWeight: 700, color: '#C0C0C0',
+    letterSpacing: '0.06em', flexShrink: 0, width: 24,
+  },
+  featContent: { flex: 1, display: 'flex', flexDirection: 'column', gap: 6 },
+  featTitleRow: { display: 'flex', alignItems: 'center', gap: 10 },
+  featTitle: {
+    fontSize: '1.05rem', fontWeight: 800, color: '#0D0D0D',
     letterSpacing: '-0.3px',
   },
-  featureDesc: {
-    fontSize: '0.875rem', color: '#7A7A7A',
-    lineHeight: 1.8, marginBottom: 24, flex: 1,
+  featTag: {
+    fontSize: '10px', fontWeight: 700, color: ACCENT,
+    background: 'rgba(55,71,255,0.08)',
+    border: '1px solid rgba(55,71,255,0.15)',
+    padding: '2px 8px', borderRadius: 20,
+    letterSpacing: '0.06em',
   },
-  featureLink: {
-    display: 'inline-flex', alignItems: 'center',
-    color: ACCENT, fontWeight: 700,
-    fontSize: '0.875rem', letterSpacing: '-0.2px',
-    marginTop: 'auto',
+  featDesc: { fontSize: '0.875rem', color: '#7A7A7A', lineHeight: 1.7 },
+  featCta: {
+    display: 'inline-flex', alignItems: 'center', gap: 8,
+    color: '#0D0D0D', fontWeight: 700, fontSize: '0.875rem',
+    flexShrink: 0, whiteSpace: 'nowrap',
   },
+  featArrow: { fontSize: '1rem', color: ACCENT },
 
-  /* ── 이용 흐름 ── */
+  /* ── Steps ── */
+  stepsSection: {
+    padding: '96px 40px',
+    background: '#0D0D0D',
+  },
+  stepsHeader: { marginBottom: 52 },
   stepsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: 20,
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: 16,
   },
-  step: {
-    background: '#fff', borderRadius: 20,
-    padding: '32px 26px',
-    border: '1px solid rgba(0,0,0,0.08)',
-    display: 'flex', flexDirection: 'column',
-    gap: 12,
-    transition: 'box-shadow 0.2s',
+  stepCard: {
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: 20, padding: '32px 28px',
+    display: 'flex', flexDirection: 'column', gap: 14,
   },
+  stepTop: { display: 'flex', alignItems: 'center', gap: 14 },
   stepNum: {
-    display: 'inline-flex', alignItems: 'center',
-    justifyContent: 'center',
-    width: 44, height: 44, borderRadius: '50%',
-    background: '#0D0D0D', color: '#fff',
-    fontWeight: 900, fontSize: '0.85rem',
-    letterSpacing: '0.02em',
-    flexShrink: 0, alignSelf: 'flex-start',
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+    width: 40, height: 40, borderRadius: '50%',
+    background: ACCENT, color: '#fff',
+    fontWeight: 900, fontSize: '0.8rem',
+    letterSpacing: '0.04em', flexShrink: 0,
   },
-  stepTitle: {
-    fontSize: '1rem', fontWeight: 800,
-    color: '#0D0D0D', letterSpacing: '-0.3px',
+  stepConnector: {
+    fontSize: '0.75rem', color: 'rgba(255,255,255,0.12)',
+    letterSpacing: '0.05em',
   },
-  stepDesc: { fontSize: '0.875rem', color: '#7A7A7A', lineHeight: 1.75 },
+  stepTitle: { fontSize: '1rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.3px' },
+  stepDesc: { fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.75 },
 
   /* ── 하단 CTA ── */
   bottomCta: {
-    padding: '96px 28px',
-    background: '#0A0A0A',
+    padding: '110px 40px',
+    background: '#F4F4F2',
     textAlign: 'center',
     position: 'relative',
     overflow: 'hidden',
   },
-  bottomCtaInner: { maxWidth: 600, margin: '0 auto', position: 'relative' },
-  ctaBadge: {
-    display: 'inline-flex', alignItems: 'center',
-    background: 'rgba(55,71,255,0.15)',
-    border: '1px solid rgba(55,71,255,0.3)',
-    color: ACCENT, padding: '5px 14px',
-    borderRadius: 40, fontSize: '11px',
-    fontWeight: 700, letterSpacing: '0.06em',
-    textTransform: 'uppercase', marginBottom: 24,
+  bottomCtaInner: { maxWidth: 620, margin: '0 auto', position: 'relative' },
+  ctaDecor: {
+    position: 'absolute',
+    top: '50%', left: '50%',
+    transform: 'translate(-50%, -50%)',
+    fontSize: 'clamp(100px, 16vw, 160px)',
+    fontWeight: 900, letterSpacing: '-6px',
+    color: 'rgba(0,0,0,0.04)',
+    pointerEvents: 'none', userSelect: 'none',
+    whiteSpace: 'nowrap',
   },
   ctaTitle: {
-    fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
-    fontWeight: 900, color: '#fff',
-    letterSpacing: '-1.5px', lineHeight: 1.18,
-    marginBottom: 18,
-    fontStyle: 'normal',
+    fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+    fontWeight: 900, color: '#0D0D0D',
+    letterSpacing: '-2px', lineHeight: 1.15,
+    marginBottom: 18, position: 'relative',
   },
-  ctaTitleEmphasis: {
-    color: ACCENT,
-    fontStyle: 'normal',
-  },
+  ctaAccent: { color: ACCENT },
   ctaDesc: {
-    color: 'rgba(255,255,255,0.45)',
-    marginBottom: 40, fontSize: '15px',
-    lineHeight: 1.7,
+    color: '#8A8A8A', marginBottom: 40,
+    fontSize: '15px', lineHeight: 1.8, position: 'relative',
   },
   ctaBtnRow: {
     display: 'flex', gap: 14,
     justifyContent: 'center', flexWrap: 'wrap',
+    position: 'relative',
   },
-  ctaBtnAccent: {
+  ctaBtnPrimary: {
     display: 'inline-flex', alignItems: 'center',
-    padding: '13px 30px', borderRadius: 40,
-    background: ACCENT, color: '#fff',
+    padding: '14px 32px', borderRadius: 40,
+    background: '#0D0D0D', color: '#fff',
     fontWeight: 700, fontSize: '0.95rem',
-    boxShadow: '0 4px 24px rgba(55,71,255,0.28)',
     letterSpacing: '-0.2px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
   },
   ctaBtnGhost: {
     display: 'inline-flex', alignItems: 'center',
-    padding: '13px 30px', borderRadius: 40,
-    background: 'rgba(255,255,255,0.08)',
-    border: '1.5px solid rgba(255,255,255,0.18)',
-    color: 'rgba(255,255,255,0.75)',
-    fontWeight: 600, fontSize: '0.95rem',
+    padding: '14px 32px', borderRadius: 40,
+    background: 'transparent',
+    border: '1.5px solid rgba(0,0,0,0.15)',
+    color: '#0D0D0D', fontWeight: 600, fontSize: '0.95rem',
     letterSpacing: '-0.2px',
   },
 }
