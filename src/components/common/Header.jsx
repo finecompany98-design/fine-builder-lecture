@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth'
 export default function Header() {
   const location = useLocation()
   const [fontSize, setFontSize] = useState('normal')
-  const { isAdmin } = useAuth()
+  const { user, isAdmin } = useAuth()
 
   const handleFont = (size) => {
     setFontSize(size)
@@ -64,7 +64,19 @@ export default function Header() {
             <Link to="/admin" style={s.adminBtn}>＋ 등록</Link>
           )}
 
-          <Link to="/auth" style={s.navCta}>로그인</Link>
+          {user ? (
+            <Link to="/mypage" style={s.avatarBtn} aria-label="마이페이지">
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="프로필" style={s.avatarImg} />
+              ) : (
+                <span style={s.avatarFallback}>
+                  {(user.displayName || user.email || '?')[0].toUpperCase()}
+                </span>
+              )}
+            </Link>
+          ) : (
+            <Link to="/auth" style={s.navCta}>로그인</Link>
+          )}
         </nav>
       </div>
     </header>
@@ -132,5 +144,23 @@ const s = {
     letterSpacing: '-0.2px',
     transition: 'background 0.15s, transform 0.1s',
     boxShadow: '0 2px 12px rgba(55,71,255,0.28)',
+  },
+  avatarBtn: {
+    width: 36, height: 36, borderRadius: '50%',
+    overflow: 'hidden', display: 'flex',
+    alignItems: 'center', justifyContent: 'center',
+    marginLeft: 6, flexShrink: 0,
+    border: '2px solid #3747FF',
+    transition: 'box-shadow 0.15s',
+    boxShadow: '0 0 0 0px rgba(55,71,255,0.3)',
+  },
+  avatarImg: {
+    width: '100%', height: '100%', objectFit: 'cover',
+  },
+  avatarFallback: {
+    width: '100%', height: '100%',
+    background: '#3747FF', color: '#fff',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    fontWeight: 700, fontSize: '0.9rem',
   },
 }
