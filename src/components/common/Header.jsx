@@ -24,7 +24,7 @@ export default function Header() {
       <div style={s.inner}>
 
         <Link to="/" style={s.logo} aria-label="fine:D 홈으로 이동">
-          <span style={s.logoText}>fine</span><span style={s.logoAccent}>:D</span>
+          <span style={s.logoText}>Fine</span><span style={s.logoAccent}>:D</span>
         </Link>
 
         <div role="group" aria-label="글자 크기 조절" style={s.fontControls}>

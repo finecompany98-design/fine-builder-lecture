@@ -45,8 +45,8 @@ export default function Home() {
         <div style={s.heroInner}>
           <span style={s.heroTag}>문화예술 플랫폼 · fine:D</span>
           <h1 id="hero-title" style={s.heroTitle}>
-            예술인의 기회,<br />
-            <span style={s.highlight}>한 곳에서 찾으세요</span>
+            열심히 하고 있는데,<br />
+            <span style={s.highlight}>기회를 놓치고 있진 않나요?</span>
           </h1>
           <p style={s.heroDesc}>
             공공기관·재단의 공모전과 지원사업 정보를 모아,<br />

@@ -6,7 +6,7 @@ export default function Footer() {
       <div style={s.inner}>
         <div style={s.top}>
           <div>
-            <p style={s.logo}>fine<span style={{color:'#8B5CF6'}}>:D</span></p>
+            <p style={s.logo}>Fine<span style={{color:'#8B5CF6'}}>:D</span></p>
             <p style={s.tagline}>예술인의 기회를 fine:D에서 찾아요</p>
           </div>
           <nav style={s.links} aria-label="하단 메뉴">
