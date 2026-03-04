@@ -534,4 +534,17 @@ a { text-decoration: none; }
   [style*="grid-template-columns: repeat(3, 1fr)"] {
     grid-template-columns: 1fr !important;
   }
+  /* 로그인 스플릿 → 1col */
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* 로그인 왼쪽 패널 높이 축소 */
+  [style*="background: #0A0A0A"] {
+    padding: 40px 28px !important;
+    min-height: auto !important;
+  }
+  /* 기능 2열 → 1열 */
+  [style*="grid-template-columns: repeat(2, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
 }
