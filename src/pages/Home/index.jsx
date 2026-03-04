@@ -6,7 +6,7 @@ const FEATURES = [
   {
     label: '01',
     title: '공모·지원사업 탐색',
-    desc: '한국문화예술위원회, 서울문화재단 등 공공기관의 실제 공모전과 지원사업을 한눈에 확인하세요.',
+    desc: '한국문화예술위원회, 서울문화재단 등 공공기관의 공모전과 지원사업을 한 곳에 모았습니다.',
     to: '/competitions',
     cta: '공모 찾아보기',
     tag: 'SEARCH',
@@ -14,18 +14,42 @@ const FEATURES = [
   {
     label: '02',
     title: 'fine:D 맞춤 추천',
-    desc: '분야·경력·유형을 선택하면 나에게 맞는 지원사업과 공모전을 fine:D가 골라드립니다.',
+    desc: '분야·경력·지원 목적을 입력하면 fine:D가 조건에 맞는 공모를 직접 골라드립니다.',
     to: '/ai-recommend',
     cta: '맞춤 추천 받기',
     tag: 'PICK',
   },
   {
     label: '03',
-    title: '마감 D-Day 관리',
-    desc: '관심 공모의 마감일을 D-Day 배지로 한눈에 파악하고, 지원 기회를 놓치지 마세요.',
+    title: '마감 임박 알림',
+    desc: '관심 공모의 마감이 다가오면 fine:D가 먼저 알려드립니다. 소중한 기회를 놓치지 마세요.',
     to: '/competitions',
-    cta: '지금 확인하기',
-    tag: 'D-DAY',
+    cta: '공모 살펴보기',
+    tag: 'ALERT',
+  },
+  {
+    label: '04',
+    title: '활동 이력 기반 매칭',
+    desc: '분야·장르·경력을 등록해두면 새로운 공모가 올라올 때 fine:D가 자동으로 연결해드립니다.',
+    to: '/auth',
+    cta: '이력 등록하기',
+    tag: 'MATCH',
+  },
+  {
+    label: '05',
+    title: '관심 공모 북마크',
+    desc: '마음에 드는 공모를 저장하고 한곳에서 모아 관리하세요. 로그인하면 내 리스트가 만들어집니다.',
+    to: '/auth',
+    cta: '로그인하기',
+    tag: 'SAVE',
+  },
+  {
+    label: '06',
+    title: '지원 자격 자동 확인',
+    desc: '신분·경력·예술활동증명 여부를 입력하면 지원 가능한 공모만 걸러서 보여드립니다.',
+    to: '/ai-recommend',
+    cta: '자격 확인하기',
+    tag: 'CHECK',
   },
 ]
 
@@ -130,17 +154,15 @@ export default function Home() {
             <p style={s.featHeaderDesc}>복잡한 지원 정보를<br />쉽고 빠르게</p>
           </div>
 
-          <div style={s.featList}>
+          <div style={s.featGrid}>
             {FEATURES.map(({ label, title, desc, to, cta, tag }) => (
-              <div key={label} className="feat-row" style={s.featRow}>
-                <span style={s.featNum}>{label}</span>
-                <div style={s.featContent}>
-                  <div style={s.featTitleRow}>
-                    <h3 style={s.featTitle}>{title}</h3>
-                    <span style={s.featTag}>{tag}</span>
-                  </div>
-                  <p style={s.featDesc}>{desc}</p>
+              <div key={label} className="home-card" style={s.featCard}>
+                <div style={s.featCardTop}>
+                  <span style={s.featNum}>{label}</span>
+                  <span style={s.featTag}>{tag}</span>
                 </div>
+                <h3 style={s.featTitle}>{title}</h3>
+                <p style={s.featDesc}>{desc}</p>
                 <Link to={to} style={s.featCta}>
                   <span>{cta}</span>
                   <span className="feat-arrow" style={s.featArrow}>→</span>
@@ -313,40 +335,46 @@ const s = {
     flexWrap: 'wrap', gap: 20,
   },
   featHeaderDesc: { fontSize: '14px', color: '#9A9A9A', lineHeight: 1.7, textAlign: 'right' },
-  featList: {
-    display: 'flex', flexDirection: 'column',
-    borderTop: '1px solid rgba(0,0,0,0.08)',
+  featGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: 16,
   },
-  featRow: {
-    display: 'flex', alignItems: 'center', gap: 32,
-    padding: '28px 16px',
-    borderBottom: '1px solid rgba(0,0,0,0.08)',
-    borderRadius: 12,
+  featCard: {
+    background: '#FAFAF9',
+    border: '1px solid rgba(0,0,0,0.08)',
+    borderRadius: 18, padding: '28px 26px',
+    display: 'flex', flexDirection: 'column', gap: 10,
+  },
+  featCardTop: {
+    display: 'flex', alignItems: 'center',
+    justifyContent: 'space-between', marginBottom: 4,
   },
   featNum: {
     fontSize: '11px', fontWeight: 700, color: '#C0C0C0',
-    letterSpacing: '0.06em', flexShrink: 0, width: 24,
-  },
-  featContent: { flex: 1, display: 'flex', flexDirection: 'column', gap: 6 },
-  featTitleRow: { display: 'flex', alignItems: 'center', gap: 10 },
-  featTitle: {
-    fontSize: '1.05rem', fontWeight: 800, color: '#0D0D0D',
-    letterSpacing: '-0.3px',
+    letterSpacing: '0.06em',
   },
   featTag: {
     fontSize: '10px', fontWeight: 700, color: ACCENT,
     background: 'rgba(55,71,255,0.08)',
     border: '1px solid rgba(55,71,255,0.15)',
-    padding: '2px 8px', borderRadius: 20,
-    letterSpacing: '0.06em',
+    padding: '2px 9px', borderRadius: 20,
+    letterSpacing: '0.05em',
   },
-  featDesc: { fontSize: '0.875rem', color: '#7A7A7A', lineHeight: 1.7 },
+  featTitle: {
+    fontSize: '1rem', fontWeight: 800, color: '#0D0D0D',
+    letterSpacing: '-0.3px',
+  },
+  featDesc: {
+    fontSize: '0.845rem', color: '#7A7A7A',
+    lineHeight: 1.75, flex: 1,
+  },
   featCta: {
-    display: 'inline-flex', alignItems: 'center', gap: 8,
-    color: '#0D0D0D', fontWeight: 700, fontSize: '0.875rem',
-    flexShrink: 0, whiteSpace: 'nowrap',
+    display: 'inline-flex', alignItems: 'center', gap: 6,
+    color: '#0D0D0D', fontWeight: 700, fontSize: '0.845rem',
+    marginTop: 4,
   },
-  featArrow: { fontSize: '1rem', color: ACCENT },
+  featArrow: { fontSize: '0.95rem', color: ACCENT },
 
   /* ── Steps ── */
   stepsSection: {
