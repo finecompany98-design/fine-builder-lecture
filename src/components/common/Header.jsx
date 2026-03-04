@@ -15,8 +15,8 @@ export default function Header() {
   }
 
   const navLinks = [
-    { to: '/competitions', label: '공모·지원사업', icon: '🏆' },
-    { to: '/ai-recommend', label: '맞춤 추천', icon: '✦' },
+    { to: '/competitions', label: '공모·지원사업' },
+    { to: '/ai-recommend', label: '맞춤 추천' },
   ]
 
   return (
@@ -46,16 +46,15 @@ export default function Header() {
         </div>
 
         <nav role="navigation" aria-label="주요 메뉴" style={s.nav}>
-          {navLinks.map(({ to, label, icon }) => {
+          {navLinks.map(({ to, label }) => {
             const active = location.pathname.startsWith(to)
             return (
               <Link key={to} to={to} style={{
                 ...s.navLink,
-                color: active ? '#0D0D0D' : '#5A5A5A',
-                fontWeight: active ? 700 : 500,
+                color: active ? '#0D0D0D' : '#6A6A6A',
+                fontWeight: active ? 600 : 400,
                 background: active ? '#ECECEA' : 'transparent',
               }}>
-                <span aria-hidden="true" style={{ fontSize: 14 }}>{icon}</span>
                 {label}
               </Link>
             )
@@ -115,10 +114,9 @@ const s = {
   },
   nav: { display: 'flex', alignItems: 'center', gap: 2 },
   navLink: {
-    display: 'flex', alignItems: 'center', gap: 5,
-    padding: '7px 12px', borderRadius: 8,
-    fontSize: '0.875rem', transition: 'all 0.15s',
-    letterSpacing: '-0.2px',
+    padding: '7px 14px', borderRadius: 8,
+    fontSize: '0.82rem', transition: 'all 0.15s',
+    letterSpacing: '0px',
   },
   adminBtn: {
     padding: '6px 12px', borderRadius: 8,
