@@ -10,7 +10,7 @@ import './styles/globals.css'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/fine-builder-lecture">
+    <BrowserRouter>
       <a href="#main" className="skip-link">본문 바로가기</a>
       <Header />
       <Routes>
