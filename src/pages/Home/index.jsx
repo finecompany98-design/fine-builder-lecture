@@ -43,8 +43,8 @@ export default function Home() {
               type="search"
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="전시, 공연, 공모전을 검색해보세요"
-              aria-label="전시, 공연, 공모전 검색"
+              placeholder="공연, 공모전을 검색해보세요"
+              aria-label="공연, 공모전 검색"
               style={styles.searchInput}
             />
             <button style={styles.searchBtn} aria-label="검색">
