@@ -2,19 +2,24 @@
 
 /* ─── CSS 변수 (라이트 모드) ─── */
 :root {
-  --color-primary:    #111111;
-  --color-primary-bg: #EBEBEB;
-  --color-accent:     #F59E0B;
-  --color-bg:         #F8F8F8;
+  --color-primary:    #0D0D0D;
+  --color-primary-bg: #ECECEA;
+  --color-accent:     #FF4D1C;
+  --color-accent-hover: #E03D10;
+  --color-accent-tint: rgba(255, 77, 28, 0.07);
+  --color-bg:         #FAFAF9;
   --color-surface:    #FFFFFF;
-  --color-surface2:   #F5F5F5;
-  --color-text:       #111111;
-  --color-text-muted: #888888;
-  --color-border:     rgba(0, 0, 0, 0.12);
+  --color-surface2:   #F4F4F2;
+  --color-text:       #0D0D0D;
+  --color-text-mid:   #4A4A4A;
+  --color-text-muted: #8A8A8A;
+  --color-border:     rgba(0, 0, 0, 0.09);
   --font-main:        'Noto Sans KR', sans-serif;
-  --radius:           16px;
-  --shadow-sm:        0 2px 12px rgba(0, 0, 0, 0.06);
-  --shadow:           0 4px 24px rgba(0, 0, 0, 0.08);
+  --radius:           14px;
+  --radius-lg:        22px;
+  --radius-xl:        40px;
+  --shadow-sm:        0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow:           0 4px 20px rgba(0, 0, 0, 0.08);
   --shadow-lg:        0 8px 40px rgba(0, 0, 0, 0.12);
   --font-size-base:   16px;
 }

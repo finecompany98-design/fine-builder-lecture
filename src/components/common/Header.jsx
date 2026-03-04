@@ -36,9 +36,10 @@ export default function Header() {
               aria-pressed={fontSize === size}
               style={{
                 ...s.fontBtn,
-                fontSize: [13, 16, 20][i],
-                background: fontSize === size ? '#EBEBEB' : 'transparent',
-                color: fontSize === size ? '#111111' : '#6B6585',
+                fontSize: [12, 15, 18][i],
+                background: fontSize === size ? '#fff' : 'transparent',
+                color: fontSize === size ? '#0D0D0D' : '#8A8A8A',
+                boxShadow: fontSize === size ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
               }}
             >가</button>
           ))}
@@ -50,11 +51,12 @@ export default function Header() {
             return (
               <Link key={to} to={to} style={{
                 ...s.navLink,
-                color: active ? '#111111' : '#444444',
+                color: active ? '#0D0D0D' : '#5A5A5A',
                 fontWeight: active ? 700 : 500,
-                background: active ? '#EBEBEB' : 'transparent',
+                background: active ? '#ECECEA' : 'transparent',
               }}>
-                <span aria-hidden="true">{icon}</span> {label}
+                <span aria-hidden="true" style={{ fontSize: 14 }}>{icon}</span>
+                {label}
               </Link>
             )
           })}
@@ -73,45 +75,64 @@ export default function Header() {
 const s = {
   header: {
     position: 'sticky', top: 0, zIndex: 100,
-    background: 'rgba(255,255,255,0.92)',
-    backdropFilter: 'blur(12px)',
-    borderBottom: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
-    padding: '0 24px',
+    background: 'rgba(250,250,249,0.94)',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
+    borderBottom: '1px solid rgba(0,0,0,0.09)',
   },
   inner: {
     maxWidth: 1100, margin: '0 auto',
     display: 'flex', alignItems: 'center',
-    gap: 24, height: 64,
+    gap: 16, height: 64,
+    padding: '0 28px',
   },
   logo: {
-    display: 'flex', alignItems: 'center', gap: 8,
-    fontWeight: 900, fontSize: '1.25rem',
-    marginRight: 'auto',
+    display: 'flex', alignItems: 'baseline',
+    gap: 1, marginRight: 'auto',
+    letterSpacing: '-0.5px',
   },
-  logoText: { color: '#1A1027' },
-  logoAccent: { color: '#111111' },
-  fontControls: { display: 'flex', gap: 4 },
+  logoText: {
+    fontWeight: 900, fontSize: '1.2rem',
+    color: '#0D0D0D',
+  },
+  logoAccent: {
+    fontWeight: 900, fontSize: '1.2rem',
+    color: '#FF4D1C',
+  },
+  fontControls: {
+    display: 'flex', gap: 2,
+    background: '#F2F2F0',
+    padding: '3px',
+    borderRadius: 8,
+  },
   fontBtn: {
-    padding: '4px 8px', borderRadius: 8,
-    transition: 'all 0.2s', fontFamily: 'inherit',
+    padding: '4px 9px', borderRadius: 6,
+    border: 'none',
+    transition: 'all 0.15s',
+    fontFamily: 'inherit',
+    cursor: 'pointer',
+    lineHeight: 1,
   },
-  nav: { display: 'flex', alignItems: 'center', gap: 4 },
+  nav: { display: 'flex', alignItems: 'center', gap: 2 },
   navLink: {
-    display: 'flex', alignItems: 'center', gap: 6,
-    padding: '7px 12px', borderRadius: 10,
-    fontSize: '0.9rem', transition: 'all 0.2s',
+    display: 'flex', alignItems: 'center', gap: 5,
+    padding: '7px 12px', borderRadius: 8,
+    fontSize: '0.875rem', transition: 'all 0.15s',
+    letterSpacing: '-0.2px',
   },
   adminBtn: {
-    padding: '6px 14px', borderRadius: 10,
-    border: '1px solid rgba(245,158,11,0.5)',
-    color: '#D97706', fontSize: '0.85rem', fontWeight: 700,
+    padding: '6px 12px', borderRadius: 8,
+    border: '1px solid rgba(255,77,28,0.3)',
+    color: '#FF4D1C', fontSize: '0.82rem', fontWeight: 700,
+    background: 'rgba(255,77,28,0.06)',
   },
   navCta: {
-    background: '#111111',
+    background: '#FF4D1C',
     color: '#fff', padding: '8px 18px',
-    borderRadius: 20, fontWeight: 700,
-    fontSize: '0.9rem', marginLeft: 8,
-    boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
+    borderRadius: 40, fontWeight: 700,
+    fontSize: '0.875rem', marginLeft: 6,
+    letterSpacing: '-0.2px',
+    transition: 'background 0.15s, transform 0.1s',
+    boxShadow: '0 2px 12px rgba(255,77,28,0.28)',
   },
 }
