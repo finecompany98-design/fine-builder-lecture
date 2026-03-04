@@ -20,17 +20,15 @@ export default function Header() {
   ]
 
   return (
-    <header style={styles.header} role="banner">
-      <div style={styles.inner}>
+    <header style={s.header} role="banner">
+      <div style={s.inner}>
 
-        {/* 로고 */}
-        <Link to="/" style={styles.logo} aria-label="모두의 예술 홈으로 이동">
-          <span aria-hidden="true" style={styles.logoIcon}>✦</span>
-          <span style={styles.logoText}>모두의 예술</span>
+        <Link to="/" style={s.logo} aria-label="모두의 예술 홈으로 이동">
+          <span style={s.logoIcon} aria-hidden="true">✦</span>
+          <span style={s.logoText}>모두의 예술</span>
         </Link>
 
-        {/* 글자 크기 조절 */}
-        <div role="group" aria-label="글자 크기 조절" style={styles.fontControls}>
+        <div role="group" aria-label="글자 크기 조절" style={s.fontControls}>
           {['small', 'normal', 'large'].map((size, i) => (
             <button
               key={size}
@@ -38,52 +36,48 @@ export default function Header() {
               aria-label={['글자 작게', '글자 보통', '글자 크게'][i]}
               aria-pressed={fontSize === size}
               style={{
-                ...styles.fontBtn,
+                ...s.fontBtn,
                 fontSize: [13, 16, 20][i],
-                opacity: fontSize === size ? 1 : 0.5,
-                background: fontSize === size ? 'rgba(108,60,225,0.3)' : 'transparent',
+                background: fontSize === size ? '#EDE8FF' : 'transparent',
+                color: fontSize === size ? '#6C3CE1' : '#6B6585',
               }}
-            >
-              가
-            </button>
+            >가</button>
           ))}
         </div>
 
-        {/* 네비게이션 */}
-        <nav role="navigation" aria-label="주요 메뉴" style={styles.nav}>
-          {navLinks.map(({ to, label, icon }) => (
-            <Link
-              key={to}
-              to={to}
-              style={{
-                ...styles.navLink,
-                color: location.pathname === to ? '#fff' : 'rgba(240,235,248,0.7)',
-              }}
-            >
-              <span aria-hidden="true">{icon}</span> {label}
-            </Link>
-          ))}
+        <nav role="navigation" aria-label="주요 메뉴" style={s.nav}>
+          {navLinks.map(({ to, label, icon }) => {
+            const active = location.pathname.startsWith(to)
+            return (
+              <Link key={to} to={to} style={{
+                ...s.navLink,
+                color: active ? '#6C3CE1' : '#3D3458',
+                fontWeight: active ? 700 : 500,
+                background: active ? '#EDE8FF' : 'transparent',
+              }}>
+                <span aria-hidden="true">{icon}</span> {label}
+              </Link>
+            )
+          })}
 
-          {/* 관리자 전용 등록 버튼 */}
           {isAdmin && (
-            <Link to="/admin" style={styles.adminBtn}>
-              ＋ 등록
-            </Link>
+            <Link to="/admin" style={s.adminBtn}>＋ 등록</Link>
           )}
 
-          <Link to="/auth" style={styles.navCta}>시작하기 →</Link>
+          <Link to="/auth" style={s.navCta}>시작하기 →</Link>
         </nav>
       </div>
     </header>
   )
 }
 
-const styles = {
+const s = {
   header: {
     position: 'sticky', top: 0, zIndex: 100,
-    background: 'rgba(15,10,30,0.85)',
+    background: 'rgba(255,255,255,0.92)',
     backdropFilter: 'blur(12px)',
-    borderBottom: '1px solid rgba(255,255,255,0.08)',
+    borderBottom: '1px solid rgba(108,60,225,0.1)',
+    boxShadow: '0 2px 16px rgba(108,60,225,0.06)',
     padding: '0 24px',
   },
   inner: {
@@ -96,30 +90,29 @@ const styles = {
     fontWeight: 900, fontSize: '1.25rem',
     marginRight: 'auto',
   },
-  logoIcon: { color: '#8B5CF6', fontSize: '1.4rem' },
-  logoText: { color: '#fff' },
+  logoIcon: { color: '#6C3CE1', fontSize: '1.4rem' },
+  logoText: { color: '#1A1027' },
   fontControls: { display: 'flex', gap: 4 },
   fontBtn: {
     padding: '4px 8px', borderRadius: 8,
-    color: '#fff', transition: 'all 0.2s',
-    fontFamily: 'inherit',
+    transition: 'all 0.2s', fontFamily: 'inherit',
   },
-  nav: { display: 'flex', alignItems: 'center', gap: 8 },
+  nav: { display: 'flex', alignItems: 'center', gap: 4 },
   navLink: {
     display: 'flex', alignItems: 'center', gap: 6,
-    padding: '8px 12px', borderRadius: 10,
-    fontSize: '0.9rem', fontWeight: 500,
-    transition: 'color 0.2s',
+    padding: '7px 12px', borderRadius: 10,
+    fontSize: '0.9rem', transition: 'all 0.2s',
   },
   adminBtn: {
     padding: '6px 14px', borderRadius: 10,
-    border: '1px solid rgba(245,158,11,0.4)',
-    color: '#F59E0B', fontSize: '0.85rem', fontWeight: 700,
+    border: '1px solid rgba(245,158,11,0.5)',
+    color: '#D97706', fontSize: '0.85rem', fontWeight: 700,
   },
   navCta: {
-    background: 'linear-gradient(135deg, #6C3CE1, #8B5CF6)',
+    background: '#6C3CE1',
     color: '#fff', padding: '8px 18px',
     borderRadius: 20, fontWeight: 700,
     fontSize: '0.9rem', marginLeft: 8,
+    boxShadow: '0 2px 12px rgba(108,60,225,0.25)',
   },
 }

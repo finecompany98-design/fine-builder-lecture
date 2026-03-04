@@ -19,11 +19,11 @@ function dday(deadline) {
 }
 
 function ddayColor(label) {
-  if (label === '마감') return '#6B7280'
-  if (label === 'D-DAY') return '#EF4444'
+  if (label === '마감') return { bg: '#F3F4F6', text: '#9CA3AF' }
+  if (label === 'D-DAY') return { bg: '#FEE2E2', text: '#EF4444' }
   const n = parseInt(label.replace('D-', ''))
-  if (n <= 7) return '#F59E0B'
-  return '#6C3CE1'
+  if (n <= 7) return { bg: '#FEF3C7', text: '#D97706' }
+  return { bg: '#EDE8FF', text: '#6C3CE1' }
 }
 
 export default function Competitions() {
@@ -43,11 +43,7 @@ export default function Competitions() {
       let q
       const col = collection(db, 'competitions')
       if (activeCategory !== '전체' && activeType !== '전체') {
-        q = query(col,
-          where('isActive', '==', true),
-          where('category', '==', activeCategory),
-          where('type', '==', activeType),
-          orderBy('deadline'))
+        q = query(col, where('isActive', '==', true), where('category', '==', activeCategory), where('type', '==', activeType), orderBy('deadline'))
       } else if (activeCategory !== '전체') {
         q = query(col, where('isActive', '==', true), where('category', '==', activeCategory), orderBy('deadline'))
       } else if (activeType !== '전체') {
@@ -84,130 +80,140 @@ export default function Competitions() {
   )
 
   return (
-    <main id="main" style={styles.main}>
-      <div style={styles.inner}>
+    <main id="main" style={s.main}>
+      <div style={s.inner}>
 
-        {/* 헤더 */}
-        <div style={styles.pageHeader}>
-          <h1 style={styles.title}>🏆 공모·지원사업</h1>
-          <p style={styles.subtitle}>
+        {/* 페이지 헤더 */}
+        <div style={s.pageHeader}>
+          <h1 style={s.title}>공모·지원사업</h1>
+          <p style={s.subtitle}>
             한국문화예술위원회, 서울문화재단 등 공공기관·재단의<br />
             실제 공모전과 지원사업 정보를 모았습니다.
           </p>
-          {/* 최초 1회 데이터 등록 버튼 (관리자용) */}
           {items.length === 0 && !loading && (
-            <button onClick={handleSeed} disabled={seeding} style={styles.seedBtn}>
+            <button onClick={handleSeed} disabled={seeding} style={s.seedBtn}>
               {seeding ? '등록 중...' : '📥 초기 데이터 등록 (최초 1회)'}
             </button>
           )}
         </div>
 
         {/* 검색 */}
-        <div style={styles.searchWrap}>
+        <div style={s.searchWrap} role="search">
+          <label htmlFor="comp-search" className="sr-only">공모 검색</label>
+          <span style={s.searchIcon} aria-hidden="true">🔍</span>
           <input
+            id="comp-search"
             type="search"
             placeholder="공모명, 기관명, 분야로 검색"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={styles.searchInput}
+            style={s.searchInput}
           />
         </div>
 
-        {/* 분야 필터 */}
-        <div style={styles.filterRow}>
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                ...styles.filterBtn,
-                background: activeCategory === cat ? 'linear-gradient(135deg,#6C3CE1,#8B5CF6)' : 'rgba(255,255,255,0.06)',
-                color: activeCategory === cat ? '#fff' : 'rgba(240,235,248,0.65)',
-                border: activeCategory === cat ? 'none' : '1px solid rgba(255,255,255,0.1)',
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* 유형 필터 */}
-        <div style={styles.filterRow}>
-          {TYPES.map(tp => (
-            <button
-              key={tp}
-              onClick={() => setActiveType(tp)}
-              style={{
-                ...styles.filterBtn,
-                background: activeType === tp ? 'rgba(245,158,11,0.25)' : 'rgba(255,255,255,0.06)',
-                color: activeType === tp ? '#F59E0B' : 'rgba(240,235,248,0.65)',
-                border: activeType === tp ? '1px solid rgba(245,158,11,0.5)' : '1px solid rgba(255,255,255,0.1)',
-              }}
-            >
-              {tp}
-            </button>
-          ))}
+        {/* 필터 바 */}
+        <div style={s.filterPanel}>
+          <div style={s.filterGroup}>
+            <span style={s.filterLabel}>분야</span>
+            <div style={s.filterRow}>
+              {CATEGORIES.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  style={{
+                    ...s.filterBtn,
+                    background: activeCategory === cat ? '#6C3CE1' : '#fff',
+                    color: activeCategory === cat ? '#fff' : '#3D3458',
+                    border: activeCategory === cat ? '1px solid #6C3CE1' : '1px solid rgba(108,60,225,0.2)',
+                    fontWeight: activeCategory === cat ? 700 : 500,
+                  }}
+                >{cat}</button>
+              ))}
+            </div>
+          </div>
+          <div style={s.filterGroup}>
+            <span style={s.filterLabel}>유형</span>
+            <div style={s.filterRow}>
+              {TYPES.map(tp => (
+                <button
+                  key={tp}
+                  onClick={() => setActiveType(tp)}
+                  style={{
+                    ...s.filterBtn,
+                    background: activeType === tp ? '#F59E0B' : '#fff',
+                    color: activeType === tp ? '#fff' : '#3D3458',
+                    border: activeType === tp ? '1px solid #F59E0B' : '1px solid rgba(108,60,225,0.2)',
+                    fontWeight: activeType === tp ? 700 : 500,
+                  }}
+                >{tp}</button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* 결과 수 */}
         {!loading && (
-          <p style={styles.count}>총 {filtered.length}건</p>
+          <p style={s.count}>총 <strong style={{ color: '#6C3CE1' }}>{filtered.length}</strong>건</p>
         )}
 
         {/* 카드 목록 */}
         {loading ? (
-          <p style={styles.loading}>불러오는 중...</p>
+          <div style={s.stateBox}>
+            <span style={s.stateIcon}>⏳</span>
+            <p style={s.stateText}>불러오는 중...</p>
+          </div>
         ) : filtered.length === 0 ? (
-          <p style={styles.empty}>해당하는 공모·지원사업이 없습니다.</p>
+          <div style={s.stateBox}>
+            <span style={s.stateIcon}>🔎</span>
+            <p style={s.stateText}>해당하는 공모·지원사업이 없습니다.</p>
+          </div>
         ) : (
-          <div style={styles.grid}>
+          <div style={s.grid}>
             {filtered.map(item => {
               const ddayLabel = dday(item.deadline)
-              const color = ddayColor(ddayLabel)
+              const { bg: ddayBg, text: ddayText } = ddayColor(ddayLabel)
               return (
                 <a
                   key={item.id}
                   href={item.orgUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={styles.card}
+                  style={s.card}
                 >
-                  {/* 상단 배지 */}
-                  <div style={styles.cardTop}>
-                    <span style={item.type === '지원사업' ? styles.badgeGreen : styles.badgeAmber}>
+                  {/* 배지 행 */}
+                  <div style={s.cardTop}>
+                    <span style={item.type === '지원사업' ? s.badgeGreen : s.badgeAmber}>
                       {item.type}
                     </span>
-                    <span style={styles.badgePurple}>
-                      {item.category}
-                    </span>
-                    <span style={{ ...styles.dday, color, border: `1px solid ${color}` }}>
-                      {ddayLabel}
-                    </span>
+                    <span style={s.badgePurple}>{item.category}</span>
+                    {ddayLabel && (
+                      <span style={{ ...s.ddayBadge, background: ddayBg, color: ddayText }}>
+                        {ddayLabel}
+                      </span>
+                    )}
                   </div>
 
-                  {/* 제목 */}
-                  <h2 style={styles.cardTitle}>{item.title}</h2>
-                  <p style={styles.cardOrg}>📌 {item.organization}</p>
+                  {/* 본문 */}
+                  <h2 style={s.cardTitle}>{item.title}</h2>
+                  <p style={s.cardOrg}>📌 {item.organization}</p>
 
-                  {/* 분야 태그 */}
-                  <div style={styles.tagRow}>
+                  <div style={s.tagRow}>
                     {(item.fields || []).slice(0, 4).map(f => (
-                      <span key={f} style={styles.tag}>{f}</span>
+                      <span key={f} style={s.tag}>{f}</span>
                     ))}
                   </div>
 
-                  {/* 지원금 / 마감일 */}
-                  <div style={styles.cardMeta}>
-                    <span style={styles.amount}>💰 {item.amount}</span>
-                    <span style={styles.deadline}>
+                  <div style={s.cardMeta}>
+                    <span style={s.amount}>💰 {item.amount}</span>
+                    <span style={s.deadline}>
                       마감 {item.deadline?.toDate
                         ? item.deadline.toDate().toLocaleDateString('ko-KR')
                         : '미정'}
                     </span>
                   </div>
 
-                  <p style={styles.desc}>{item.description}</p>
-                  <span style={styles.link}>공식 사이트에서 확인 →</span>
+                  <p style={s.desc}>{item.description}</p>
+                  <span style={s.link}>공식 사이트에서 확인 →</span>
                 </a>
               )
             })}
@@ -218,35 +224,65 @@ export default function Competitions() {
   )
 }
 
-const styles = {
-  main: { padding: '60px 24px 80px' },
+const s = {
+  main: { padding: '48px 24px 80px', background: '#F8F7FF', minHeight: '80vh' },
   inner: { maxWidth: 1100, margin: '0 auto' },
-  pageHeader: { textAlign: 'center', marginBottom: 40 },
-  title: { fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 900, color: '#fff', marginBottom: 12 },
-  subtitle: { color: 'rgba(240,235,248,0.6)', lineHeight: 1.8, fontSize: '1rem' },
+
+  pageHeader: { marginBottom: 36 },
+  title: {
+    fontSize: 'clamp(1.7rem, 3vw, 2.4rem)',
+    fontWeight: 900, color: '#1A1027', marginBottom: 10,
+  },
+  subtitle: { color: '#6B6585', lineHeight: 1.8, fontSize: '1rem' },
   seedBtn: {
-    marginTop: 20, padding: '12px 24px',
-    background: 'rgba(108,60,225,0.3)', border: '1px solid #6C3CE1',
-    color: '#C4B5FD', borderRadius: 12, fontFamily: 'inherit',
-    fontSize: '0.95rem', cursor: 'pointer',
+    marginTop: 20, padding: '11px 22px',
+    background: '#EDE8FF', border: '1px solid #6C3CE1',
+    color: '#6C3CE1', borderRadius: 12, fontSize: '0.9rem',
+    fontWeight: 700, cursor: 'pointer',
   },
-  searchWrap: { marginBottom: 20 },
+
+  searchWrap: {
+    position: 'relative', marginBottom: 20,
+  },
+  searchIcon: {
+    position: 'absolute', left: 16, top: '50%',
+    transform: 'translateY(-50%)', fontSize: '1rem', pointerEvents: 'none',
+  },
   searchInput: {
-    width: '100%', padding: '13px 20px',
-    background: 'rgba(255,255,255,0.07)',
-    border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: 12, color: '#fff', fontSize: '1rem',
+    width: '100%', padding: '13px 20px 13px 44px',
+    background: '#fff',
+    border: '1.5px solid rgba(108,60,225,0.2)',
+    borderRadius: 12, color: '#1A1027', fontSize: '1rem',
     fontFamily: 'inherit', outline: 'none',
+    boxShadow: '0 2px 12px rgba(108,60,225,0.06)',
   },
-  filterRow: { display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
+
+  filterPanel: {
+    background: '#fff', borderRadius: 16,
+    padding: '20px 24px', marginBottom: 24,
+    border: '1px solid rgba(108,60,225,0.1)',
+    boxShadow: '0 2px 12px rgba(108,60,225,0.06)',
+    display: 'flex', flexDirection: 'column', gap: 16,
+  },
+  filterGroup: { display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' },
+  filterLabel: {
+    fontSize: '0.78rem', fontWeight: 700, color: '#6B6585',
+    letterSpacing: '0.06em', paddingTop: 6, whiteSpace: 'nowrap',
+  },
+  filterRow: { display: 'flex', flexWrap: 'wrap', gap: 8 },
   filterBtn: {
-    padding: '7px 16px', borderRadius: 20,
-    fontSize: '0.85rem', fontWeight: 600,
-    fontFamily: 'inherit', cursor: 'pointer', transition: 'all 0.2s',
+    padding: '6px 15px', borderRadius: 20,
+    fontSize: '0.85rem', transition: 'all 0.15s',
+    fontFamily: 'inherit', cursor: 'pointer',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
   },
-  count: { color: 'rgba(240,235,248,0.4)', fontSize: '0.85rem', marginBottom: 20, marginTop: 8 },
-  loading: { textAlign: 'center', color: 'rgba(240,235,248,0.4)', padding: 60 },
-  empty: { textAlign: 'center', color: 'rgba(240,235,248,0.4)', padding: 60 },
+
+  count: { color: '#6B6585', fontSize: '0.88rem', marginBottom: 20 },
+
+  stateBox: { textAlign: 'center', padding: '80px 0' },
+  stateIcon: { fontSize: '2.5rem', display: 'block', marginBottom: 16 },
+  stateText: { color: '#6B6585', fontSize: '1rem' },
+
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
@@ -254,42 +290,43 @@ const styles = {
   },
   card: {
     display: 'block',
-    background: 'rgba(26,16,48,0.85)',
-    border: '1px solid rgba(255,255,255,0.08)',
+    background: '#fff',
+    border: '1.5px solid rgba(108,60,225,0.08)',
     borderRadius: 20, padding: '24px',
-    transition: 'border-color 0.2s, transform 0.2s',
+    transition: 'box-shadow 0.2s, transform 0.2s',
     cursor: 'pointer', textDecoration: 'none',
+    boxShadow: '0 2px 16px rgba(108,60,225,0.06)',
   },
+
   cardTop: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' },
-  badge: { padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700 },
   badgeGreen: {
     padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: 'rgba(34,197,94,0.15)', color: '#4ADE80', border: '1px solid rgba(74,222,128,0.3)',
+    background: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0',
   },
   badgeAmber: {
     padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: 'rgba(245,158,11,0.15)', color: '#FCD34D', border: '1px solid rgba(252,211,77,0.3)',
+    background: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A',
   },
   badgePurple: {
     padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: 'rgba(139,92,246,0.15)', color: '#C4B5FD', border: '1px solid rgba(196,181,253,0.3)',
+    background: '#EDE8FF', color: '#6C3CE1', border: '1px solid #DDD6FE',
   },
-  dday: {
+  ddayBadge: {
     marginLeft: 'auto', padding: '3px 10px',
     borderRadius: 20, fontSize: '0.8rem', fontWeight: 900,
-    background: 'transparent',
   },
-  cardTitle: { fontSize: '1.05rem', fontWeight: 800, color: '#fff', marginBottom: 6, lineHeight: 1.4 },
-  cardOrg: { color: '#C4B5FD', fontSize: '0.85rem', marginBottom: 12 },
+
+  cardTitle: { fontSize: '1.05rem', fontWeight: 800, color: '#1A1027', marginBottom: 6, lineHeight: 1.4 },
+  cardOrg: { color: '#6C3CE1', fontSize: '0.85rem', marginBottom: 14, fontWeight: 600 },
   tagRow: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 },
   tag: {
     padding: '3px 10px', borderRadius: 20,
-    background: 'rgba(255,255,255,0.07)',
-    color: 'rgba(240,235,248,0.6)', fontSize: '0.78rem',
+    background: '#F3F0FF', color: '#6B6585', fontSize: '0.78rem',
+    border: '1px solid rgba(108,60,225,0.1)',
   },
   cardMeta: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  amount: { color: '#F59E0B', fontWeight: 700, fontSize: '0.9rem' },
-  deadline: { color: 'rgba(240,235,248,0.45)', fontSize: '0.8rem' },
-  desc: { color: 'rgba(240,235,248,0.55)', fontSize: '0.85rem', lineHeight: 1.65, marginBottom: 16 },
-  link: { color: '#8B5CF6', fontSize: '0.85rem', fontWeight: 700 },
+  amount: { color: '#D97706', fontWeight: 700, fontSize: '0.9rem' },
+  deadline: { color: '#9CA3AF', fontSize: '0.8rem' },
+  desc: { color: '#6B6585', fontSize: '0.85rem', lineHeight: 1.7, marginBottom: 16 },
+  link: { color: '#6C3CE1', fontSize: '0.85rem', fontWeight: 700 },
 }
