@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import './Home.css'
 
 const ACCENT = '#3747FF'
 
@@ -77,22 +78,22 @@ export default function Home() {
     <main id="main">
 
       {/* ── 히어로 ── */}
-      <section style={s.hero} aria-labelledby="hero-title">
+      <section className="home-hero" style={s.hero} aria-labelledby="hero-title">
         {/* 배경 그리드 패턴 */}
         <div style={s.bgGrid} aria-hidden="true" />
         {/* 인디고 글로우 */}
         <div style={s.bgGlow} aria-hidden="true" />
 
-        <div style={s.heroGrid}>
+        <div className="home-hero-grid" style={s.heroGrid}>
 
           {/* 왼쪽: 텍스트 */}
           <div style={s.heroLeft}>
-            <span className="fade-up-1" style={s.heroEyebrow}>
+            <span className="fade-up-1 home-hero-eyebrow" style={s.heroEyebrow}>
               <span className="glow-dot" style={s.heroDot} />
               문화예술 플랫폼 · fine:D
             </span>
 
-            <h1 id="hero-title" className="fade-up-2" style={s.heroTitle}>
+            <h1 id="hero-title" className="fade-up-2 home-hero-title" style={s.heroTitle}>
               당신의 예술은{' '}
               <span style={s.accentWord}>'Fine'</span>하게,
               <br />
@@ -100,12 +101,12 @@ export default function Home() {
               <span style={s.accentWord}>'Find'</span>하게.
             </h1>
 
-            <p className="fade-up-3" style={s.heroDesc}>
+            <p className="fade-up-3 home-hero-desc" style={s.heroDesc}>
               공공기관·재단의 공모전과 지원사업 정보를 한데 모아<br />
               fine:D가 내 분야에 꼭 맞는 기회를 찾아드립니다
             </p>
 
-            <div className="fade-up-4" style={s.ctaRow}>
+            <div className="fade-up-4 home-cta-row" style={s.ctaRow}>
               <Link to="/auth" style={s.ctaPrimary}>
                 로그인
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ marginLeft: 7 }} aria-hidden="true">
@@ -119,11 +120,11 @@ export default function Home() {
           </div>
 
           {/* 오른쪽: 스탯 카드 */}
-          <div className="fade-up-3" style={s.heroRight} aria-label="서비스 현황">
+          <div className="fade-up-3 home-hero-right" style={s.heroRight} aria-label="서비스 현황">
             {STATS.map(({ num, label, sub }, i) => (
               <div
                 key={label}
-                className="home-card"
+                className="home-card home-stat-card"
                 style={{
                   ...s.statCard,
                   marginTop: i === 1 ? 20 : i === 2 ? -10 : 0,
@@ -131,7 +132,7 @@ export default function Home() {
                   color: i === 0 ? '#fff' : '#0D0D0D',
                 }}
               >
-                <span style={{ ...s.statNum, color: i === 0 ? '#fff' : ACCENT }}>{num}</span>
+                <span className="home-stat-num" style={{ ...s.statNum, color: i === 0 ? '#fff' : ACCENT }}>{num}</span>
                 <span style={{ ...s.statLabel, color: i === 0 ? 'rgba(255,255,255,0.75)' : '#6A6A6A' }}>{label}</span>
                 <span style={{ ...s.statSub, color: i === 0 ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.2)' }}>{sub}</span>
               </div>
@@ -143,18 +144,18 @@ export default function Home() {
 
 
       {/* ── 기능 소개 (에디토리얼 리스트) ── */}
-      <section style={s.featSection} aria-labelledby="features-title">
+      <section className="home-feat-section" style={s.featSection} aria-labelledby="features-title">
         <div style={s.sectionInner}>
 
-          <div style={s.featHeader}>
+          <div className="home-feat-header" style={s.featHeader}>
             <div>
               <p style={s.eyebrow}>Features</p>
-              <h2 id="features-title" style={s.sectionTitle}>fine:D가 하는 일</h2>
+              <h2 id="features-title" className="home-section-title" style={s.sectionTitle}>fine:D가 하는 일</h2>
             </div>
-            <p style={s.featHeaderDesc}>복잡한 지원 정보를<br />쉽고 빠르게</p>
+            <p className="home-feat-header-desc" style={s.featHeaderDesc}>복잡한 지원 정보를<br />쉽고 빠르게</p>
           </div>
 
-          <div style={s.featGrid}>
+          <div className="home-feat-grid" style={s.featGrid}>
             {FEATURES.map(({ label, title, desc, to, cta, tag }) => (
               <div key={label} className="home-card" style={s.featCard}>
                 <div style={s.featCardTop}>
@@ -175,19 +176,19 @@ export default function Home() {
       </section>
 
       {/* ── 이용 흐름 ── */}
-      <section style={s.stepsSection} aria-labelledby="steps-title">
+      <section className="home-steps-section" style={s.stepsSection} aria-labelledby="steps-title">
         <div style={s.sectionInner}>
           <div style={s.stepsHeader}>
             <p style={{ ...s.eyebrow, color: 'rgba(255,255,255,0.4)' }}>How it works</p>
-            <h2 id="steps-title" style={{ ...s.sectionTitle, color: '#fff' }}>3단계로 간편하게</h2>
+            <h2 id="steps-title" className="home-section-title" style={{ ...s.sectionTitle, color: '#fff' }}>3단계로 간편하게</h2>
           </div>
-          <div style={s.stepsGrid}>
+          <div className="home-steps-grid" style={s.stepsGrid}>
             {STEPS.map(({ n, title, desc }, i) => (
               <div key={n} className="home-card" style={s.stepCard}>
                 <div style={s.stepTop}>
                   <span style={s.stepNum}>{n}</span>
                   {i < STEPS.length - 1 && (
-                    <span style={s.stepConnector} aria-hidden="true">───</span>
+                    <span className="home-step-connector" style={s.stepConnector} aria-hidden="true">───</span>
                   )}
                 </div>
                 <strong style={s.stepTitle}>{title}</strong>
@@ -199,18 +200,18 @@ export default function Home() {
       </section>
 
       {/* ── 하단 CTA ── */}
-      <section style={s.bottomCta} aria-labelledby="cta-title">
+      <section className="home-bottom-cta" style={s.bottomCta} aria-labelledby="cta-title">
         <div style={s.bottomCtaInner}>
           {/* 장식 텍스트 */}
           <p style={s.ctaDecor} aria-hidden="true">fine:D</p>
-          <h2 id="cta-title" style={s.ctaTitle}>
+          <h2 id="cta-title" className="home-cta-title" style={s.ctaTitle}>
             지금 바로<br />
             <span style={s.ctaAccent}>시작하세요</span>
           </h2>
           <p style={s.ctaDesc}>
             내 분야에 맞는 공모와 지원사업을<br />fine:D가 전부 찾아드립니다
           </p>
-          <div style={s.ctaBtnRow}>
+          <div className="home-cta-btn-row" style={s.ctaBtnRow}>
             <Link to="/auth" style={s.ctaBtnPrimary}>시작하기 →</Link>
             <Link to="/competitions" style={s.ctaBtnGhost}>공모 둘러보기</Link>
           </div>
@@ -224,7 +225,6 @@ export default function Home() {
 const s = {
   /* ── 히어로 ── */
   hero: {
-    padding: '118px 40px 80px',
     background: '#FAFAF9',
     position: 'relative',
     overflow: 'hidden',
@@ -246,12 +246,6 @@ const s = {
     filter: 'blur(40px)',
   },
   heroGrid: {
-    maxWidth: 1100, margin: '0 auto',
-    display: 'grid',
-    gridTemplateColumns: '1fr 320px',
-    gap: 60,
-    alignItems: 'center',
-    width: '100%',
     position: 'relative',
   },
   heroLeft: { display: 'flex', flexDirection: 'column', gap: 0 },
@@ -303,10 +297,7 @@ const s = {
   },
 
   /* 스탯 카드 (오른쪽) */
-  heroRight: {
-    display: 'flex', flexDirection: 'column', gap: 14,
-    alignSelf: 'center',
-  },
+  heroRight: {},
   statCard: {
     borderRadius: 20, padding: '24px 26px',
     boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
@@ -318,7 +309,7 @@ const s = {
   statSub: { fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginTop: 2 },
 
   /* ── Features ── */
-  featSection: { padding: '96px 40px', background: '#fff' },
+  featSection: { background: '#fff' },
   sectionInner: { maxWidth: 1100, margin: '0 auto' },
   eyebrow: {
     fontSize: '11px', fontWeight: 700, color: ACCENT,
@@ -329,17 +320,9 @@ const s = {
     fontWeight: 900, color: '#0D0D0D',
     letterSpacing: '-1px', lineHeight: 1.2,
   },
-  featHeader: {
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: 'flex-end', marginBottom: 52,
-    flexWrap: 'wrap', gap: 20,
-  },
+  featHeader: {},
   featHeaderDesc: { fontSize: '14px', color: '#9A9A9A', lineHeight: 1.7, textAlign: 'right' },
-  featGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: 16,
-  },
+  featGrid: {},
   featCard: {
     background: '#FAFAF9',
     border: '1px solid rgba(0,0,0,0.08)',
@@ -378,15 +361,10 @@ const s = {
 
   /* ── Steps ── */
   stepsSection: {
-    padding: '96px 40px',
     background: '#0D0D0D',
   },
   stepsHeader: { marginBottom: 52 },
-  stepsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: 16,
-  },
+  stepsGrid: {},
   stepCard: {
     background: 'rgba(255,255,255,0.04)',
     border: '1px solid rgba(255,255,255,0.08)',
@@ -410,7 +388,6 @@ const s = {
 
   /* ── 하단 CTA ── */
   bottomCta: {
-    padding: '110px 40px',
     background: '#F4F4F2',
     textAlign: 'center',
     position: 'relative',
@@ -441,7 +418,7 @@ const s = {
   ctaBtnRow: {
     display: 'flex', gap: 14,
     justifyContent: 'center', flexWrap: 'wrap',
-    position: 'relative',
+    position: 'relative', /* home-cta-btn-row 클래스가 모바일 override */
   },
   ctaBtnPrimary: {
     display: 'inline-flex', alignItems: 'center',

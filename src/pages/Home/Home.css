@@ -1,0 +1,209 @@
+/* ── Home 반응형 (모바일 우선 오버라이드) ── */
+
+/* ── 히어로 ── */
+.home-hero {
+  padding: 118px 40px 80px;
+}
+
+.home-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.home-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: center;
+}
+
+/* ── Features ── */
+.home-feat-section {
+  padding: 96px 40px;
+}
+
+.home-feat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 52px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.home-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── Steps ── */
+.home-steps-section {
+  padding: 96px 40px;
+}
+
+.home-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ── 하단 CTA ── */
+.home-bottom-cta {
+  padding: 110px 40px;
+}
+
+/* ────────────────────────────
+   태블릿 (768px 이하)
+──────────────────────────── */
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 100px 20px 60px;
+    min-height: auto;
+  }
+
+  .home-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .home-hero-right {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .home-feat-section {
+    padding: 64px 20px;
+  }
+
+  .home-feat-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 36px;
+  }
+
+  .home-feat-header-desc {
+    text-align: left !important;
+  }
+
+  .home-feat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-steps-section {
+    padding: 64px 20px;
+  }
+
+  .home-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-bottom-cta {
+    padding: 80px 20px;
+  }
+}
+
+/* ────────────────────────────
+   모바일 (480px 이하)
+──────────────────────────── */
+@media (max-width: 480px) {
+  .home-hero {
+    padding: 90px 16px 50px;
+  }
+
+  /* 히어로 타이틀 크기 강제 조정 */
+  .home-hero-title {
+    font-size: 1.75rem !important;
+    letter-spacing: -1px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 18px !important;
+  }
+
+  /* 히어로 설명 */
+  .home-hero-desc {
+    font-size: 14px !important;
+    margin-bottom: 28px !important;
+  }
+
+  /* 히어로 eyebrow */
+  .home-hero-eyebrow {
+    font-size: 10px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* CTA 버튼 줄바꿈 */
+  .home-cta-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .home-cta-row a {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* 스탯 카드 3개 세로 */
+  .home-hero-right {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .home-stat-card {
+    padding: 16px 18px !important;
+    border-radius: 14px !important;
+  }
+
+  .home-stat-num {
+    font-size: 1.6rem !important;
+  }
+
+  /* 기능 카드 */
+  .home-feat-section {
+    padding: 48px 16px;
+  }
+
+  .home-feat-grid {
+    gap: 12px;
+  }
+
+  /* Steps */
+  .home-steps-section {
+    padding: 48px 16px;
+  }
+
+  .home-step-connector {
+    display: none;
+  }
+
+  /* 하단 CTA */
+  .home-bottom-cta {
+    padding: 64px 16px;
+  }
+
+  .home-cta-title {
+    font-size: 2rem !important;
+    letter-spacing: -1.5px !important;
+  }
+
+  .home-cta-btn-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .home-cta-btn-row a {
+    justify-content: center;
+  }
+
+  /* section title */
+  .home-section-title {
+    font-size: 1.5rem !important;
+    letter-spacing: -0.5px !important;
+  }
+}
