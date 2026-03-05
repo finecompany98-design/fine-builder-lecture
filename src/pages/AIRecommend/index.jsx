@@ -284,7 +284,7 @@ export default function AIRecommend() {
 
           {results.length === 0 ? (
             <div style={s.emptyBox}>
-              <p style={{ fontSize: '2.5rem', marginBottom: 16 }}>✦</p>
+              <p style={{ fontSize: '2.5rem', marginBottom: 16 }}>◎</p>
               <p style={{ color: '#8A8A8A' }}>다른 조건으로 시도해보세요.</p>
             </div>
           ) : (

@@ -261,7 +261,7 @@ export default function MyPage() {
               {/* 이력 등록 안내 */}
               <div style={s.infoBox}>
                 <p style={s.infoText}>
-                  ✦ 활동 이력을 등록하면 fine:D가 새 공모를 자동으로 매칭해드립니다.
+                  ◎ 활동 이력을 등록하면 fine:D가 새 공모를 자동으로 매칭해드립니다.
                 </p>
               </div>
             </section>
@@ -278,7 +278,7 @@ export default function MyPage() {
               </div>
 
               <div style={s.emptyState}>
-                <p style={s.emptyIcon}>✦</p>
+                <p style={s.emptyIcon}>◎</p>
                 <p style={s.emptyTitle}>아직 저장한 공모가 없어요</p>
                 <p style={s.emptyDesc}>
                   공모·지원사업 목록에서 마음에 드는 공모를 북마크하면<br />

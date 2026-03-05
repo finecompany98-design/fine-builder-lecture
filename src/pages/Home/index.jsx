@@ -114,7 +114,7 @@ export default function Home() {
                 </svg>
               </Link>
               <Link to="/ai-recommend" style={s.ctaSecondary}>
-                ✦ fine:D 맞춤 추천
+                ◎ fine:D 맞춤 추천
               </Link>
             </div>
           </div>
