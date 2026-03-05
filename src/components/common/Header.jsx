@@ -24,8 +24,9 @@ export default function Header() {
     <header style={s.header} role="banner">
       <div className="header-inner" style={s.inner}>
 
-        <Link to="/" style={s.logo} aria-label="fine:D 홈으로 이동">
-          <span style={s.logoText}>Fine</span><span style={s.logoAccent}>:D</span>
+        <Link to="/" className="logo-glitter" style={s.logo} aria-label="fine:D 홈으로 이동">
+          <span className="logo-fine" style={s.logoText}>Fine</span>
+          <span className="logo-accent" style={s.logoAccent}>:D</span>
         </Link>
 
         <div role="group" aria-label="글자 크기 조절" className="header-font-controls" style={s.fontControls}>
@@ -97,18 +98,10 @@ const s = {
     padding: '0 28px',
   },
   logo: {
-    display: 'flex', alignItems: 'baseline',
-    gap: 1, marginRight: 'auto',
-    letterSpacing: '-0.5px',
+    marginRight: 'auto',
   },
-  logoText: {
-    fontWeight: 900, fontSize: '1.2rem',
-    color: '#0D0D0D',
-  },
-  logoAccent: {
-    fontWeight: 900, fontSize: '1.2rem',
-    color: '#3747FF',
-  },
+  logoText: {},   /* .logo-fine 클래스가 처리 */
+  logoAccent: {}, /* .logo-accent 클래스가 처리 */
   fontControls: {
     display: 'flex', gap: 2,
     background: '#F2F2F0',

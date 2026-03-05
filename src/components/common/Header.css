@@ -1,3 +1,124 @@
+/* ══════════════════════════════════
+   Fine:D 로고 글리터 / 글로우 효과
+══════════════════════════════════ */
+
+/* 로고 전체 래퍼 */
+.logo-glitter {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+
+/* "Fine" 텍스트 — 부드러운 shimmer */
+.logo-fine {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #0D0D0D;
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    #0D0D0D 0%,
+    #0D0D0D 35%,
+    #6B7CFF 50%,
+    #0D0D0D 65%,
+    #0D0D0D 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logo-shimmer 3.5s linear infinite;
+}
+
+/* ":D" 텍스트 — 글로우 펄스 */
+.logo-accent {
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #3747FF;
+  position: relative;
+  animation: logo-glow-pulse 2.8s ease-in-out infinite;
+  text-shadow:
+    0 0 8px rgba(55, 71, 255, 0.6),
+    0 0 20px rgba(55, 71, 255, 0.3);
+}
+
+/* 글리터 파티클 — ::before / ::after 로 반짝임 */
+.logo-glitter::before,
+.logo-glitter::after {
+  content: '✦';
+  position: absolute;
+  font-size: 7px;
+  color: #3747FF;
+  pointer-events: none;
+  animation: logo-sparkle 2.4s ease-in-out infinite;
+}
+
+.logo-glitter::before {
+  top: -4px;
+  right: -10px;
+  animation-delay: 0s;
+  opacity: 0;
+}
+
+.logo-glitter::after {
+  top: 2px;
+  right: -18px;
+  font-size: 5px;
+  animation-delay: 1.2s;
+  opacity: 0;
+}
+
+/* ── keyframes ── */
+
+/* shimmer: 왼쪽 → 오른쪽으로 빛이 스쳐 지나감 */
+@keyframes logo-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* glow pulse: 글로우가 숨쉬듯 밝아졌다 어두워짐 */
+@keyframes logo-glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(55, 71, 255, 0.5),
+      0 0 16px rgba(55, 71, 255, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(55, 71, 255, 0.9),
+      0 0 30px rgba(55, 71, 255, 0.5),
+      0 0 50px rgba(55, 71, 255, 0.2);
+    filter: brightness(1.2);
+  }
+}
+
+/* sparkle: 파티클이 나타났다 사라짐 */
+@keyframes logo-sparkle {
+  0%   { opacity: 0; transform: scale(0.5) translateY(0); }
+  30%  { opacity: 1; transform: scale(1.2) translateY(-3px); }
+  60%  { opacity: 0.6; transform: scale(0.9) translateY(-5px); }
+  100% { opacity: 0; transform: scale(0.3) translateY(-8px); }
+}
+
+/* hover 시 효과 강화 */
+.logo-glitter:hover .logo-fine {
+  animation-duration: 1.2s;
+}
+
+.logo-glitter:hover .logo-accent {
+  animation-duration: 1s;
+}
+
+.logo-glitter:hover::before,
+.logo-glitter:hover::after {
+  animation-duration: 1s;
+  color: #6B7CFF;
+}
+
 /* ── 헤더 레이아웃 ── */
 .header-inner {
   max-width: 1200px;
