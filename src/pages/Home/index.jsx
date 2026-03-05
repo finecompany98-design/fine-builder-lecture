@@ -6,60 +6,64 @@ function Mascot() {
   return (
     <svg
       className="mascot-svg"
-      viewBox="0 0 170 195"
+      viewBox="0 0 160 172"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="fine:D 마스코트"
     >
       {/* 귀 */}
-      <circle cx="30" cy="66" r="22" fill="#E8EBFF" stroke="#1A1A1A" strokeWidth="2.5"/>
-      <circle cx="30" cy="66" r="12" fill="#FFD4C8"/>
-      <circle cx="134" cy="66" r="22" fill="#E8EBFF" stroke="#1A1A1A" strokeWidth="2.5"/>
-      <circle cx="134" cy="66" r="12" fill="#FFD4C8"/>
+      <circle cx="32" cy="60" r="18" fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
+      <circle cx="32" cy="60" r="10" fill="#FFCCC2"/>
+      <circle cx="128" cy="60" r="18" fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
+      <circle cx="128" cy="60" r="10" fill="#FFCCC2"/>
 
-      {/* 돋보기 (오른쪽 위) */}
-      <g className="mascot-glass">
-        <circle cx="138" cy="40" r="19" fill="rgba(55,71,255,0.07)" stroke="#3747FF" strokeWidth="2.8"/>
-        <circle cx="138" cy="40" r="10" fill="none" stroke="#3747FF" strokeWidth="1.8" opacity="0.5"/>
-        <line x1="151" y1="53" x2="162" y2="66" stroke="#3747FF" strokeWidth="3.2" strokeLinecap="round"/>
-      </g>
-
-      {/* 몸체 */}
-      <circle cx="82" cy="112" r="70" fill="#E8EBFF" stroke="#1A1A1A" strokeWidth="2.5"/>
+      {/* 몸통 (부드러운 타원) */}
+      <ellipse cx="80" cy="108" rx="62" ry="66" fill="#EEF0FF" stroke="#C4CAFF" strokeWidth="1.8"/>
 
       {/* 볼터치 */}
-      <circle cx="46" cy="126" r="13" fill="rgba(255,130,100,0.18)"/>
-      <circle cx="118" cy="126" r="13" fill="rgba(255,130,100,0.18)"/>
+      <circle cx="44" cy="120" r="12" fill="rgba(255,160,130,0.22)"/>
+      <circle cx="116" cy="120" r="12" fill="rgba(255,160,130,0.22)"/>
 
-      {/* 왼쪽 눈 */}
+      {/* 왼쪽 눈 (큰 동그란 눈) */}
       <g className="mascot-eye-left">
-        <circle cx="64" cy="100" r="8.5" fill="#1A1A1A"/>
-        <circle cx="67" cy="97" r="3" fill="white"/>
+        <circle cx="62" cy="98" r="13" fill="white" stroke="#C4CAFF" strokeWidth="1.5"/>
+        <circle cx="64" cy="100" r="7.5" fill="#3747FF"/>
+        <circle cx="67" cy="96" r="3" fill="white"/>
       </g>
 
-      {/* 오른쪽 눈 ◎ (브랜드 아이덴티티) */}
-      <circle cx="100" cy="100" r="8.5" fill="white" stroke="#3747FF" strokeWidth="2.5"/>
-      <circle cx="100" cy="100" r="3.8" fill="#3747FF"/>
-      <circle cx="102.5" cy="97.5" r="1.8" fill="white"/>
+      {/* 오른쪽 눈 ◎ */}
+      <circle cx="98" cy="98" r="13" fill="white" stroke="#3747FF" strokeWidth="1.8"/>
+      <circle cx="98" cy="98" r="8"  stroke="#3747FF" strokeWidth="1.5" fill="none"/>
+      <circle cx="98" cy="98" r="3.5" fill="#3747FF"/>
+      <circle cx="101" cy="95" r="2.5" fill="white"/>
 
-      {/* 코 */}
-      <ellipse cx="82" cy="114" rx="3.5" ry="2.5" fill="#1A1A1A" opacity="0.28"/>
+      {/* 입 (부드러운 미소) */}
+      <path d="M 64 120 Q 80 134 96 120"
+        stroke="#8A8ACF" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
 
-      {/* 입 (큰 미소 :D) */}
-      <path d="M 62 128 Q 82 148 102 128" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" fill="none"/>
+      {/* 팔 (단순 타원) */}
+      <ellipse cx="20" cy="122" rx="7" ry="12"
+        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"
+        transform="rotate(-20 20 122)"/>
+      <ellipse cx="140" cy="110" rx="7" ry="12"
+        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"
+        transform="rotate(25 140 110)"/>
 
-      {/* 왼팔 */}
-      <path d="M 16 128 Q 4 116 12 102" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round"/>
-      {/* 오른팔 (돋보기 쪽으로) */}
-      <path d="M 148 100 Q 152 80 148 64" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round"/>
+      {/* 돋보기 (오른팔 끝, 단순하게) */}
+      <g className="mascot-glass">
+        <circle cx="148" cy="84" r="14"
+          fill="rgba(55,71,255,0.08)" stroke="#3747FF" strokeWidth="2"/>
+        <circle cx="148" cy="84" r="7"
+          stroke="#3747FF" strokeWidth="1.2" fill="none" opacity="0.5"/>
+        <line x1="158" y1="94" x2="165" y2="103"
+          stroke="#3747FF" strokeWidth="2.5" strokeLinecap="round"/>
+      </g>
 
       {/* 발 */}
-      <rect x="52" y="174" width="30" height="16" rx="8" fill="#E8EBFF" stroke="#1A1A1A" strokeWidth="2.2"/>
-      <rect x="92" y="174" width="30" height="16" rx="8" fill="#E8EBFF" stroke="#1A1A1A" strokeWidth="2.2"/>
-
-      {/* 작은 ◎ 장식 (주변) */}
-      <text className="mascot-deco1" x="8" y="80" fontSize="11" fill="#3747FF" opacity="0.5">◎</text>
-      <text className="mascot-deco2" x="148" y="130" fontSize="9" fill="#3747FF" opacity="0.4">◎</text>
+      <rect x="52" y="166" width="24" height="12" rx="6"
+        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
+      <rect x="84" y="166" width="24" height="12" rx="6"
+        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
     </svg>
   )
 }
