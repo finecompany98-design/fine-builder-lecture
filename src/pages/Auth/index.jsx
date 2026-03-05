@@ -2,6 +2,7 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 import { auth } from '../../services/firebase'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import './Auth.css'
 
 const ACCENT = '#3747FF'
 
@@ -144,17 +145,18 @@ export default function Auth() {
 
   /* ── 로그인 폼 ── */
   return (
-    <main id="main" style={s.splitPage}>
+    <main id="main" className="auth-page">
+      <div className="auth-split">
       {/* 왼쪽 브랜드 */}
-      <div style={s.leftPanel}>
+      <div className="auth-left" style={s.leftPanel}>
         <div style={s.leftBgGrid} aria-hidden="true" />
         <div style={s.leftGlow} aria-hidden="true" />
         <div style={s.leftContent}>
-          <Link to="/" style={s.brandLogo}>Fine<span style={{ color: ACCENT }}>:D</span></Link>
-          <div style={s.leftMain}>
-            <p style={s.leftEyebrow}>나만의 공모 비서</p>
-            <h2 style={s.leftTitle}>예술가의<br />모든 기회를<br /><span style={{ color: ACCENT }}>한 곳에서</span></h2>
-            <ul style={s.perkList}>
+          <Link to="/" className="auth-left-logo" style={s.brandLogo}>Fine<span style={{ color: ACCENT }}>:D</span></Link>
+          <div className="auth-left-main" style={s.leftMain}>
+            <p className="auth-left-eyebrow" style={s.leftEyebrow}>나만의 공모 비서</p>
+            <h2 className="auth-left-title" style={s.leftTitle}>예술가의<br />모든 기회를<br /><span style={{ color: ACCENT }}>한 곳에서</span></h2>
+            <ul className="auth-perk-list" style={s.perkList}>
               {PERKS.map(({ label, desc }) => (
                 <li key={label} style={s.perkItem}>
                   <span style={s.perkDot} aria-hidden="true" />
@@ -166,15 +168,15 @@ export default function Auth() {
               ))}
             </ul>
           </div>
-          <p style={s.leftFooter}>© 2025 fine:D</p>
+          <p className="auth-left-footer" style={s.leftFooter}>© 2025 fine:D</p>
         </div>
       </div>
 
       {/* 오른쪽 로그인 */}
-      <div style={s.rightPanel}>
+      <div className="auth-right" style={s.rightPanel}>
         <div className="fade-up-1" style={s.loginCard}>
           <p style={s.loginEyebrow}>시작하기</p>
-          <h1 style={s.loginTitle}>로그인</h1>
+          <h1 className="auth-login-title" style={s.loginTitle}>로그인</h1>
           <p style={s.loginSub}>
             소셜 계정으로 간편하게 시작하세요.<br />
             다음 계정은 카카오로 로그인하실 수 있어요.
@@ -230,6 +232,7 @@ export default function Auth() {
           </p>
         </div>
       </div>
+      </div>
     </main>
   )
 }
@@ -245,27 +248,28 @@ const s = {
   glow: {
     position: 'absolute', top: '20%', left: '50%',
     transform: 'translateX(-50%)',
-    width: 480, height: 480, borderRadius: '50%',
+    width: 'clamp(200px, 40vw, 480px)', height: 'clamp(200px, 40vw, 480px)',
+    borderRadius: '50%',
     background: `radial-gradient(circle, rgba(55,71,255,0.07) 0%, transparent 70%)`,
     filter: 'blur(40px)', pointerEvents: 'none',
   },
   welcomeCard: {
     background: '#fff', border: '1px solid rgba(0,0,0,0.08)',
-    borderRadius: 24, padding: '48px 44px',
-    maxWidth: 420, width: '100%', textAlign: 'center',
+    borderRadius: 24, padding: 'clamp(28px, 5vw, 48px) clamp(24px, 5vw, 44px)',
+    maxWidth: '420px', width: '90%', textAlign: 'center',
     boxShadow: '0 8px 40px rgba(0,0,0,0.08)', position: 'relative',
   },
   avatarWrap: { position: 'relative', display: 'inline-block', marginBottom: 20 },
-  avatar: { width: 72, height: 72, borderRadius: '50%', display: 'block' },
+  avatar: { width: '4.5rem', height: '4.5rem', borderRadius: '50%', display: 'block' },
   avatarFallback: {
-    width: 72, height: 72, borderRadius: '50%',
+    width: '4.5rem', height: '4.5rem', borderRadius: '50%',
     background: ACCENT, color: '#fff',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     fontSize: '1.8rem', fontWeight: 900,
   },
   onlineDot: {
     position: 'absolute', bottom: 4, right: 4,
-    width: 14, height: 14, borderRadius: '50%',
+    width: '0.875rem', height: '0.875rem', borderRadius: '50%',
     background: '#22C55E', border: '2px solid #fff',
   },
   welcomeEyebrow: {
@@ -294,13 +298,10 @@ const s = {
     fontFamily: 'inherit', cursor: 'pointer', padding: '6px 0',
   },
 
-  /* 스플릿 */
-  splitPage: {
-    display: 'grid', gridTemplateColumns: '1fr 1fr',
-    minHeight: '100vh', width: '100%',
-  },
+  /* 스플릿 — layout은 .auth-page / .auth-split / .auth-left / .auth-right 클래스가 담당 */
+  splitPage: {},
   leftPanel: {
-    background: '#0A0A0A', padding: '48px 56px',
+    background: '#0A0A0A',
     display: 'flex', flexDirection: 'column',
     position: 'relative', overflow: 'hidden',
   },
@@ -311,7 +312,8 @@ const s = {
   },
   leftGlow: {
     position: 'absolute', bottom: '-10%', right: '-10%',
-    width: 400, height: 400, borderRadius: '50%',
+    width: 'clamp(200px, 35vw, 400px)', height: 'clamp(200px, 35vw, 400px)',
+    borderRadius: '50%',
     background: `radial-gradient(circle, rgba(55,71,255,0.18) 0%, transparent 70%)`,
     filter: 'blur(40px)', pointerEvents: 'none',
   },
@@ -347,7 +349,7 @@ const s = {
   /* 오른쪽 */
   rightPanel: {
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    padding: '48px 40px', background: '#fff',
+    background: '#fff',
   },
   loginCard: { width: '100%', maxWidth: 380 },
   loginEyebrow: {
