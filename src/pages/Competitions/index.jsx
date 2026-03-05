@@ -159,6 +159,7 @@ export default function Competitions() {
   const [searchParams] = useSearchParams()
   const [items, setItems]           = useState([])
   const [loading, setLoading]       = useState(true)
+  const [fetchError, setFetchError] = useState('')
   const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || '전체')
   const [activeType, setActiveType] = useState(searchParams.get('type') || '전체')
   const [search, setSearch]         = useState('')
@@ -186,6 +187,7 @@ export default function Competitions() {
         setItems(active)
       } catch (e) {
         console.error('competitions fetch error:', e)
+        setFetchError(e.message || String(e))
         setItems([])
       } finally {
         setLoading(false)
@@ -322,6 +324,15 @@ export default function Competitions() {
 
         {/* Main content */}
         <section>
+
+          {/* Fetch error */}
+          {fetchError && (
+            <div style={{ background:'#FEE2E2', border:'1px solid #FCA5A5', borderRadius:12, padding:'14px 18px', marginBottom:20, fontSize:'0.85rem', color:'#991B1B', lineHeight:1.7 }}>
+              <strong>데이터 로드 오류:</strong> {fetchError}
+              <br/>
+              <span style={{ opacity:0.75 }}>Firebase 콘솔 → Firestore → 규칙에서 읽기 권한을 확인해주세요.</span>
+            </div>
+          )}
 
           {/* Results bar */}
           {!loading && (
