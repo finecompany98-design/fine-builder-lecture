@@ -7,31 +7,31 @@ import './Header.css'
 function LogoIcon() {
   return (
     <svg
-      width="22" height="24"
-      viewBox="0 0 36 38"
+      width="26" height="26"
+      viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       style={{ display: 'block', flexShrink: 0 }}
     >
       {/* ── 블랙: FE 로고 직선 DNA ── */}
-      {/* 왼쪽 수직선 (F+E 공유) */}
-      <line x1="5" y1="3" x2="5" y2="35" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+      {/* 왼쪽 수직선 (F+E 공유, 풀 높이) */}
+      <line x1="5" y1="3" x2="5" y2="41" stroke="#0D0D0D" strokeWidth="4.2" strokeLinecap="square"/>
       {/* 상단 수평선 */}
-      <line x1="5" y1="3" x2="26" y2="3" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
-      {/* 중간 가로 바 (F의 크로스바) */}
-      <line x1="5" y1="19" x2="21" y2="19" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
-      {/* 대각선 — FE 로고의 핵심 DNA */}
-      <line x1="21" y1="19" x2="29" y2="33" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+      <line x1="5" y1="3" x2="28" y2="3" stroke="#0D0D0D" strokeWidth="4.2" strokeLinecap="square"/>
+      {/* 중간 가로 바 (F 크로스바) */}
+      <line x1="5" y1="22" x2="23" y2="22" stroke="#0D0D0D" strokeWidth="4.2" strokeLinecap="square"/>
+      {/* 대각선 — FE 로고 핵심 DNA */}
+      <line x1="23" y1="22" x2="31" y2="38" stroke="#0D0D0D" strokeWidth="4.2" strokeLinecap="square"/>
 
-      {/* ── 포인트 컬러 #3747FF: 새로 추가된 곡선 ':D' ── */}
+      {/* ── 포인트 컬러 #3747FF: 새로 추가된 ':D' ── */}
       {/* 콜론 점 두 개 ':' */}
-      <circle cx="30" cy="7"   r="2.4" fill="#3747FF"/>
-      <circle cx="30" cy="13.5" r="2.4" fill="#3747FF"/>
+      <circle cx="34" cy="8"  r="2.6" fill="#3747FF"/>
+      <circle cx="34" cy="16" r="2.6" fill="#3747FF"/>
       {/* 'D' 아크 — 웃는 얼굴 / Find 느낌 */}
       <path
-        d="M25 21 Q35 27 25 33"
-        stroke="#3747FF" strokeWidth="3.5" strokeLinecap="round"
+        d="M28 24 Q39 31 28 39"
+        stroke="#3747FF" strokeWidth="3.8" strokeLinecap="round" fill="none"
       />
     </svg>
   )
