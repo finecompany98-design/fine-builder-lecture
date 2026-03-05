@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import './Header.css'
 
 export default function Header() {
   const location = useLocation()
@@ -21,13 +22,13 @@ export default function Header() {
 
   return (
     <header style={s.header} role="banner">
-      <div style={s.inner}>
+      <div className="header-inner" style={s.inner}>
 
         <Link to="/" style={s.logo} aria-label="fine:D 홈으로 이동">
           <span style={s.logoText}>Fine</span><span style={s.logoAccent}>:D</span>
         </Link>
 
-        <div role="group" aria-label="글자 크기 조절" style={s.fontControls}>
+        <div role="group" aria-label="글자 크기 조절" className="header-font-controls" style={s.fontControls}>
           {['small', 'normal', 'large'].map((size, i) => (
             <button
               key={size}
@@ -49,7 +50,7 @@ export default function Header() {
           {navLinks.map(({ to, label }) => {
             const active = location.pathname.startsWith(to)
             return (
-              <Link key={to} to={to} style={{
+              <Link key={to} to={to} className="header-nav-link" style={{
                 ...s.navLink,
                 color: active ? '#0D0D0D' : '#6A6A6A',
                 fontWeight: active ? 600 : 400,
@@ -61,7 +62,7 @@ export default function Header() {
           })}
 
           {isAdmin && (
-            <Link to="/admin" style={s.adminBtn}>＋ 등록</Link>
+            <Link to="/admin" className="header-admin-btn" style={s.adminBtn}>＋ 등록</Link>
           )}
 
           {user ? (
@@ -75,7 +76,7 @@ export default function Header() {
               )}
             </Link>
           ) : (
-            <Link to="/auth" style={s.navCta}>로그인</Link>
+            <Link to="/auth" className="header-nav-cta" style={s.navCta}>로그인</Link>
           )}
         </nav>
       </div>
@@ -92,9 +93,7 @@ const s = {
     borderBottom: '1px solid rgba(0,0,0,0.09)',
   },
   inner: {
-    maxWidth: 1100, margin: '0 auto',
-    display: 'flex', alignItems: 'center',
-    gap: 16, height: 64,
+    /* layout은 Header.css .header-inner 에서 관리 */
     padding: '0 28px',
   },
   logo: {
@@ -146,7 +145,7 @@ const s = {
     boxShadow: '0 2px 12px rgba(55,71,255,0.28)',
   },
   avatarBtn: {
-    width: 36, height: 36, borderRadius: '50%',
+    width: '2.25rem', height: '2.25rem', borderRadius: '50%',
     overflow: 'hidden', display: 'flex',
     alignItems: 'center', justifyContent: 'center',
     marginLeft: 6, flexShrink: 0,

@@ -57,3 +57,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   z-index: 9999; transition: top 0.2s;
 }
 .skip-link:focus { top: 0; }
+
+/* ─── 공통 컨테이너 ─── */
+.container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+}

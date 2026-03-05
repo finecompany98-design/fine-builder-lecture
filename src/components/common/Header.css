@@ -1,0 +1,43 @@
+/* ── 헤더 레이아웃 ── */
+.header-inner {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 64px;
+}
+
+/* ── 768px 이하: 폰트 컨트롤 숨김, nav 간소화 ── */
+@media (max-width: 768px) {
+  .header-font-controls {
+    display: none;
+  }
+
+  .header-nav-link {
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .header-nav-cta {
+    padding: 7px 14px !important;
+    font-size: 0.8rem !important;
+    margin-left: 2px !important;
+  }
+}
+
+/* ── 480px 이하: 로고 + 로그인 버튼만 ── */
+@media (max-width: 480px) {
+  .header-inner {
+    gap: 8px;
+  }
+
+  .header-nav-link {
+    display: none !important;
+  }
+
+  .header-admin-btn {
+    display: none !important;
+  }
+}

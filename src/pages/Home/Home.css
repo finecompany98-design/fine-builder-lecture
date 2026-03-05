@@ -1,18 +1,21 @@
-/* ── Home 반응형 (모바일 우선 오버라이드) ── */
+/* ═══════════════════════════════════════
+   Home 레이아웃 — Flexbox / Grid + 반응형
+   (고정 px 없음, max-width + width: 90% 구조)
+═══════════════════════════════════════ */
 
 /* ── 히어로 ── */
 .home-hero {
-  padding: 118px 40px 80px;
+  padding: 118px 0 80px;
 }
 
 .home-hero-grid {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 300px;
   gap: 60px;
   align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
   position: relative;
 }
 
@@ -25,7 +28,7 @@
 
 /* ── Features ── */
 .home-feat-section {
-  padding: 96px 40px;
+  padding: 96px 0;
 }
 
 .home-feat-header {
@@ -45,7 +48,7 @@
 
 /* ── Steps ── */
 .home-steps-section {
-  padding: 96px 40px;
+  padding: 96px 0;
 }
 
 .home-steps-grid {
@@ -56,21 +59,21 @@
 
 /* ── 하단 CTA ── */
 .home-bottom-cta {
-  padding: 110px 40px;
+  padding: 110px 0;
 }
 
-/* ────────────────────────────
+/* ════════════════════════════════
    태블릿 (768px 이하)
-──────────────────────────── */
+════════════════════════════════ */
 @media (max-width: 768px) {
   .home-hero {
-    padding: 100px 20px 60px;
+    padding: 100px 0 60px;
     min-height: auto;
   }
 
   .home-hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
   }
 
   .home-hero-right {
@@ -80,7 +83,7 @@
   }
 
   .home-feat-section {
-    padding: 64px 20px;
+    padding: 64px 0;
   }
 
   .home-feat-header {
@@ -98,7 +101,7 @@
   }
 
   .home-steps-section {
-    padding: 64px 20px;
+    padding: 64px 0;
   }
 
   .home-steps-grid {
@@ -106,19 +109,18 @@
   }
 
   .home-bottom-cta {
-    padding: 80px 20px;
+    padding: 80px 0;
   }
 }
 
-/* ────────────────────────────
+/* ════════════════════════════════
    모바일 (480px 이하)
-──────────────────────────── */
+════════════════════════════════ */
 @media (max-width: 480px) {
   .home-hero {
-    padding: 90px 16px 50px;
+    padding: 88px 0 48px;
   }
 
-  /* 히어로 타이틀 크기 강제 조정 */
   .home-hero-title {
     font-size: 1.75rem !important;
     letter-spacing: -1px !important;
@@ -126,19 +128,16 @@
     margin-bottom: 18px !important;
   }
 
-  /* 히어로 설명 */
   .home-hero-desc {
-    font-size: 14px !important;
-    margin-bottom: 28px !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 24px !important;
   }
 
-  /* 히어로 eyebrow */
   .home-hero-eyebrow {
     font-size: 10px !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 18px !important;
   }
 
-  /* CTA 버튼 줄바꿈 */
   .home-cta-row {
     flex-direction: column !important;
     gap: 10px !important;
@@ -149,7 +148,6 @@
     text-align: center;
   }
 
-  /* 스탯 카드 3개 세로 */
   .home-hero-right {
     flex-direction: column;
     gap: 10px;
@@ -164,27 +162,24 @@
     font-size: 1.6rem !important;
   }
 
-  /* 기능 카드 */
   .home-feat-section {
-    padding: 48px 16px;
+    padding: 48px 0;
   }
 
   .home-feat-grid {
     gap: 12px;
   }
 
-  /* Steps */
   .home-steps-section {
-    padding: 48px 16px;
+    padding: 48px 0;
   }
 
   .home-step-connector {
     display: none;
   }
 
-  /* 하단 CTA */
   .home-bottom-cta {
-    padding: 64px 16px;
+    padding: 64px 0;
   }
 
   .home-cta-title {
@@ -201,7 +196,6 @@
     justify-content: center;
   }
 
-  /* section title */
   .home-section-title {
     font-size: 1.5rem !important;
     letter-spacing: -0.5px !important;

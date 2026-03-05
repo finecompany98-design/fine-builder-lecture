@@ -145,7 +145,7 @@ export default function Home() {
 
       {/* ── 기능 소개 (에디토리얼 리스트) ── */}
       <section className="home-feat-section" style={s.featSection} aria-labelledby="features-title">
-        <div style={s.sectionInner}>
+        <div className="container" style={s.sectionInner}>
 
           <div className="home-feat-header" style={s.featHeader}>
             <div>
@@ -177,7 +177,7 @@ export default function Home() {
 
       {/* ── 이용 흐름 ── */}
       <section className="home-steps-section" style={s.stepsSection} aria-labelledby="steps-title">
-        <div style={s.sectionInner}>
+        <div className="container" style={s.sectionInner}>
           <div style={s.stepsHeader}>
             <p style={{ ...s.eyebrow, color: 'rgba(255,255,255,0.4)' }}>How it works</p>
             <h2 id="steps-title" className="home-section-title" style={{ ...s.sectionTitle, color: '#fff' }}>3단계로 간편하게</h2>
@@ -201,7 +201,7 @@ export default function Home() {
 
       {/* ── 하단 CTA ── */}
       <section className="home-bottom-cta" style={s.bottomCta} aria-labelledby="cta-title">
-        <div style={s.bottomCtaInner}>
+        <div className="home-bottom-cta-inner" style={s.bottomCtaInner}>
           {/* 장식 텍스트 */}
           <p style={s.ctaDecor} aria-hidden="true">fine:D</p>
           <h2 id="cta-title" className="home-cta-title" style={s.ctaTitle}>
@@ -240,7 +240,8 @@ const s = {
   },
   bgGlow: {
     position: 'absolute', top: '5%', right: '8%',
-    width: 480, height: 480, borderRadius: '50%',
+    width: 'clamp(200px, 40vw, 480px)', height: 'clamp(200px, 40vw, 480px)',
+    borderRadius: '50%',
     background: 'radial-gradient(circle, rgba(55,71,255,0.10) 0%, transparent 70%)',
     pointerEvents: 'none',
     filter: 'blur(40px)',
@@ -310,7 +311,7 @@ const s = {
 
   /* ── Features ── */
   featSection: { background: '#fff' },
-  sectionInner: { maxWidth: 1100, margin: '0 auto' },
+  sectionInner: { /* layout은 .container 클래스가 담당 */ },
   eyebrow: {
     fontSize: '11px', fontWeight: 700, color: ACCENT,
     letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10,
@@ -374,7 +375,7 @@ const s = {
   stepTop: { display: 'flex', alignItems: 'center', gap: 14 },
   stepNum: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-    width: 40, height: 40, borderRadius: '50%',
+    width: '2.5rem', height: '2.5rem', borderRadius: '50%',
     background: ACCENT, color: '#fff',
     fontWeight: 900, fontSize: '0.8rem',
     letterSpacing: '0.04em', flexShrink: 0,
@@ -393,7 +394,7 @@ const s = {
     position: 'relative',
     overflow: 'hidden',
   },
-  bottomCtaInner: { maxWidth: 620, margin: '0 auto', position: 'relative' },
+  bottomCtaInner: { maxWidth: '620px', width: '90%', margin: '0 auto', position: 'relative' },
   ctaDecor: {
     position: 'absolute',
     top: '50%', left: '50%',
