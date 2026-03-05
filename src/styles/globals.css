@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ─── CSS 변수 (라이트 모드) ─── */
 :root {
   --color-primary:    #0D0D0D;

@@ -1,149 +1,139 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../services/firebase'
-import { seedCompetitions } from '../../services/competitions.service'
-import { seedItems } from '../../data/seedData'
+
+const ACCENT = '#3747FF'
 
 const CATEGORIES = ['전체', '전 분야', '시각예술', '공연예술', '문학', '음악', '무용', '영상·미디어', '공예·디자인']
 const TYPES = ['전체', '지원사업', '공모전']
 
 function dday(deadline) {
   if (!deadline) return null
-  const now = new Date()
   const end = deadline.toDate ? deadline.toDate() : new Date(deadline)
-  const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24))
-  if (diff < 0) return '마감'
-  if (diff === 0) return 'D-DAY'
-  return `D-${diff}`
+  const diff = Math.ceil((end - new Date()) / (1000 * 60 * 60 * 24))
+  if (diff < 0) return { label: '마감', type: 'closed' }
+  if (diff === 0) return { label: 'D-DAY', type: 'today' }
+  if (diff <= 7) return { label: `D-${diff}`, type: 'urgent' }
+  return { label: `D-${diff}`, type: 'normal' }
 }
 
-function ddayColor(label) {
-  if (label === '마감') return { bg: '#F3F4F6', text: '#9CA3AF' }
-  if (label === 'D-DAY') return { bg: '#FEE2E2', text: '#EF4444' }
-  const n = parseInt(label.replace('D-', ''))
-  if (n <= 7) return { bg: '#FEF3C7', text: '#D97706' }
-  return { bg: '#EBEBEB', text: '#111111' }
+const DDAY_STYLE = {
+  closed: { background: '#F3F4F6', color: '#9CA3AF' },
+  today:  { background: '#FEE2E2', color: '#EF4444' },
+  urgent: { background: '#FEF3C7', color: '#D97706' },
+  normal: { background: '#EEF0FF', color: ACCENT },
 }
 
 export default function Competitions() {
   const [searchParams] = useSearchParams()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
-  const [seeding, setSeeding] = useState(false)
   const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || '전체')
   const [activeType, setActiveType] = useState(searchParams.get('type') || '전체')
   const [search, setSearch] = useState('')
 
-  useEffect(() => { fetchData() }, [activeCategory, activeType])
-
-  async function fetchData() {
-    setLoading(true)
-    try {
-      let q
-      const col = collection(db, 'competitions')
-      if (activeCategory !== '전체' && activeType !== '전체') {
-        q = query(col, where('isActive', '==', true), where('category', '==', activeCategory), where('type', '==', activeType), orderBy('deadline'))
-      } else if (activeCategory !== '전체') {
-        q = query(col, where('isActive', '==', true), where('category', '==', activeCategory), orderBy('deadline'))
-      } else if (activeType !== '전체') {
-        q = query(col, where('isActive', '==', true), where('type', '==', activeType), orderBy('deadline'))
-      } else {
-        q = query(col, where('isActive', '==', true), orderBy('deadline'))
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      try {
+        const snap = await getDocs(collection(db, 'competitions'))
+        const all = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+        // 클라이언트에서 필터 + 마감일 정렬 (복합 인덱스 불필요)
+        const active = all
+          .filter(it => it.isActive !== false)
+          .sort((a, b) => {
+            const da = a.deadline?.toDate ? a.deadline.toDate() : new Date(a.deadline || 0)
+            const db_ = b.deadline?.toDate ? b.deadline.toDate() : new Date(b.deadline || 0)
+            return da - db_
+          })
+        setItems(active)
+      } catch (e) {
+        console.error('competitions fetch error:', e)
+        setItems([])
+      } finally {
+        setLoading(false)
       }
-      const snap = await getDocs(q)
-      setItems(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    } catch {
-      setItems([])
-    } finally {
-      setLoading(false)
     }
-  }
+    fetchData()
+  }, [])
 
-  async function handleSeed() {
-    if (!confirm('시드 데이터를 Firestore에 등록할까요? (최초 1회만 실행하세요)')) return
-    setSeeding(true)
-    try {
-      await seedCompetitions(seedItems)
-      alert('등록 완료! 페이지를 새로고침하세요.')
-      fetchData()
-    } catch (e) {
-      alert('오류: ' + e.message)
-    } finally {
-      setSeeding(false)
+  const filtered = items.filter(item => {
+    if (activeCategory !== '전체' && item.category !== activeCategory) return false
+    if (activeType !== '전체' && item.type !== activeType) return false
+    if (search) {
+      const q = search.toLowerCase()
+      return (
+        item.title?.toLowerCase().includes(q) ||
+        item.organization?.toLowerCase().includes(q) ||
+        (item.fields || []).some(f => f.toLowerCase().includes(q))
+      )
     }
-  }
-
-  const filtered = items.filter(item =>
-    !search || item.title.includes(search) || item.organization.includes(search) ||
-    (item.fields || []).some(f => f.includes(search))
-  )
+    return true
+  })
 
   return (
     <main id="main" style={s.main}>
       <div style={s.inner}>
 
-        {/* 페이지 헤더 */}
+        {/* ── 페이지 헤더 ── */}
         <div style={s.pageHeader}>
-          <h1 style={s.title}>공모·지원사업</h1>
-          <p style={s.subtitle}>
-            한국문화예술위원회, 서울문화재단 등 공공기관·재단의<br />
-            실제 공모전과 지원사업 정보를 모았습니다.
-          </p>
-          {items.length === 0 && !loading && (
-            <button onClick={handleSeed} disabled={seeding} style={s.seedBtn}>
-              {seeding ? '등록 중...' : '📥 초기 데이터 등록 (최초 1회)'}
-            </button>
+          <div style={s.headerLeft}>
+            <span style={s.eyebrow}>◎ FINE:D CURATED</span>
+            <h1 style={s.title}>공모·지원사업</h1>
+            <p style={s.subtitle}>
+              공공기관·재단의 실제 공모전과 지원사업 정보를 한데 모았습니다
+            </p>
+          </div>
+          {!loading && (
+            <div style={s.totalBadge}>
+              <span style={s.totalNum}>{filtered.length}</span>
+              <span style={s.totalLabel}>건</span>
+            </div>
           )}
         </div>
 
-        {/* 검색 */}
-        <div style={s.searchWrap} role="search">
-          <label htmlFor="comp-search" className="sr-only">공모 검색</label>
-          <span style={s.searchIcon} aria-hidden="true">🔍</span>
-          <input
-            id="comp-search"
-            type="search"
-            placeholder="공모명, 기관명, 분야로 검색"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            style={s.searchInput}
-          />
-        </div>
+        {/* ── 검색 + 필터 ── */}
+        <div style={s.controlBar}>
+          {/* 검색 */}
+          <div style={s.searchWrap} role="search">
+            <svg style={s.searchIcon} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="6" stroke="#AAAAAA" strokeWidth="1.8"/>
+              <path d="M14 14l3 3" stroke="#AAAAAA" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+            <input
+              id="comp-search"
+              type="search"
+              placeholder="공모명, 기관명, 분야로 검색"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={s.searchInput}
+            />
+          </div>
 
-        {/* 필터 바 */}
-        <div style={s.filterPanel}>
-          <div style={s.filterGroup}>
-            <span style={s.filterLabel}>분야</span>
-            <div style={s.filterRow}>
+          {/* 필터 */}
+          <div style={s.filterBar}>
+            <div style={s.filterGroup}>
               {CATEGORIES.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   style={{
-                    ...s.filterBtn,
-                    background: activeCategory === cat ? '#111111' : '#fff',
-                    color: activeCategory === cat ? '#fff' : '#444444',
-                    border: activeCategory === cat ? '1px solid #111111' : '1px solid rgba(0,0,0,0.2)',
-                    fontWeight: activeCategory === cat ? 700 : 500,
+                    ...s.chip,
+                    ...(activeCategory === cat ? s.chipActive : {}),
                   }}
                 >{cat}</button>
               ))}
             </div>
-          </div>
-          <div style={s.filterGroup}>
-            <span style={s.filterLabel}>유형</span>
-            <div style={s.filterRow}>
+            <div style={s.filterDivider} />
+            <div style={s.filterGroup}>
               {TYPES.map(tp => (
                 <button
                   key={tp}
                   onClick={() => setActiveType(tp)}
                   style={{
-                    ...s.filterBtn,
-                    background: activeType === tp ? '#F59E0B' : '#fff',
-                    color: activeType === tp ? '#fff' : '#444444',
-                    border: activeType === tp ? '1px solid #F59E0B' : '1px solid rgba(0,0,0,0.2)',
-                    fontWeight: activeType === tp ? 700 : 500,
+                    ...s.chip,
+                    ...(activeType === tp ? s.chipTypeActive : {}),
                   }}
                 >{tp}</button>
               ))}
@@ -151,27 +141,28 @@ export default function Competitions() {
           </div>
         </div>
 
-        {/* 결과 수 */}
-        {!loading && (
-          <p style={s.count}>총 <strong style={{ color: '#111111' }}>{filtered.length}</strong>건</p>
-        )}
-
-        {/* 카드 목록 */}
+        {/* ── 목록 ── */}
         {loading ? (
           <div style={s.stateBox}>
-            <span style={s.stateIcon}>⏳</span>
+            <div style={s.spinner} />
             <p style={s.stateText}>불러오는 중...</p>
           </div>
         ) : filtered.length === 0 ? (
           <div style={s.stateBox}>
-            <span style={s.stateIcon}>🔎</span>
-            <p style={s.stateText}>해당하는 공모·지원사업이 없습니다.</p>
+            <svg style={s.stateIco} viewBox="0 0 48 48" fill="none">
+              <circle cx="22" cy="22" r="14" stroke="#DDDDDD" strokeWidth="2.5"/>
+              <path d="M32 32l8 8" stroke="#DDDDDD" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+            <p style={s.stateText}>해당하는 공모·지원사업이 없습니다</p>
+            <button
+              onClick={() => { setActiveCategory('전체'); setActiveType('전체'); setSearch('') }}
+              style={s.resetBtn}
+            >필터 초기화</button>
           </div>
         ) : (
           <div style={s.grid}>
             {filtered.map(item => {
-              const ddayLabel = dday(item.deadline)
-              const { bg: ddayBg, text: ddayText } = ddayColor(ddayLabel)
+              const dd = dday(item.deadline)
               return (
                 <a
                   key={item.id}
@@ -179,154 +170,313 @@ export default function Competitions() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={s.card}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)'
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                  }}
                 >
-                  {/* 배지 행 */}
+                  {/* 상단 배지 줄 */}
                   <div style={s.cardTop}>
-                    <span style={item.type === '지원사업' ? s.badgeGreen : s.badgeAmber}>
+                    <span style={item.type === '지원사업' ? s.typeGreen : s.typeAmber}>
                       {item.type}
                     </span>
-                    <span style={s.badgePurple}>{item.category}</span>
-                    {ddayLabel && (
-                      <span style={{ ...s.ddayBadge, background: ddayBg, color: ddayText }}>
-                        {ddayLabel}
+                    <span style={s.catBadge}>{item.category}</span>
+                    {dd && (
+                      <span style={{ ...s.ddayBadge, ...DDAY_STYLE[dd.type] }}>
+                        {dd.label}
                       </span>
                     )}
                   </div>
 
-                  {/* 본문 */}
+                  {/* 제목 + 기관 */}
                   <h2 style={s.cardTitle}>{item.title}</h2>
-                  <p style={s.cardOrg}>📌 {item.organization}</p>
+                  <p style={s.cardOrg}>{item.organization}</p>
 
-                  <div style={s.tagRow}>
-                    {(item.fields || []).slice(0, 4).map(f => (
-                      <span key={f} style={s.tag}>{f}</span>
-                    ))}
-                  </div>
+                  {/* 분야 태그 */}
+                  {(item.fields || []).length > 0 && (
+                    <div style={s.tagRow}>
+                      {(item.fields || []).slice(0, 4).map(f => (
+                        <span key={f} style={s.tag}>{f}</span>
+                      ))}
+                    </div>
+                  )}
 
+                  {/* 메타: 지원금 + 마감 */}
                   <div style={s.cardMeta}>
-                    <span style={s.amount}>💰 {item.amount}</span>
+                    {item.amount && (
+                      <span style={s.amount}>{item.amount}</span>
+                    )}
                     <span style={s.deadline}>
-                      마감 {item.deadline?.toDate
-                        ? item.deadline.toDate().toLocaleDateString('ko-KR')
+                      마감{' '}
+                      {item.deadline?.toDate
+                        ? item.deadline.toDate().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })
                         : '미정'}
                     </span>
                   </div>
 
-                  <p style={s.desc}>{item.description}</p>
-                  <span style={s.link}>공식 사이트에서 확인 →</span>
+                  {/* 설명 */}
+                  {item.description && (
+                    <p style={s.desc}>{item.description}</p>
+                  )}
+
+                  <span style={s.link}>공식 사이트 바로가기 →</span>
                 </a>
               )
             })}
           </div>
         )}
+
       </div>
     </main>
   )
 }
 
 const s = {
-  main: { padding: '48px 24px 80px', background: '#F8F8F8', minHeight: '80vh' },
-  inner: { maxWidth: 1100, margin: '0 auto' },
+  main: {
+    padding: '80px 0 100px',
+    background: '#F7F7F6',
+    minHeight: '80vh',
+  },
+  inner: {
+    maxWidth: 1140,
+    width: '90%',
+    margin: '0 auto',
+  },
 
-  pageHeader: { marginBottom: 36 },
+  /* 헤더 */
+  pageHeader: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginBottom: 36,
+    gap: 20,
+    flexWrap: 'wrap',
+  },
+  headerLeft: { display: 'flex', flexDirection: 'column', gap: 8 },
+  eyebrow: {
+    fontSize: '11px', fontWeight: 700, color: ACCENT,
+    letterSpacing: '0.1em',
+  },
   title: {
-    fontSize: 'clamp(1.7rem, 3vw, 2.4rem)',
-    fontWeight: 900, color: '#111111', marginBottom: 10,
+    fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
+    fontWeight: 900, color: '#0D0D0D',
+    letterSpacing: '-1.5px', lineHeight: 1.1,
   },
-  subtitle: { color: '#888888', lineHeight: 1.8, fontSize: '1rem' },
-  seedBtn: {
-    marginTop: 20, padding: '11px 22px',
-    background: '#EBEBEB', border: '1px solid #111111',
-    color: '#111111', borderRadius: 12, fontSize: '0.9rem',
-    fontWeight: 700, cursor: 'pointer',
+  subtitle: {
+    fontSize: '0.9rem', color: '#888888', lineHeight: 1.7,
+  },
+  totalBadge: {
+    display: 'flex', alignItems: 'baseline', gap: 3,
+    background: '#fff',
+    border: '1px solid rgba(0,0,0,0.1)',
+    borderRadius: 12, padding: '10px 20px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+    flexShrink: 0,
+  },
+  totalNum: {
+    fontSize: '1.8rem', fontWeight: 900, color: ACCENT, letterSpacing: '-1px',
+  },
+  totalLabel: {
+    fontSize: '0.85rem', fontWeight: 600, color: '#888888',
   },
 
+  /* 컨트롤 바 */
+  controlBar: {
+    marginBottom: 32,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+  },
   searchWrap: {
-    position: 'relative', marginBottom: 20,
+    position: 'relative',
   },
   searchIcon: {
     position: 'absolute', left: 16, top: '50%',
-    transform: 'translateY(-50%)', fontSize: '1rem', pointerEvents: 'none',
+    transform: 'translateY(-50%)',
+    width: 18, height: 18,
+    pointerEvents: 'none',
   },
   searchInput: {
-    width: '100%', padding: '13px 20px 13px 44px',
+    width: '100%',
+    padding: '13px 20px 13px 46px',
     background: '#fff',
-    border: '1.5px solid rgba(0,0,0,0.2)',
-    borderRadius: 12, color: '#111111', fontSize: '1rem',
+    border: '1.5px solid rgba(0,0,0,0.12)',
+    borderRadius: 12,
+    color: '#0D0D0D', fontSize: '0.95rem',
     fontFamily: 'inherit', outline: 'none',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+    boxSizing: 'border-box',
   },
-
-  filterPanel: {
-    background: '#fff', borderRadius: 16,
-    padding: '20px 24px', marginBottom: 24,
+  filterBar: {
+    background: '#fff',
     border: '1px solid rgba(0,0,0,0.1)',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-    display: 'flex', flexDirection: 'column', gap: 16,
+    borderRadius: 14,
+    padding: '14px 18px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
   },
-  filterGroup: { display: 'flex', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' },
-  filterLabel: {
-    fontSize: '0.78rem', fontWeight: 700, color: '#888888',
-    letterSpacing: '0.06em', paddingTop: 6, whiteSpace: 'nowrap',
+  filterGroup: {
+    display: 'flex', flexWrap: 'wrap', gap: 6,
   },
-  filterRow: { display: 'flex', flexWrap: 'wrap', gap: 8 },
-  filterBtn: {
-    padding: '6px 15px', borderRadius: 20,
-    fontSize: '0.85rem', transition: 'all 0.15s',
-    fontFamily: 'inherit', cursor: 'pointer',
-    boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+  filterDivider: {
+    height: 1,
+    background: 'rgba(0,0,0,0.07)',
+    margin: '2px 0',
+  },
+  chip: {
+    padding: '5px 14px',
+    borderRadius: 20,
+    fontSize: '0.82rem',
+    fontWeight: 500,
+    background: 'transparent',
+    color: '#666666',
+    border: '1px solid rgba(0,0,0,0.14)',
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    transition: 'all 0.12s',
+  },
+  chipActive: {
+    background: '#0D0D0D',
+    color: '#fff',
+    border: '1px solid #0D0D0D',
+    fontWeight: 700,
+  },
+  chipTypeActive: {
+    background: ACCENT,
+    color: '#fff',
+    border: `1px solid ${ACCENT}`,
+    fontWeight: 700,
   },
 
-  count: { color: '#888888', fontSize: '0.88rem', marginBottom: 20 },
+  /* 상태 박스 */
+  stateBox: {
+    textAlign: 'center',
+    padding: '80px 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 14,
+  },
+  spinner: {
+    width: 36, height: 36,
+    border: '3px solid rgba(55,71,255,0.15)',
+    borderTop: `3px solid ${ACCENT}`,
+    borderRadius: '50%',
+    animation: 'spin 0.8s linear infinite',
+  },
+  stateIco: {
+    width: 48, height: 48,
+  },
+  stateText: { color: '#AAAAAA', fontSize: '0.95rem' },
+  resetBtn: {
+    padding: '8px 20px', borderRadius: 20,
+    border: '1px solid rgba(0,0,0,0.15)',
+    background: 'transparent', color: '#555555',
+    fontSize: '0.85rem', fontWeight: 600,
+    cursor: 'pointer', fontFamily: 'inherit',
+  },
 
-  stateBox: { textAlign: 'center', padding: '80px 0' },
-  stateIcon: { fontSize: '2.5rem', display: 'block', marginBottom: 16 },
-  stateText: { color: '#888888', fontSize: '1rem' },
-
+  /* 그리드 */
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-    gap: 20,
+    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+    gap: 18,
   },
+
+  /* 카드 */
   card: {
-    display: 'block',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
     background: '#fff',
-    border: '1.5px solid rgba(0,0,0,0.08)',
-    borderRadius: 20, padding: '24px',
-    transition: 'box-shadow 0.2s, transform 0.2s',
-    cursor: 'pointer', textDecoration: 'none',
+    border: '1px solid rgba(0,0,0,0.08)',
+    borderRadius: 18,
+    padding: '24px 22px',
+    textDecoration: 'none',
     boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+    transition: 'box-shadow 0.2s, transform 0.2s',
+    cursor: 'pointer',
   },
 
-  cardTop: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' },
-  badgeGreen: {
-    padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0',
+  cardTop: {
+    display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'wrap',
   },
-  badgeAmber: {
-    padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A',
+  typeGreen: {
+    padding: '3px 9px', borderRadius: 20,
+    fontSize: '0.72rem', fontWeight: 700,
+    background: '#D1FAE5', color: '#059669',
+    border: '1px solid #A7F3D0',
+    flexShrink: 0,
   },
-  badgePurple: {
-    padding: '3px 10px', borderRadius: 20, fontSize: '0.75rem', fontWeight: 700,
-    background: '#EBEBEB', color: '#111111', border: '1px solid #DDDDDD',
+  typeAmber: {
+    padding: '3px 9px', borderRadius: 20,
+    fontSize: '0.72rem', fontWeight: 700,
+    background: '#FEF3C7', color: '#D97706',
+    border: '1px solid #FDE68A',
+    flexShrink: 0,
   },
-  ddayBadge: {
-    marginLeft: 'auto', padding: '3px 10px',
-    borderRadius: 20, fontSize: '0.8rem', fontWeight: 900,
-  },
-
-  cardTitle: { fontSize: '1.05rem', fontWeight: 800, color: '#111111', marginBottom: 6, lineHeight: 1.4 },
-  cardOrg: { color: '#111111', fontSize: '0.85rem', marginBottom: 14, fontWeight: 600 },
-  tagRow: { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 },
-  tag: {
-    padding: '3px 10px', borderRadius: 20,
-    background: '#F5F5F5', color: '#888888', fontSize: '0.78rem',
+  catBadge: {
+    padding: '3px 9px', borderRadius: 20,
+    fontSize: '0.72rem', fontWeight: 600,
+    background: '#F0F0EE', color: '#555555',
     border: '1px solid rgba(0,0,0,0.1)',
   },
-  cardMeta: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  amount: { color: '#D97706', fontWeight: 700, fontSize: '0.9rem' },
-  deadline: { color: '#9CA3AF', fontSize: '0.8rem' },
-  desc: { color: '#888888', fontSize: '0.85rem', lineHeight: 1.7, marginBottom: 16 },
-  link: { color: '#111111', fontSize: '0.85rem', fontWeight: 700 },
+  ddayBadge: {
+    marginLeft: 'auto',
+    padding: '3px 10px', borderRadius: 20,
+    fontSize: '0.75rem', fontWeight: 900,
+    flexShrink: 0,
+  },
+
+  cardTitle: {
+    fontSize: '1rem', fontWeight: 800,
+    color: '#0D0D0D', lineHeight: 1.45,
+    letterSpacing: '-0.2px',
+  },
+  cardOrg: {
+    fontSize: '0.8rem', fontWeight: 600,
+    color: '#888888',
+  },
+
+  tagRow: { display: 'flex', flexWrap: 'wrap', gap: 5 },
+  tag: {
+    padding: '2px 9px', borderRadius: 20,
+    background: '#F5F5F3', color: '#888888',
+    fontSize: '0.73rem',
+    border: '1px solid rgba(0,0,0,0.08)',
+  },
+
+  cardMeta: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 8,
+    borderTop: '1px solid rgba(0,0,0,0.07)',
+  },
+  amount: {
+    fontSize: '0.82rem', fontWeight: 700, color: ACCENT,
+  },
+  deadline: {
+    fontSize: '0.78rem', color: '#AAAAAA', fontWeight: 500,
+  },
+
+  desc: {
+    fontSize: '0.82rem', color: '#888888',
+    lineHeight: 1.75,
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  },
+
+  link: {
+    fontSize: '0.82rem', fontWeight: 700,
+    color: '#0D0D0D', marginTop: 'auto',
+  },
 }
