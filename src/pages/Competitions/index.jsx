@@ -177,14 +177,12 @@ export default function Competitions() {
       try {
         const snap = await getDocs(collection(db, 'competitions'))
         const all = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-        const active = all
-          .filter(it => it.isActive !== false)
-          .sort((a, b) => {
-            const da = a.deadline?.toDate ? a.deadline.toDate() : new Date(a.deadline || 0)
-            const db_ = b.deadline?.toDate ? b.deadline.toDate() : new Date(b.deadline || 0)
-            return da - db_
-          })
-        setItems(active)
+        const sorted = all.sort((a, b) => {
+          const da = a.deadline?.toDate ? a.deadline.toDate() : new Date(a.deadline || 0)
+          const db_ = b.deadline?.toDate ? b.deadline.toDate() : new Date(b.deadline || 0)
+          return da - db_
+        })
+        setItems(sorted)
       } catch (e) {
         console.error('competitions fetch error:', e)
         setFetchError(e.message || String(e))

@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { collection, addDoc, getDocs, writeBatch, doc, Timestamp } from 'firebase/firestore'
 import { db } from '../../services/firebase'
 import { useAuth } from '../../hooks/useAuth'
 import { Link } from 'react-router-dom'
+import { seedItems } from '../../data/seedData'
 
 const CATEGORIES = ['전 분야', '시각예술', '공연예술', '문학', '음악', '무용', '영상·미디어', '공예·디자인']
 const FIELD_OPTIONS = {
@@ -31,6 +32,31 @@ export default function Admin() {
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
+  const [seeding, setSeeding] = useState(false)
+  const [seedDone, setSeedDone] = useState(false)
+
+  async function handleSeed() {
+    if (!confirm(`시드 데이터 ${seedItems.length}건을 Firestore에 등록할까요?`)) return
+    setSeeding(true)
+    try {
+      // 이미 있는지 확인
+      const existing = await getDocs(collection(db, 'competitions'))
+      if (existing.size > 0) {
+        if (!confirm(`이미 ${existing.size}건이 있습니다. 추가로 등록할까요?`)) {
+          setSeeding(false)
+          return
+        }
+      }
+      const batch = writeBatch(db)
+      seedItems.forEach(item => batch.set(doc(collection(db, 'competitions')), item))
+      await batch.commit()
+      setSeedDone(true)
+    } catch (e) {
+      alert('오류: ' + e.message)
+    } finally {
+      setSeeding(false)
+    }
+  }
 
   if (loading) return <Spinner />
   if (!user) return <NotLoggedIn />
@@ -78,6 +104,20 @@ export default function Admin() {
           <Link to="/competitions" style={s.back}>← 목록으로</Link>
           <h1 style={s.title}>📋 공모·지원사업 등록</h1>
           <p style={s.sub}>관리자 전용 — 새 공모전·지원사업 정보를 직접 등록합니다.</p>
+
+          {/* 시드 데이터 일괄 등록 */}
+          <div style={{ marginTop: 16, padding: '14px 18px', background: 'rgba(55,71,255,0.08)', border: '1px solid rgba(55,71,255,0.2)', borderRadius: 12 }}>
+            <p style={{ color: 'rgba(240,235,248,0.7)', fontSize: '0.85rem', marginBottom: 10 }}>
+              Firestore가 비어있으면 아래 버튼으로 기본 데이터 {seedItems.length}건을 한 번에 등록하세요.
+            </p>
+            {seedDone ? (
+              <p style={{ color: '#4ADE80', fontSize: '0.9rem', fontWeight: 700 }}>✅ {seedItems.length}건 등록 완료! <Link to="/competitions" style={{ color: '#4ADE80' }}>목록 확인 →</Link></p>
+            ) : (
+              <button onClick={handleSeed} disabled={seeding} style={{ padding: '9px 20px', borderRadius: 10, background: '#3747FF', color: '#fff', border: 'none', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer', fontFamily: 'inherit' }}>
+                {seeding ? '등록 중...' : `📥 기본 데이터 ${seedItems.length}건 일괄 등록`}
+              </button>
+            )}
+          </div>
         </div>
 
         {done && (
