@@ -1,60 +1,55 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
 
-/* ── fine:D 마스코트 — ':D' 자체가 캐릭터 ── */
+/* ── fine:D 마스코트 ── */
 function Mascot() {
   return (
     <svg
       className="mascot-svg"
-      viewBox="0 0 140 178"
+      viewBox="0 0 124 150"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="fine:D 마스코트"
     >
-      {/* 머리 */}
-      <circle cx="70" cy="68" r="56" fill="#EEF0FF" stroke="#C8CCFF" strokeWidth="2"/>
+      {/* 귀 */}
+      <circle cx="24"  cy="34" r="14" fill="#4A5AFF"/>
+      <circle cx="100" cy="34" r="14" fill="#4A5AFF"/>
+
+      {/* 몸체 */}
+      <circle cx="62" cy="72" r="56" fill="#3747FF"/>
+
+      {/* 상단 광택 */}
+      <ellipse cx="46" cy="42" rx="20" ry="11"
+        fill="white" opacity="0.12" transform="rotate(-25 46 42)"/>
 
       {/* 볼터치 */}
-      <circle cx="30"  cy="86" r="12" fill="rgba(255,160,130,0.28)"/>
-      <circle cx="110" cy="86" r="12" fill="rgba(255,160,130,0.28)"/>
+      <circle cx="22"  cy="86" r="12" fill="white" opacity="0.14"/>
+      <circle cx="102" cy="86" r="12" fill="white" opacity="0.14"/>
 
-      {/* 왼눈 — ':' 의 첫 번째 점 */}
+      {/* 눈 — ':' 두 점 */}
       <g className="mascot-eye-left">
-        <circle cx="48" cy="58" r="13" fill="white" stroke="#C8CCFF" strokeWidth="1.5"/>
-        <circle cx="50" cy="60" r="7"  fill="#3747FF"/>
-        <circle cx="54" cy="56" r="2.8" fill="white"/>
+        <circle cx="44" cy="64" r="11" fill="white"/>
+        <circle cx="47" cy="67" r="5.5" fill="#1E2ECC"/>
+        <circle cx="51" cy="63" r="2.5" fill="white"/>
       </g>
+      <circle cx="80" cy="64" r="11" fill="white"/>
+      <circle cx="83" cy="67" r="5.5" fill="#1E2ECC"/>
+      <circle cx="87" cy="63" r="2.5" fill="white"/>
 
-      {/* 오른눈 — ':' 의 두 번째 점 (◎ 브랜드 심볼) */}
-      <circle cx="92" cy="58" r="13"   fill="white" stroke="#3747FF" strokeWidth="1.8"/>
-      <circle cx="92" cy="58" r="7.5"  stroke="#3747FF" strokeWidth="1.4" fill="none"/>
-      <circle cx="92" cy="58" r="3.2"  fill="#3747FF"/>
-      <circle cx="96" cy="54" r="2.5"  fill="white"/>
+      {/* 입 — 'D' 모양 */}
+      <path d="M 36 82 L 36 106 Q 102 94 36 82 Z" fill="white"/>
+      {/* 입 안 혀/하이라이트 */}
+      <path d="M 44 90 Q 78 95 44 103"
+        stroke="rgba(255,180,160,0.7)" strokeWidth="2.5"
+        fill="none" strokeLinecap="round"/>
 
-      {/* 입 — 'D' 모양 (옆으로 누운 D = :D 의 D) */}
-      <path d="M 40 82 L 40 112 Q 112 97 40 82 Z"
-        fill="#FFB8A8" stroke="#FFAA96" strokeWidth="1.2"/>
-      {/* 입 안 하이라이트 */}
-      <path d="M 48 90 Q 86 97 48 106"
-        stroke="rgba(255,255,255,0.55)" strokeWidth="2" fill="none" strokeLinecap="round"/>
-
-      {/* 몸통 */}
-      <ellipse cx="70" cy="140" rx="38" ry="30"
-        fill="#EEF0FF" stroke="#C8CCFF" strokeWidth="1.8"/>
-
-      {/* 팔 */}
-      <ellipse cx="20" cy="132" rx="7" ry="13"
-        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"
-        transform="rotate(-18 20 132)"/>
-      <ellipse cx="120" cy="132" rx="7" ry="13"
-        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"
-        transform="rotate(18 120 132)"/>
+      {/* 손 */}
+      <circle cx="10"  cy="88" r="11" fill="#4A5AFF"/>
+      <circle cx="114" cy="88" r="11" fill="#4A5AFF"/>
 
       {/* 발 */}
-      <rect x="44" y="163" width="24" height="13" rx="6.5"
-        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"/>
-      <rect x="72" y="163" width="24" height="13" rx="6.5"
-        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"/>
+      <rect x="36" y="122" width="22" height="15" rx="7.5" fill="#4A5AFF"/>
+      <rect x="66" y="122" width="22" height="15" rx="7.5" fill="#4A5AFF"/>
     </svg>
   )
 }
