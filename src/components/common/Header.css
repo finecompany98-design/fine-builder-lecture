@@ -58,9 +58,8 @@
 
 .logo-wrap::before,
 .logo-wrap::after {
-  content: '✦';
+  content: '◎';
   position: absolute;
-  font-size: 7px;
   color: #3747FF;
   pointer-events: none;
   animation: logo-sparkle 2.4s ease-in-out infinite;
@@ -68,15 +67,16 @@
 }
 
 .logo-wrap::before {
-  top: -4px;
-  right: -10px;
+  top: -5px;
+  right: -12px;
+  font-size: 8px;
   animation-delay: 0s;
 }
 
 .logo-wrap::after {
-  top: 2px;
-  right: -18px;
-  font-size: 5px;
+  top: 3px;
+  right: -20px;
+  font-size: 6px;
   animation-delay: 1.2s;
 }
 
