@@ -3,6 +3,40 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import './Header.css'
 
+/* ── FE 로고 DNA 계승 Fine:D 전용 아이콘 ── */
+function LogoIcon() {
+  return (
+    <svg
+      width="22" height="24"
+      viewBox="0 0 36 38"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ display: 'block', flexShrink: 0 }}
+    >
+      {/* ── 블랙: FE 로고 직선 DNA ── */}
+      {/* 왼쪽 수직선 (F+E 공유) */}
+      <line x1="5" y1="3" x2="5" y2="35" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+      {/* 상단 수평선 */}
+      <line x1="5" y1="3" x2="26" y2="3" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+      {/* 중간 가로 바 (F의 크로스바) */}
+      <line x1="5" y1="19" x2="21" y2="19" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+      {/* 대각선 — FE 로고의 핵심 DNA */}
+      <line x1="21" y1="19" x2="29" y2="33" stroke="#0D0D0D" strokeWidth="4" strokeLinecap="square"/>
+
+      {/* ── 포인트 컬러 #3747FF: 새로 추가된 곡선 ':D' ── */}
+      {/* 콜론 점 두 개 ':' */}
+      <circle cx="30" cy="7"   r="2.4" fill="#3747FF"/>
+      <circle cx="30" cy="13.5" r="2.4" fill="#3747FF"/>
+      {/* 'D' 아크 — 웃는 얼굴 / Find 느낌 */}
+      <path
+        d="M25 21 Q35 27 25 33"
+        stroke="#3747FF" strokeWidth="3.5" strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 export default function Header() {
   const location = useLocation()
   const [fontSize, setFontSize] = useState('normal')
@@ -24,7 +58,8 @@ export default function Header() {
     <header style={s.header} role="banner">
       <div className="header-inner" style={s.inner}>
 
-        <Link to="/" className="logo-glitter" style={s.logo} aria-label="fine:D 홈으로 이동">
+        <Link to="/" className="logo-wrap" style={s.logo} aria-label="fine:D 홈으로 이동">
+          <LogoIcon />
           <span className="logo-fine" style={s.logoText}>Fine</span>
           <span className="logo-accent" style={s.logoAccent}>:D</span>
         </Link>
