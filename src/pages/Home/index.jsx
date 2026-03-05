@@ -1,58 +1,6 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
 
-/* ── fine:D 마스코트 ── */
-function Mascot() {
-  return (
-    <svg
-      className="mascot-svg"
-      viewBox="0 0 124 150"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="fine:D 마스코트"
-    >
-      {/* 귀 */}
-      <circle cx="24"  cy="34" r="14" fill="#4A5AFF"/>
-      <circle cx="100" cy="34" r="14" fill="#4A5AFF"/>
-
-      {/* 몸체 */}
-      <circle cx="62" cy="72" r="56" fill="#3747FF"/>
-
-      {/* 상단 광택 */}
-      <ellipse cx="46" cy="42" rx="20" ry="11"
-        fill="white" opacity="0.12" transform="rotate(-25 46 42)"/>
-
-      {/* 볼터치 */}
-      <circle cx="22"  cy="86" r="12" fill="white" opacity="0.14"/>
-      <circle cx="102" cy="86" r="12" fill="white" opacity="0.14"/>
-
-      {/* 눈 — ':' 두 점 */}
-      <g className="mascot-eye-left">
-        <circle cx="44" cy="64" r="11" fill="white"/>
-        <circle cx="47" cy="67" r="5.5" fill="#1E2ECC"/>
-        <circle cx="51" cy="63" r="2.5" fill="white"/>
-      </g>
-      <circle cx="80" cy="64" r="11" fill="white"/>
-      <circle cx="83" cy="67" r="5.5" fill="#1E2ECC"/>
-      <circle cx="87" cy="63" r="2.5" fill="white"/>
-
-      {/* 입 — 'D' 모양 */}
-      <path d="M 36 82 L 36 106 Q 102 94 36 82 Z" fill="white"/>
-      {/* 입 안 혀/하이라이트 */}
-      <path d="M 44 90 Q 78 95 44 103"
-        stroke="rgba(255,180,160,0.7)" strokeWidth="2.5"
-        fill="none" strokeLinecap="round"/>
-
-      {/* 손 */}
-      <circle cx="10"  cy="88" r="11" fill="#4A5AFF"/>
-      <circle cx="114" cy="88" r="11" fill="#4A5AFF"/>
-
-      {/* 발 */}
-      <rect x="36" y="122" width="22" height="15" rx="7.5" fill="#4A5AFF"/>
-      <rect x="66" y="122" width="22" height="15" rx="7.5" fill="#4A5AFF"/>
-    </svg>
-  )
-}
 
 const ACCENT = '#3747FF'
 
@@ -172,9 +120,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 오른쪽: 마스코트 + 스탯 카드 */}
+          {/* 오른쪽: 스탯 카드 */}
           <div className="fade-up-3 home-hero-right" style={s.heroRight} aria-label="서비스 현황">
-            <Mascot />
             {STATS.map(({ num, label, sub }, i) => (
               <div
                 key={label}
