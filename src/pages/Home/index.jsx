@@ -1,69 +1,60 @@
 import { Link } from 'react-router-dom'
 import './Home.css'
 
-/* ── fine:D 마스코트 ── */
+/* ── fine:D 마스코트 — ':D' 자체가 캐릭터 ── */
 function Mascot() {
   return (
     <svg
       className="mascot-svg"
-      viewBox="0 0 160 172"
+      viewBox="0 0 140 178"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="fine:D 마스코트"
     >
-      {/* 귀 */}
-      <circle cx="32" cy="60" r="18" fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
-      <circle cx="32" cy="60" r="10" fill="#FFCCC2"/>
-      <circle cx="128" cy="60" r="18" fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
-      <circle cx="128" cy="60" r="10" fill="#FFCCC2"/>
-
-      {/* 몸통 (부드러운 타원) */}
-      <ellipse cx="80" cy="108" rx="62" ry="66" fill="#EEF0FF" stroke="#C4CAFF" strokeWidth="1.8"/>
+      {/* 머리 */}
+      <circle cx="70" cy="68" r="56" fill="#EEF0FF" stroke="#C8CCFF" strokeWidth="2"/>
 
       {/* 볼터치 */}
-      <circle cx="44" cy="120" r="12" fill="rgba(255,160,130,0.22)"/>
-      <circle cx="116" cy="120" r="12" fill="rgba(255,160,130,0.22)"/>
+      <circle cx="30"  cy="86" r="12" fill="rgba(255,160,130,0.28)"/>
+      <circle cx="110" cy="86" r="12" fill="rgba(255,160,130,0.28)"/>
 
-      {/* 왼쪽 눈 (큰 동그란 눈) */}
+      {/* 왼눈 — ':' 의 첫 번째 점 */}
       <g className="mascot-eye-left">
-        <circle cx="62" cy="98" r="13" fill="white" stroke="#C4CAFF" strokeWidth="1.5"/>
-        <circle cx="64" cy="100" r="7.5" fill="#3747FF"/>
-        <circle cx="67" cy="96" r="3" fill="white"/>
+        <circle cx="48" cy="58" r="13" fill="white" stroke="#C8CCFF" strokeWidth="1.5"/>
+        <circle cx="50" cy="60" r="7"  fill="#3747FF"/>
+        <circle cx="54" cy="56" r="2.8" fill="white"/>
       </g>
 
-      {/* 오른쪽 눈 ◎ */}
-      <circle cx="98" cy="98" r="13" fill="white" stroke="#3747FF" strokeWidth="1.8"/>
-      <circle cx="98" cy="98" r="8"  stroke="#3747FF" strokeWidth="1.5" fill="none"/>
-      <circle cx="98" cy="98" r="3.5" fill="#3747FF"/>
-      <circle cx="101" cy="95" r="2.5" fill="white"/>
+      {/* 오른눈 — ':' 의 두 번째 점 (◎ 브랜드 심볼) */}
+      <circle cx="92" cy="58" r="13"   fill="white" stroke="#3747FF" strokeWidth="1.8"/>
+      <circle cx="92" cy="58" r="7.5"  stroke="#3747FF" strokeWidth="1.4" fill="none"/>
+      <circle cx="92" cy="58" r="3.2"  fill="#3747FF"/>
+      <circle cx="96" cy="54" r="2.5"  fill="white"/>
 
-      {/* 입 (부드러운 미소) */}
-      <path d="M 64 120 Q 80 134 96 120"
-        stroke="#8A8ACF" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
+      {/* 입 — 'D' 모양 (옆으로 누운 D = :D 의 D) */}
+      <path d="M 40 82 L 40 112 Q 112 97 40 82 Z"
+        fill="#FFB8A8" stroke="#FFAA96" strokeWidth="1.2"/>
+      {/* 입 안 하이라이트 */}
+      <path d="M 48 90 Q 86 97 48 106"
+        stroke="rgba(255,255,255,0.55)" strokeWidth="2" fill="none" strokeLinecap="round"/>
 
-      {/* 팔 (단순 타원) */}
-      <ellipse cx="20" cy="122" rx="7" ry="12"
-        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"
-        transform="rotate(-20 20 122)"/>
-      <ellipse cx="140" cy="110" rx="7" ry="12"
-        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"
-        transform="rotate(25 140 110)"/>
+      {/* 몸통 */}
+      <ellipse cx="70" cy="140" rx="38" ry="30"
+        fill="#EEF0FF" stroke="#C8CCFF" strokeWidth="1.8"/>
 
-      {/* 돋보기 (오른팔 끝, 단순하게) */}
-      <g className="mascot-glass">
-        <circle cx="148" cy="84" r="14"
-          fill="rgba(55,71,255,0.08)" stroke="#3747FF" strokeWidth="2"/>
-        <circle cx="148" cy="84" r="7"
-          stroke="#3747FF" strokeWidth="1.2" fill="none" opacity="0.5"/>
-        <line x1="158" y1="94" x2="165" y2="103"
-          stroke="#3747FF" strokeWidth="2.5" strokeLinecap="round"/>
-      </g>
+      {/* 팔 */}
+      <ellipse cx="20" cy="132" rx="7" ry="13"
+        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"
+        transform="rotate(-18 20 132)"/>
+      <ellipse cx="120" cy="132" rx="7" ry="13"
+        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"
+        transform="rotate(18 120 132)"/>
 
       {/* 발 */}
-      <rect x="52" y="166" width="24" height="12" rx="6"
-        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
-      <rect x="84" y="166" width="24" height="12" rx="6"
-        fill="#DDE2FF" stroke="#C4CAFF" strokeWidth="1.5"/>
+      <rect x="44" y="163" width="24" height="13" rx="6.5"
+        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"/>
+      <rect x="72" y="163" width="24" height="13" rx="6.5"
+        fill="#DDE2FF" stroke="#C8CCFF" strokeWidth="1.5"/>
     </svg>
   )
 }
