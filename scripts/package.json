@@ -1,14 +1,17 @@
 {
-  "name": "modu-art-scraper",
+  "name": "fine-scraper",
   "version": "1.0.0",
-  "description": "공모·지원사업 자동 수집 스크립트",
+  "description": "fine:D 공모·지원사업 자동 수집 + LLM 후처리 스크립트",
   "main": "scrape.js",
   "type": "commonjs",
   "scripts": {
     "scrape": "node scrape.js",
-    "dry-run": "node scrape.js --dry-run"
+    "dry-run": "node scrape.js --dry-run",
+    "process": "node process.js",
+    "process:dry": "node process.js --dry-run"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
     "axios": "^1.7.0",
     "cheerio": "^1.0.0",
     "firebase-admin": "^12.0.0"

@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: 스크래퍼 의존성 설치
+      - name: 의존성 설치
         working-directory: scripts
         run: npm install
 
@@ -27,3 +27,10 @@ jobs:
         run: node scrape.js
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: LLM 후처리 (eligibility/tags/supportType/documents 추출)
+        working-directory: scripts
+        run: node process.js --limit 100
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

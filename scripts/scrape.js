@@ -1,7 +1,9 @@
 /**
  * fine:D — 공모·지원사업 자동 수집 스크립트
- * 대상: 한국문화예술위원회(ARKO), 서울문화재단, 경기문화재단,
- *       한국콘텐츠진흥원, 영화진흥위원회, 대산문화재단
+ * 대상 (13개):
+ *   [1티어] ARKO, 예술경영지원센터, 서울문화재단, KOCCA, KOFIC, ARTE
+ *   [2티어] 경기문화재단, 부산문화재단, 인천문화재단, 대구문화재단,
+ *           광주문화재단, 대산문화재단, 한국출판문화산업진흥원
  *
  * 실행:
  *   node scrape.js           → Firestore 저장
@@ -423,6 +425,313 @@ const SCRAPERS = [
           startDate: parseDate(startDateStr),
           deadline: parseDate(deadlineStr),
           description: '대산문화재단 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 7. 예술경영지원센터(GOKAMS) — 1티어 ──────────────────────
+  {
+    name: '예술경영지원센터(GOKAMS)',
+    url: 'https://www.gokams.or.kr/01_news/notice_list.aspx',
+    baseUrl: 'https://www.gokams.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const dates = []
+        $(tr).find('td').each((_, td) => {
+          const t = $(td).text().trim()
+          if (/\d{4}[\.\-]\d{2}[\.\-]\d{2}/.test(t)) dates.push(t)
+        })
+        const startDateStr = dates[0] || ''
+        const deadlineStr  = dates[1] || dates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}/${href.replace(/^\//, '')}`
+
+        items.push({
+          title,
+          organization: '예술경영지원센터',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '전국',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '예술경영지원센터 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 8. 한국문화예술교육진흥원(ARTE) — 1티어 ─────────────────
+  {
+    name: '한국문화예술교육진흥원(ARTE)',
+    url: 'https://www.arte.or.kr/board/noticeList.do',
+    baseUrl: 'https://www.arte.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const dates = []
+        $(tr).find('td').each((_, td) => {
+          const t = $(td).text().trim()
+          if (/\d{4}[\.\-]\d{2}[\.\-]\d{2}/.test(t)) dates.push(t)
+        })
+        const startDateStr = dates[0] || ''
+        const deadlineStr  = dates[1] || dates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '한국문화예술교육진흥원',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '전국',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '한국문화예술교육진흥원 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 9. 부산문화재단 — 2티어 ────────────────────────────────────
+  {
+    name: '부산문화재단',
+    url: 'https://www.bscf.or.kr/bscf/board/list.do?menuIdx=108',
+    baseUrl: 'https://www.bscf.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const text = $(tr).text()
+        const allDates = [...text.matchAll(/\d{4}[\.\-]\d{2}[\.\-]\d{2}/g)].map(m => m[0])
+        const startDateStr = allDates[0] || ''
+        const deadlineStr  = allDates[1] || allDates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '부산문화재단',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '부산',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '부산문화재단 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 10. 인천문화재단 — 2티어 ───────────────────────────────────
+  {
+    name: '인천문화재단',
+    url: 'https://www.ifac.or.kr/board/noticeList.do',
+    baseUrl: 'https://www.ifac.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board_list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const text = $(tr).text()
+        const allDates = [...text.matchAll(/\d{4}[\.\-]\d{2}[\.\-]\d{2}/g)].map(m => m[0])
+        const startDateStr = allDates[0] || ''
+        const deadlineStr  = allDates[1] || allDates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '인천문화재단',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '인천',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '인천문화재단 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 11. 대구문화재단 — 2티어 ───────────────────────────────────
+  {
+    name: '대구문화재단',
+    url: 'https://www.dcaf.or.kr/board/noticeList.do',
+    baseUrl: 'https://www.dcaf.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const text = $(tr).text()
+        const allDates = [...text.matchAll(/\d{4}[\.\-]\d{2}[\.\-]\d{2}/g)].map(m => m[0])
+        const startDateStr = allDates[0] || ''
+        const deadlineStr  = allDates[1] || allDates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '대구문화재단',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '대구',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '대구문화재단 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 12. 광주문화재단 — 2티어 ───────────────────────────────────
+  {
+    name: '광주문화재단',
+    url: 'https://www.gjcf.or.kr/board/noticeList.do',
+    baseUrl: 'https://www.gjcf.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const text = $(tr).text()
+        const allDates = [...text.matchAll(/\d{4}[\.\-]\d{2}[\.\-]\d{2}/g)].map(m => m[0])
+        const startDateStr = allDates[0] || ''
+        const deadlineStr  = allDates[1] || allDates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '광주문화재단',
+          orgUrl: detailUrl,
+          category: '전 분야',
+          type: '지원사업',
+          fields: [],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '광주',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '광주문화재단 공식 사이트에서 상세 내용을 확인하세요.',
+          rawText: '',
+          _detailUrl: detailUrl,
+        })
+      })
+      return items
+    },
+  },
+
+  // ── 13. 한국출판문화산업진흥원(KPIPA) — 2티어 ──────────────────
+  {
+    name: '한국출판문화산업진흥원(KPIPA)',
+    url: 'https://www.kpipa.or.kr/info/noticeView.do',
+    baseUrl: 'https://www.kpipa.or.kr',
+    async parse(html) {
+      const $ = cheerio.load(html)
+      const items = []
+
+      $('table tbody tr, .board-list tbody tr').each((_, tr) => {
+        const titleEl = $(tr).find('a').first()
+        const title   = titleEl.text().trim()
+        if (!title || title.length < 5) return
+
+        const text = $(tr).text()
+        const allDates = [...text.matchAll(/\d{4}[\.\-]\d{2}[\.\-]\d{2}/g)].map(m => m[0])
+        const startDateStr = allDates[0] || ''
+        const deadlineStr  = allDates[1] || allDates[0] || ''
+
+        const href = titleEl.attr('href') || ''
+        const detailUrl = href.startsWith('http') ? href : `${this.baseUrl}${href}`
+
+        items.push({
+          title,
+          organization: '한국출판문화산업진흥원',
+          orgUrl: detailUrl,
+          category: '문학',
+          type: '지원사업',
+          fields: ['출판', '도서'],
+          targetGroup: ['개인', '단체'],
+          amount: '공고 참조',
+          region: '전국',
+          startDate: parseDate(startDateStr),
+          deadline: parseDate(deadlineStr),
+          description: '한국출판문화산업진흥원 공식 사이트에서 상세 내용을 확인하세요.',
           rawText: '',
           _detailUrl: detailUrl,
         })
