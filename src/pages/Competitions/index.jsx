@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../../services/firebase'
+import { getCompetitions } from '../../services/competitions.service'
 import './Competitions.css'
 
 const CATEGORIES = ['전체', '전 분야', '시각예술', '공연예술', '문학', '음악', '무용', '영상·미디어', '공예·디자인']
@@ -189,26 +188,24 @@ export default function Competitions() {
   }, [])
 
   useEffect(() => {
+    let cancelled = false
     async function fetchData() {
       setLoading(true)
       try {
-        const snap = await getDocs(collection(db, 'competitions'))
-        const all = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-        const sorted = all.sort((a, b) => {
-          const da = a.deadline?.toDate ? a.deadline.toDate() : new Date(a.deadline || 0)
-          const db_ = b.deadline?.toDate ? b.deadline.toDate() : new Date(b.deadline || 0)
-          return da - db_
-        })
-        setItems(sorted)
+        const sorted = await getCompetitions()
+        if (!cancelled) setItems(sorted)
       } catch (e) {
         console.error('competitions fetch error:', e)
-        setFetchError(e.message || String(e))
-        setItems([])
+        if (!cancelled) {
+          setFetchError(e.message || String(e))
+          setItems([])
+        }
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     fetchData()
+    return () => { cancelled = true }
   }, [])
 
   const filtered = items.filter(item => {
