@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../services/firebase'
 import './Competitions.css'
@@ -53,12 +53,7 @@ function FeaturedCard({ item }) {
   const dd = dday(item.deadline)
   const isSupport = item.type === '지원사업'
   return (
-    <a
-      href={item.orgUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="comp-featured-card"
-    >
+    <Link to={`/competitions/${item.id}`} className="comp-featured-card">
       {/* Blue gradient left panel */}
       <div className="comp-featured-left">
         {dd && <span className="comp-featured-dday">{dd.label}</span>}
@@ -96,8 +91,20 @@ function FeaturedCard({ item }) {
             </div>
           )}
         </div>
+
+        {/* 지원형태 + 토픽 태그 */}
+        {((item.supportType?.length > 0) || (item.tags?.length > 0)) && (
+          <div className="comp-featured-extra">
+            {(item.supportType || []).slice(0, 2).map(st => (
+              <span key={st} className="comp-extra-chip is-support">{st}</span>
+            ))}
+            {(item.tags || []).slice(0, 3).map(t => (
+              <span key={t} className="comp-extra-chip is-tag">{t}</span>
+            ))}
+          </div>
+        )}
       </div>
-    </a>
+    </Link>
   )
 }
 
@@ -106,10 +113,8 @@ function CompCard({ item }) {
   const dd = dday(item.deadline)
   const isSupport = item.type === '지원사업'
   return (
-    <a
-      href={item.orgUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      to={`/competitions/${item.id}`}
       className={`comp-card ${isSupport ? 'is-support' : 'is-contest'}`}
     >
       {dd && (
@@ -135,6 +140,18 @@ function CompCard({ item }) {
           </div>
         )}
 
+        {/* 지원형태 + 토픽 태그 */}
+        {((item.supportType?.length > 0) || (item.tags?.length > 0)) && (
+          <div className="comp-extra-row">
+            {(item.supportType || []).slice(0, 2).map(st => (
+              <span key={st} className="comp-extra-chip is-support">{st}</span>
+            ))}
+            {(item.tags || []).slice(0, 2).map(t => (
+              <span key={t} className="comp-extra-chip is-tag">{t}</span>
+            ))}
+          </div>
+        )}
+
         <div className="comp-card-meta">
           {item.amount
             ? <span className="comp-amount">{item.amount}</span>
@@ -146,10 +163,10 @@ function CompCard({ item }) {
 
       {/* Hover overlay */}
       <div className="comp-card-overlay" aria-hidden="true">
-        <span className="comp-card-overlay-text">공식 사이트</span>
+        <span className="comp-card-overlay-text">상세 보기</span>
         <span className="comp-card-overlay-arrow">→</span>
       </div>
-    </a>
+    </Link>
   )
 }
 

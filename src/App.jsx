@@ -4,6 +4,7 @@ import Footer from './components/common/Footer'
 import ProtectedRoute from './components/common/ProtectedRoute'
 import Home from './pages/Home'
 import Competitions from './pages/Competitions'
+import CompetitionDetail from './pages/Competitions/CompetitionDetail'
 import AIRecommend from './pages/AIRecommend'
 import Auth from './pages/Auth'
 import Admin from './pages/Admin'
@@ -18,6 +19,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/competitions" element={<Competitions />} />
+        <Route path="/competitions/:id" element={<CompetitionDetail />} />
         <Route path="/ai-recommend" element={<AIRecommend />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/admin" element={<Admin />} />
