@@ -49,7 +49,8 @@ export default function Auth() {
     })
       .then(r => r.json())
       .then(data => {
-        const p = data.response
+        const p = data?.response
+        if (!p) { setError('네이버 프로필 응답이 올바르지 않습니다.'); return }
         setUser({
           displayName: p.name ?? p.nickname ?? '네이버 사용자',
           email:       p.email ?? '',

@@ -8,21 +8,18 @@ const COL = 'competitions'
 
 /** 전체 목록 조회 (필터 옵션) */
 export async function getCompetitions({ category, type, field } = {}) {
-  let q = query(collection(db, COL), where('isActive', '==', true), orderBy('deadline'))
+  const constraints = [where('isActive', '==', true)]
 
   if (category && category !== '전체') {
-    q = query(collection(db, COL),
-      where('isActive', '==', true),
-      where('category', '==', category),
-      orderBy('deadline'))
+    constraints.push(where('category', '==', category))
   }
   if (type && type !== '전체') {
-    q = query(collection(db, COL),
-      where('isActive', '==', true),
-      where('type', '==', type),
-      orderBy('deadline'))
+    constraints.push(where('type', '==', type))
   }
 
+  constraints.push(orderBy('deadline'))
+
+  const q = query(collection(db, COL), ...constraints)
   const snapshot = await getDocs(q)
   return snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
 }
